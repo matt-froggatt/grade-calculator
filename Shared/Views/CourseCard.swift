@@ -17,24 +17,23 @@ struct CourseCard: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color.blue)
+                .stroke(Color.gray)
             
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(courseName)
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.title)
                         Text("\(school.formatName()) - \(NSDecimalNumber(decimal: credits)) credits")
-                            .foregroundColor(.white)
-                            .opacity(0.5)
+                            .foregroundColor(.secondary)
                             .font(.subheadline)
                     }
                     
                     Spacer()
                     
                     Text(grade.format(school: school))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .font(.title)
                 }
                 .padding(.bottom)

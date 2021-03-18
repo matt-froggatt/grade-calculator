@@ -23,11 +23,11 @@ struct CourseList: View {
                                 grade: course.grade,
                                 goal: course.goal
                             )
+                            .padding([.horizontal, .bottom])
                         }
                     }
                 }
             }
-            .padding(.horizontal)
             .listStyle(PlainListStyle())
             .navigationBarTitle(Text("Courses"))
         }
