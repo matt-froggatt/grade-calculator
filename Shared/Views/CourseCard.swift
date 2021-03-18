@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ClassCard: View {
-    var className: String
+struct CourseCard: View {
+    var courseName: String
     var school: School
     var credits: Double
     var grade: Grade
@@ -23,10 +23,10 @@ struct ClassCard: View {
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(className)
+                        Text(courseName)
                             .foregroundColor(.white)
                             .font(.title)
-                        Text("\(school.getFormattedSchoolName()) - \(credits.removeZerosFromEnd()) credits")
+                        Text("\(school.formatName()) - \(credits.removeZerosFromEnd()) credits")
                             .foregroundColor(.white)
                             .opacity(0.5)
                             .font(.subheadline)
@@ -48,11 +48,22 @@ struct ClassCard: View {
     }
 }
 
-struct ClassCard_Previews: PreviewProvider {
+struct CourseCard_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            ClassCard(className: "CS 246", school: School(schoolName: .UW), credits: 0.5, grade: Grade(weightAchieved: 40, weightLost: 10), goal: Grade(percentage: 90))
-            ClassCard(className: "BU 251", school: School(schoolName: .WLU), credits: 0.5, grade: Grade(weightAchieved: 60, weightLost: 10), goal: Grade(percentage: 85))
+            CourseCard(
+                courseName: "CS 246",
+                school: School(name: .UW),
+                credits: 0.5,
+                grade: Grade(weightAchieved: 40, weightLost: 10),
+                goal: Grade(percentage: 90)
+            )
+            CourseCard(
+                courseName: "BU 251",
+                school: School(name: .WLU), credits: 0.5,
+                grade: Grade(weightAchieved: 60, weightLost: 10),
+                goal: Grade(percentage: 85)
+            )
         }
         .padding()
     }

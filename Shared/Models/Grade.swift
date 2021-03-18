@@ -51,7 +51,7 @@ struct Grade {
     }
     
     func format(school: School) -> String {
-        switch school.gradingScheme {
+        switch school.gradingSystem {
         case System.twelvePoint:
             return "\(twelvePoint)"
         default:

@@ -8,21 +8,21 @@
 import Foundation
 
 struct School {
-    var schoolName: SchoolName
-    var gradingScheme: Grade.System
+    var name: SchoolName
+    var gradingSystem: Grade.System
     
-    init(schoolName: SchoolName) {
-        self.schoolName = schoolName
-        switch schoolName {
+    init(name: SchoolName) {
+        self.name = name
+        switch name {
         case SchoolName.WLU:
-            gradingScheme = .twelvePoint
+            gradingSystem = .twelvePoint
         default:
-            gradingScheme = .percentage
+            gradingSystem = .percentage
         }
     }
     
-    func getFormattedSchoolName() -> String {
-        return schoolName.rawValue
+    func formatName() -> String {
+        return name.rawValue
     }
     
     enum SchoolName: String {
