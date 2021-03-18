@@ -1,5 +1,5 @@
 //
-//  SemesterList.swift
+//  Home.swift
 //  Grade Tracker
 //
 //  Created by Matthew Froggatt on 2021-03-18.
@@ -7,25 +7,24 @@
 
 import SwiftUI
 
-struct SemesterList: View {
+struct Home: View {
     var semesters: [Semester]
-    
+    var courses: [Course]
     var body: some View {
-        NavigationView {
-            List(semesters) { semester in
-                VStack(alignment: .leading) {
-                    Text(semester.name)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    HorizontalCourseList(courses: semester.courses)
+        TabView {
+            CurrentCourseList(courses: courses)
+                .tabItem {
+                    Label("Courses", systemImage: "star")
                 }
-            }
-            .navigationBarTitle("All Semesters")
+            SemesterList(semesters: semesters)
+                .tabItem {
+                    Label("Semesters", systemImage: "list.bullet")
+                }
         }
     }
 }
 
-struct SemesterList_Previews: PreviewProvider {
+struct Home_Previews: PreviewProvider {
     private static let semesters = [
         Semester(
             id: 1,
@@ -75,7 +74,8 @@ struct SemesterList_Previews: PreviewProvider {
         )
     ]
     
+    private static let courses = semesters[0].courses
     static var previews: some View {
-        SemesterList(semesters: semesters)
+        Home(semesters: semesters, courses: courses)
     }
 }

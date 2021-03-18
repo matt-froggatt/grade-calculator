@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct CourseList: View {
+struct CurrentCourseList: View {
     var courses: [Course]
     
     var body: some View {
         NavigationView {
             VerticalCourseList(courses: courses)
-            .navigationBarTitle(Text("Courses"))
+            .navigationBarTitle(Text("Current Courses"))
         }
     }
 }
 
-struct CourseList_Previews: PreviewProvider {
+struct CurrentCourseList_Previews: PreviewProvider {
     private static let courses = [
         Course(
             id: 1,
@@ -62,7 +62,6 @@ struct CourseList_Previews: PreviewProvider {
         )
     ]
     static var previews: some View {
-        CourseList(courses: courses)
-            
+        CurrentCourseList(courses: courses)
     }
 }
