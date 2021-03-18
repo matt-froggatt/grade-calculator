@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		355632F326028F9400485751 /* CourseProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355632F226028F9400485751 /* CourseProgress.swift */; };
+		355632F426028F9400485751 /* CourseProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355632F226028F9400485751 /* CourseProgress.swift */; };
 		35B64DF625F83EDF00B1786D /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B64DF525F83EDF00B1786D /* Tests_iOS.swift */; };
 		35B64E0125F83EDF00B1786D /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B64E0025F83EDF00B1786D /* Tests_macOS.swift */; };
 		35B64E0325F83EDF00B1786D /* Grade_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35B64DD725F83EDC00B1786D /* Grade_Tracker.xcdatamodeld */; };
@@ -47,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		355632F226028F9400485751 /* CourseProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProgress.swift; sourceTree = "<group>"; };
 		35B64DD825F83EDC00B1786D /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		35B64DD925F83EDC00B1786D /* Grade_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade_TrackerApp.swift; sourceTree = "<group>"; };
 		35B64DDA25F83EDC00B1786D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -178,6 +181,7 @@
 			children = (
 				35B64DDA25F83EDC00B1786D /* ContentView.swift */,
 				35F0D489260242FC0022BDC7 /* ClassCard.swift */,
+				355632F226028F9400485751 /* CourseProgress.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -364,6 +368,7 @@
 				35B64E0725F83EDF00B1786D /* ContentView.swift in Sources */,
 				35F0D496260277B00022BDC7 /* Grade.swift in Sources */,
 				35F0D49E260279260022BDC7 /* Double.swift in Sources */,
+				355632F326028F9400485751 /* CourseProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +384,7 @@
 				35B64E0825F83EDF00B1786D /* ContentView.swift in Sources */,
 				35F0D497260277B00022BDC7 /* Grade.swift in Sources */,
 				35F0D49F260279260022BDC7 /* Double.swift in Sources */,
+				355632F426028F9400485751 /* CourseProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

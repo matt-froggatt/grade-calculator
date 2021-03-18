@@ -8,33 +8,58 @@
 import Foundation
 
 struct Grade {
-    var percentageValue: Double
+    let maxWeight: Double = 100
+    var weightAchieved: Double
+    var weightLost: Double
     
-    func getFormattedGrade(school: School) -> String {
-        switch school.gradingScheme {
-        case GradingScheme.twelvePoint:
-            var grade = 0
+    init(percentage: Double) {
+        weightAchieved = percentage
+        weightLost = maxWeight - weightAchieved
+    }
+    
+    init(weightAchieved: Double, weightLost: Double) {
+        self.weightAchieved = weightAchieved
+        self.weightLost = weightLost
+    }
+    
+    private var twelvePoint: Int {
+        get {
+            let currentMark = percentage
             
-            if percentageValue >= 90 { grade = 12 }
-            else if percentageValue >= 85 { grade = 11 }
-            else if percentageValue >= 80 { grade = 10 }
-            else if percentageValue >= 77 { grade = 9 }
-            else if percentageValue >= 73 { grade = 8 }
-            else if percentageValue >= 70 { grade = 7 }
-            else if percentageValue >= 67 { grade = 6 }
-            else if percentageValue >= 63 { grade = 5 }
-            else if percentageValue >= 60 { grade = 4 }
-            else if percentageValue >= 57 { grade = 3 }
-            else if percentageValue >= 53 { grade = 2 }
-            else if percentageValue >= 50 { grade = 1 }
+            if currentMark >= 90 { return 12 }
+            else if currentMark >= 85 { return 11 }
+            else if currentMark >= 80 { return 10 }
+            else if currentMark >= 77 { return 9 }
+            else if currentMark >= 73 { return 8 }
+            else if currentMark >= 70 { return 7 }
+            else if currentMark >= 67 { return 6 }
+            else if currentMark >= 63 { return 5 }
+            else if currentMark >= 60 { return 4 }
+            else if currentMark >= 57 { return 3 }
+            else if currentMark >= 53 { return 2 }
+            else if currentMark >= 50 { return 1 }
             
-            return "\(grade)"
-        default:
-            return "\(percentageValue.removeZerosFromEnd())%"
+            return 0
+            
         }
     }
     
-    enum GradingScheme {
+    var percentage: Double {
+        get {
+            return (weightAchieved * 100.0) / (weightAchieved + weightLost)
+        }
+    }
+    
+    func format(school: School) -> String {
+        switch school.gradingScheme {
+        case System.twelvePoint:
+            return "\(twelvePoint)"
+        default:
+            return "\(percentage.removeZerosFromEnd())%"
+        }
+    }
+    
+    enum System {
         case percentage
         case twelvePoint
     }
