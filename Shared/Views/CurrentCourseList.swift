@@ -12,23 +12,7 @@ struct CourseList: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack {
-                    ForEach(courses) { course in
-                        NavigationLink(destination: CourseDetail(course: course)){
-                            CourseCard(
-                                courseName: course.name,
-                                school: course.school,
-                                credits: course.credits,
-                                grade: course.grade,
-                                goal: course.goal
-                            )
-                            .padding([.horizontal, .bottom])
-                        }
-                    }
-                }
-            }
-            .listStyle(PlainListStyle())
+            VerticalCourseList(courses: courses)
             .navigationBarTitle(Text("Courses"))
         }
     }
