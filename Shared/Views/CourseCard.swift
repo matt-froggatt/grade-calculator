@@ -10,7 +10,7 @@ import SwiftUI
 struct CourseCard: View {
     var courseName: String
     var school: School
-    var credits: Double
+    var credits: Decimal
     var grade: Grade
     var goal: Grade
     
@@ -18,7 +18,6 @@ struct CourseCard: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color.blue)
-                .shadow(radius: 5)
             
             VStack {
                 HStack {
@@ -26,7 +25,7 @@ struct CourseCard: View {
                         Text(courseName)
                             .foregroundColor(.white)
                             .font(.title)
-                        Text("\(school.formatName()) - \(credits.removeZerosFromEnd()) credits")
+                        Text("\(school.formatName()) - \(NSDecimalNumber(decimal: credits)) credits")
                             .foregroundColor(.white)
                             .opacity(0.5)
                             .font(.subheadline)
@@ -40,7 +39,7 @@ struct CourseCard: View {
                 }
                 .padding(.bottom)
                 
-                CourseProgress(marksReceived: grade.weightAchieved, marksLost: grade.weightLost, goal: goal.percentage)
+                CourseProgress(grade: grade, goal: goal)
             }
             .padding()
         }

@@ -15,7 +15,7 @@ struct CourseList: View {
             ScrollView {
                 LazyVStack {
                     ForEach(courses) { course in
-                        NavigationLink(destination: ContentView()){
+                        NavigationLink(destination: CourseDetail(course: course)){
                             CourseCard(
                                 courseName: course.name,
                                 school: course.school,
@@ -64,7 +64,7 @@ struct CourseList_Previews: PreviewProvider {
             id: 4,
             name: "BU 411",
             credits: 1.0,
-            grade: Grade(weightAchieved: 10, weightLost: 50),
+            grade: Grade(weightAchieved: 50, weightLost: 10),
             goal: Grade(percentage: 80),
             school: School(name: .WLU)
         ),
@@ -79,5 +79,6 @@ struct CourseList_Previews: PreviewProvider {
     ]
     static var previews: some View {
         CourseList(courses: courses)
+            
     }
 }

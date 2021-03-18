@@ -7,17 +7,19 @@
 
 import Foundation
 
+// TODO return print value with only two decimal places
+
 struct Grade {
-    let maxWeight: Double = 100
-    var weightAchieved: Double
-    var weightLost: Double
+    let maxWeight: Decimal = 100
+    var weightAchieved: Decimal
+    var weightLost: Decimal
     
-    init(percentage: Double) {
+    init(percentage: Decimal) {
         weightAchieved = percentage
         weightLost = maxWeight - weightAchieved
     }
     
-    init(weightAchieved: Double, weightLost: Double) {
+    init(weightAchieved: Decimal, weightLost: Decimal) {
         self.weightAchieved = weightAchieved
         self.weightLost = weightLost
     }
@@ -44,7 +46,7 @@ struct Grade {
         }
     }
     
-    var percentage: Double {
+    var percentage: Decimal {
         get {
             return (weightAchieved * 100.0) / (weightAchieved + weightLost)
         }
@@ -55,8 +57,28 @@ struct Grade {
         case System.twelvePoint:
             return "\(twelvePoint)"
         default:
-            return "\(percentage.removeZerosFromEnd())%"
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .percent
+            return formatter.string(from: NSDecimalNumber(decimal: percentage / 100))!
         }
+    }
+    
+    func formattedWeightLost() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        return formatter.string(from: NSDecimalNumber(decimal: weightLost / 100))!
+    }
+    
+    func formattedWeightAchieved() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        return formatter.string(from: NSDecimalNumber(decimal: weightAchieved / 100))!
+    }
+    
+    func formattedPercentage() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        return formatter.string(from: NSDecimalNumber(decimal: percentage / 100))!
     }
     
     enum System {

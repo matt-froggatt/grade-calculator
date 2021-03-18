@@ -10,7 +10,7 @@ import Foundation
 struct Course: Identifiable {
     var id: Int
     var name: String
-    var credits: Double
+    var credits: Decimal
     var grade: Grade
     var goal: Grade
     var school: School

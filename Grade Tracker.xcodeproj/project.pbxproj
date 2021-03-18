@@ -13,6 +13,8 @@
 		355633132602E14100485751 /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355633112602E14100485751 /* CourseList.swift */; };
 		3556331D2602E19F00485751 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3556331C2602E19F00485751 /* Course.swift */; };
 		3556331E2602E19F00485751 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3556331C2602E19F00485751 /* Course.swift */; };
+		35A7D9632603883A00A4263E /* CourseDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A7D9622603883A00A4263E /* CourseDetail.swift */; };
+		35A7D9642603883A00A4263E /* CourseDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A7D9622603883A00A4263E /* CourseDetail.swift */; };
 		35B64DF625F83EDF00B1786D /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B64DF525F83EDF00B1786D /* Tests_iOS.swift */; };
 		35B64E0125F83EDF00B1786D /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B64E0025F83EDF00B1786D /* Tests_macOS.swift */; };
 		35B64E0325F83EDF00B1786D /* Grade_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35B64DD725F83EDC00B1786D /* Grade_Tracker.xcdatamodeld */; };
@@ -29,8 +31,6 @@
 		35F0D48B260242FC0022BDC7 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D489260242FC0022BDC7 /* CourseCard.swift */; };
 		35F0D496260277B00022BDC7 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D495260277B00022BDC7 /* Grade.swift */; };
 		35F0D497260277B00022BDC7 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D495260277B00022BDC7 /* Grade.swift */; };
-		35F0D49E260279260022BDC7 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D49D260279260022BDC7 /* Double.swift */; };
-		35F0D49F260279260022BDC7 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D49D260279260022BDC7 /* Double.swift */; };
 		35F0D4A926027A3D0022BDC7 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D4A826027A3D0022BDC7 /* School.swift */; };
 		35F0D4AA26027A3D0022BDC7 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0D4A826027A3D0022BDC7 /* School.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +56,7 @@
 		355632F226028F9400485751 /* CourseProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProgress.swift; sourceTree = "<group>"; };
 		355633112602E14100485751 /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
 		3556331C2602E19F00485751 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		35A7D9622603883A00A4263E /* CourseDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetail.swift; sourceTree = "<group>"; };
 		35B64DD825F83EDC00B1786D /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		35B64DD925F83EDC00B1786D /* Grade_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade_TrackerApp.swift; sourceTree = "<group>"; };
 		35B64DDA25F83EDC00B1786D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		35B64E0225F83EDF00B1786D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35F0D489260242FC0022BDC7 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
 		35F0D495260277B00022BDC7 /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
-		35F0D49D260279260022BDC7 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		35F0D4A826027A3D0022BDC7 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,7 +127,6 @@
 			children = (
 				35B64DD925F83EDC00B1786D /* Grade_TrackerApp.swift */,
 				35B64DDB25F83EDC00B1786D /* Persistence.swift */,
-				35F0D49C2602791A0022BDC7 /* Extensions */,
 				35F0D490260277580022BDC7 /* Models */,
 				35F0D480260242740022BDC7 /* Views */,
 				35B64DDC25F83EDF00B1786D /* Assets.xcassets */,
@@ -189,6 +188,7 @@
 				35F0D489260242FC0022BDC7 /* CourseCard.swift */,
 				355632F226028F9400485751 /* CourseProgress.swift */,
 				355633112602E14100485751 /* CourseList.swift */,
+				35A7D9622603883A00A4263E /* CourseDetail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,14 +201,6 @@
 				3556331C2602E19F00485751 /* Course.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		35F0D49C2602791A0022BDC7 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				35F0D49D260279260022BDC7 /* Double.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,7 +369,7 @@
 				35B64E0725F83EDF00B1786D /* ContentView.swift in Sources */,
 				355633122602E14100485751 /* CourseList.swift in Sources */,
 				35F0D496260277B00022BDC7 /* Grade.swift in Sources */,
-				35F0D49E260279260022BDC7 /* Double.swift in Sources */,
+				35A7D9632603883A00A4263E /* CourseDetail.swift in Sources */,
 				355632F326028F9400485751 /* CourseProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,7 +387,7 @@
 				35B64E0825F83EDF00B1786D /* ContentView.swift in Sources */,
 				355633132602E14100485751 /* CourseList.swift in Sources */,
 				35F0D497260277B00022BDC7 /* Grade.swift in Sources */,
-				35F0D49F260279260022BDC7 /* Double.swift in Sources */,
+				35A7D9642603883A00A4263E /* CourseDetail.swift in Sources */,
 				355632F426028F9400485751 /* CourseProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

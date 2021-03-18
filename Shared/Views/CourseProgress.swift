@@ -27,24 +27,23 @@ struct MarksLostProgress: ProgressViewStyle {
 }
 
 struct CourseProgress: View {
-    var marksReceived: Double
-    var marksLost: Double
-    var goal: Double
+    var grade: Grade
+    var goal: Grade
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("\(marksReceived.removeZerosFromEnd())%")
+                Text(grade.formattedWeightAchieved())
                     .foregroundColor(.green)
                 
                 Spacer()
                 
-                Text("\(marksLost.removeZerosFromEnd())%")
+                Text(grade.formattedWeightLost())
                     .foregroundColor(.red)
                 
                 Spacer()
                 
-                Text("\(goal.removeZerosFromEnd())%")
+                Text(goal.formattedPercentage())
                     .foregroundColor(.yellow)
             }
             .padding(.horizontal)
@@ -52,14 +51,14 @@ struct CourseProgress: View {
             
             
             ZStack {
-                ProgressView(value: marksLost + marksReceived, total: 100)
+                ProgressView(value: ((grade.weightAchieved + grade.weightLost) as NSDecimalNumber).doubleValue, total: 100)
                     .progressViewStyle(MarksLostProgress())
-                ProgressView(value: marksReceived, total: 100)
+                ProgressView(value: (grade.weightAchieved as NSDecimalNumber).doubleValue, total: 100)
                     .progressViewStyle(MarksReceivedProgress())
                 GeometryReader { geometry in
                     Capsule()
                         .offset(
-                            x: CGFloat(goal / 100) * geometry.size.width,
+                            x: CGFloat((goal.percentage as NSDecimalNumber).doubleValue / 100) * geometry.size.width,
                             y: 0
                         )
                         .foregroundColor(.yellow)
@@ -74,6 +73,9 @@ struct CourseProgress: View {
 
 struct CourseProgress_Previews: PreviewProvider {
     static var previews: some View {
-        CourseProgress(marksReceived: 40, marksLost: 20, goal: 90)
+        CourseProgress(
+            grade: Grade(weightAchieved: 35, weightLost: 5),
+            goal: Grade(percentage: 80)
+        )
     }
 }
