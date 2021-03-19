@@ -12,12 +12,21 @@ struct SemesterList: View {
     
     var body: some View {
         NavigationView {
-            List(semesters) { semester in
-                VStack(alignment: .leading) {
-                    Text(semester.name)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    HorizontalCourseList(courses: semester.courses)
+            ScrollView {
+                LazyVStack {
+                    Divider()
+                        .padding(.leading)
+                    ForEach(semesters) { semester in
+                        VStack(alignment: .leading) {
+                            Text(semester.name)
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .padding(.leading)
+                            HorizontalCourseList(courses: semester.courses)
+                            Divider()
+                                .padding(.leading)
+                        }
+                    }
                 }
             }
             .navigationTitle("All Semesters")

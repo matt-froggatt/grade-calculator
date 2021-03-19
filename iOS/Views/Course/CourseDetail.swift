@@ -47,7 +47,7 @@ struct CourseDetail: View {
                 Text("Assignments")
                     .font(.headline)
                     .foregroundColor(.primary)
-                LazyVStack {
+                LazyVStack(spacing: 15) {
                     ForEach(course.assignments) { assignment in
                         Button(action: {
                             assignmentDetailSheet = assignment
@@ -58,7 +58,7 @@ struct CourseDetail: View {
                             AssignmentDetail(assignment: assignment)
                         }
                     }
-                    .padding([.horizontal, .bottom])
+                    .padding(.horizontal)
                 }
                 
                 Spacer()

@@ -12,7 +12,7 @@ struct VerticalCourseList: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            LazyVStack {
+            LazyVStack(spacing: 15) {
                 ForEach(courses) { course in
                     NavigationLink(destination: CourseDetail(course: course)){
                         CourseCard(
@@ -24,7 +24,7 @@ struct VerticalCourseList: View {
                         )
                     }
                 }
-                .padding([.horizontal, .bottom])
+                .padding(.horizontal)
             }
         }
     }

@@ -12,8 +12,18 @@ struct HorizontalCourseList: View {
     
     var body: some View {
         ScrollView(.horizontal) {
-            LazyHStack {
-                ForEach(courses) { course in
+            LazyHStack(spacing: 15) {
+                NavigationLink(destination: CourseDetail(course: courses[0])){
+                    CourseCard(
+                        courseName: courses[0].name,
+                        school: courses[0].school,
+                        credits: courses[0].credits,
+                        grade: courses[0].grade,
+                        goal: courses[0].goal
+                    )
+                }
+                .padding(.leading)
+                ForEach(courses[1...]) { course in
                     NavigationLink(destination: CourseDetail(course: course)){
                         CourseCard(
                             courseName: course.name,
@@ -22,10 +32,10 @@ struct HorizontalCourseList: View {
                             grade: course.grade,
                             goal: course.goal
                         )
-                        .padding([.vertical, .trailing])
                     }
                 }
             }
+            .padding(.vertical)
         }
     }
 }
