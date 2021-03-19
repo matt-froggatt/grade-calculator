@@ -7,30 +7,15 @@
 
 import SwiftUI
 
-
-struct MarksReceivedProgress: ProgressViewStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        ProgressView(configuration)
-            .background(Color.clear)
-            .shadow(radius: 0)
-            .accentColor(.green)
-    }
-}
-
-struct MarksLostProgress: ProgressViewStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        ProgressView(configuration)
-            .background(Color.gray)
-            .shadow(radius: 0)
-            .accentColor(.red)
-    }
-}
-
 struct CourseProgress: View {
     var grade: Grade
     var goal: Grade
     
     var body: some View {
+        let cgfloatWeightAchieved = CGFloat(truncating: NSDecimalNumber(decimal: grade.weightAchieved))
+        let cgfloatWeightLost = CGFloat(truncating: NSDecimalNumber(decimal: grade.weightLost))
+        let cgfloatMaxWeight = CGFloat(truncating: NSDecimalNumber(decimal: grade.maxWeight))
+        
         VStack(alignment: .leading) {
             HStack {
                 Text(grade.formattedWeightAchieved())
@@ -50,12 +35,18 @@ struct CourseProgress: View {
             .font(.footnote)
             
             
-            ZStack {
-                ProgressView(value: ((grade.weightAchieved + grade.weightLost) as NSDecimalNumber).doubleValue, total: 100)
-                    .progressViewStyle(MarksLostProgress())
-                ProgressView(value: (grade.weightAchieved as NSDecimalNumber).doubleValue, total: 100)
-                    .progressViewStyle(MarksReceivedProgress())
-                GeometryReader { geometry in
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Color.gray)
+                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                    Capsule()
+                        .fill(Color.red)
+                        .frame(width: geometry.size.width * ((cgfloatWeightAchieved + cgfloatWeightLost) / cgfloatMaxWeight), height: geometry.size.height / 2)
+                    Capsule()
+                        .fill(Color.green)
+                        .frame(width: geometry.size.width * ((cgfloatWeightAchieved) / cgfloatMaxWeight), height: geometry.size.height / 2)
+                    
                     Capsule()
                         .offset(
                             x: CGFloat((goal.percentage as NSDecimalNumber).doubleValue / 100) * geometry.size.width,
@@ -64,8 +55,8 @@ struct CourseProgress: View {
                         .foregroundColor(.yellow)
                         .frame(width: 5)
                 }
-                .frame(height: 20)
             }
+            .frame(height: 20)
             .padding(.vertical, -5)
         }
     }
