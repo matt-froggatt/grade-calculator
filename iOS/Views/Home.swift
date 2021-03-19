@@ -88,6 +88,7 @@ struct Home_Previews: PreviewProvider {
     ]
     
     private static let courses = semesters[0].courses
+    
     static var previews: some View {
         Home(semesters: semesters, courses: courses)
     }
