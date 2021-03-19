@@ -11,50 +11,51 @@ struct CourseDetail: View {
     var course: Course
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Spacer()
-                
-                VStack(alignment: .center) {
-                    Text(course.grade.format(school: course.school))
-                        .font(.title)
-                        .foregroundColor(.primary)
-                    Text("Goal: \(course.goal.format(school: course.school))")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+        
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                HStack {
+                    Spacer()
                     
-                    CourseProgress(grade: course.grade, goal: course.goal)
-                        .padding(.top)
+                    VStack(alignment: .center) {
+                        Text(course.grade.format(school: course.school))
+                            .font(.title)
+                            .foregroundColor(.primary)
+                        Text("Goal: \(course.goal.format(school: course.school))")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        
+                        CourseProgress(grade: course.grade, goal: course.goal)
+                            .padding(.top)
+                    }
+                    .padding(.bottom)
+                    
+                    Spacer()
                 }
-                .padding(.bottom)
                 
-                Spacer()
-            }
-            
-            Text("Course Information")
-                .font(.headline)
-                .foregroundColor(.primary)
-            Text("Credits: \(NSDecimalNumber(decimal: course.credits))")
-                .font(.body)
-                .foregroundColor(.primary)
-            Text("School: \(course.school.formatName())")
-                .font(.body)
-                .foregroundColor(.primary)
-                .padding(.bottom)
-            
-            Text("Assignments")
-                .font(.headline)
-                .foregroundColor(.primary)
-            ScrollView(.vertical) {
+                Text("Course Information")
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                Text("Credits: \(NSDecimalNumber(decimal: course.credits))")
+                    .font(.body)
+                    .foregroundColor(.primary)
+                Text("School: \(course.school.formatName())")
+                    .font(.body)
+                    .foregroundColor(.primary)
+                    .padding(.bottom)
+                
+                Text("Assignments")
+                    .font(.headline)
+                    .foregroundColor(.primary)
                 LazyVStack {
                     ForEach(course.assignments) { assignment in
                         AssignmentCard(name: assignment.name, weight: assignment.weight, grade: assignment.grade)
                     }
                     .padding([.horizontal, .bottom])
                 }
+                
+                Spacer()
             }
-            
-            Spacer()
         }
         .padding(.horizontal)
         .navigationTitle(Text(course.name))
