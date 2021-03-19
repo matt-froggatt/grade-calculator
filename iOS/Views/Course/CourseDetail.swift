@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CourseDetail: View {
+    @State private var assignmentDetailSheet: Assignment?
     var course: Course
     
     var body: some View {
@@ -48,7 +49,14 @@ struct CourseDetail: View {
                     .foregroundColor(.primary)
                 LazyVStack {
                     ForEach(course.assignments) { assignment in
-                        AssignmentCard(name: assignment.name, weight: assignment.weight, grade: assignment.grade)
+                        Button(action: {
+                            assignmentDetailSheet = assignment
+                        }) {
+                            AssignmentCard(name: assignment.name, weight: assignment.weight, grade: assignment.grade)
+                        }
+                        .sheet(item: $assignmentDetailSheet) { assignment in
+                            AssignmentDetail(assignment: assignment)
+                        }
                     }
                     .padding([.horizontal, .bottom])
                 }
