@@ -19,8 +19,8 @@ struct CourseCard: View {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(Color.gray)
             
-            VStack {
-                HStack {
+            VStack(alignment: .leading) {
+                HStack(alignment: .center) {
                     VStack(alignment: .leading) {
                         Text(courseName)
                             .foregroundColor(.primary)
@@ -40,7 +40,7 @@ struct CourseCard: View {
                 
                 CourseProgress(grade: grade, goal: goal)
             }
-            .padding()
+            .padding(.horizontal)
         }
         .frame(height: 150)
     }
