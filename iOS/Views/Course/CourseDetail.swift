@@ -11,7 +11,6 @@ struct CourseDetail: View {
     var course: Course
     
     var body: some View {
-        
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
                 HStack {

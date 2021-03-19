@@ -47,6 +47,8 @@
 		35FA4D842603F6B000284BF6 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FA4D822603F6B000284BF6 /* Assignment.swift */; };
 		35FA4D9C2603F77400284BF6 /* AssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FA4D9B2603F77400284BF6 /* AssignmentCard.swift */; };
 		35FA4D9D2603F77400284BF6 /* AssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FA4D9B2603F77400284BF6 /* AssignmentCard.swift */; };
+		35FDFD9D26054B74002A0F05 /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFD9C26054B74002A0F05 /* AssignmentDetail.swift */; };
+		35FDFD9E26054B74002A0F05 /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FDFD9C26054B74002A0F05 /* AssignmentDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,7 @@
 		35F0D4A826027A3D0022BDC7 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		35FA4D822603F6B000284BF6 /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		35FA4D9B2603F77400284BF6 /* AssignmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCard.swift; sourceTree = "<group>"; };
+		35FDFD9C26054B74002A0F05 /* AssignmentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				35FA4D9B2603F77400284BF6 /* AssignmentCard.swift */,
+				35FDFD9C26054B74002A0F05 /* AssignmentDetail.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -428,6 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35FDFD9D26054B74002A0F05 /* AssignmentDetail.swift in Sources */,
 				35FA4D832603F6B000284BF6 /* Assignment.swift in Sources */,
 				359349652603BFFB0050B054 /* HorizontalCourseList.swift in Sources */,
 				35B64E0525F83EDF00B1786D /* Grade_TrackerApp.swift in Sources */,
@@ -453,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35FDFD9E26054B74002A0F05 /* AssignmentDetail.swift in Sources */,
 				35FA4D842603F6B000284BF6 /* Assignment.swift in Sources */,
 				359349662603BFFB0050B054 /* HorizontalCourseList.swift in Sources */,
 				35B64E0625F83EDF00B1786D /* Grade_TrackerApp.swift in Sources */,
