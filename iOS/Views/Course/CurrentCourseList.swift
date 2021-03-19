@@ -7,30 +7,18 @@
 
 import SwiftUI
 
-struct VerticalCourseList: View {
+struct CurrentCourseList: View {
     var courses: [Course]
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack {
-                ForEach(courses) { course in
-                    NavigationLink(destination: CourseDetail(course: course)){
-                        CourseCard(
-                            courseName: course.name,
-                            school: course.school,
-                            credits: course.credits,
-                            grade: course.grade,
-                            goal: course.goal
-                        )
-                        .padding([.horizontal, .bottom])
-                    }
-                }
-            }
+        NavigationView {
+            VerticalCourseList(courses: courses)
+            .navigationTitle(Text("Current Courses"))
         }
     }
 }
 
-struct VerticalCourseList_Previews: PreviewProvider {
+struct CurrentCourseList_Previews: PreviewProvider {
     private static let courses = [
         Course(
             id: 1,
@@ -38,7 +26,8 @@ struct VerticalCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 45, weightLost: 10),
             goal: Grade(percentage: 90),
-            school: School(name: .UW)
+            school: School(name: .UW),
+            assignments: []
         ),
         Course(
             id: 2,
@@ -46,7 +35,8 @@ struct VerticalCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 35, weightLost: 20),
             goal: Grade(percentage: 70),
-            school: School(name: .WLU)
+            school: School(name: .WLU),
+            assignments: []
         ),
         Course(
             id: 3,
@@ -54,7 +44,8 @@ struct VerticalCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 90, weightLost: 10),
             goal: Grade(percentage: 50),
-            school: School(name: .UW)
+            school: School(name: .UW),
+            assignments: []
         ),
         Course(
             id: 4,
@@ -62,7 +53,8 @@ struct VerticalCourseList_Previews: PreviewProvider {
             credits: 1.0,
             grade: Grade(weightAchieved: 50, weightLost: 10),
             goal: Grade(percentage: 80),
-            school: School(name: .WLU)
+            school: School(name: .WLU),
+            assignments: []
         ),
         Course(
             id: 5,
@@ -70,10 +62,11 @@ struct VerticalCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 30, weightLost: 70),
             goal: Grade(percentage: 10),
-            school: School(name: .WLU)
+            school: School(name: .WLU),
+            assignments: []
         )
     ]
     static var previews: some View {
-        VerticalCourseList(courses: courses)
+        CurrentCourseList(courses: courses)
     }
 }

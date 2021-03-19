@@ -1,5 +1,5 @@
 //
-//  Home.swift
+//  SemesterList.swift
 //  Grade Tracker
 //
 //  Created by Matthew Froggatt on 2021-03-18.
@@ -7,24 +7,25 @@
 
 import SwiftUI
 
-struct Home: View {
+struct SemesterList: View {
     var semesters: [Semester]
-    var courses: [Course]
+    
     var body: some View {
-        TabView {
-            CurrentCourseList(courses: courses)
-                .tabItem {
-                    Label("Courses", systemImage: "star")
+        NavigationView {
+            List(semesters) { semester in
+                VStack(alignment: .leading) {
+                    Text(semester.name)
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    HorizontalCourseList(courses: semester.courses)
                 }
-            SemesterList(semesters: semesters)
-                .tabItem {
-                    Label("Semesters", systemImage: "list.bullet")
-                }
+            }
+            .navigationTitle("All Semesters")
         }
     }
 }
 
-struct Home_Previews: PreviewProvider {
+struct SemesterList_Previews: PreviewProvider {
     private static let semesters = [
         Semester(
             id: 1,
@@ -36,7 +37,8 @@ struct Home_Previews: PreviewProvider {
                     credits: 0.5,
                     grade: Grade(weightAchieved: 45, weightLost: 10),
                     goal: Grade(percentage: 90),
-                    school: School(name: .UW)
+                    school: School(name: .UW),
+                    assignments: []
                 ),
                 Course(
                     id: 2,
@@ -44,7 +46,8 @@ struct Home_Previews: PreviewProvider {
                     credits: 0.5,
                     grade: Grade(weightAchieved: 35, weightLost: 20),
                     goal: Grade(percentage: 70),
-                    school: School(name: .WLU)
+                    school: School(name: .WLU),
+                    assignments: []
                 ),
                 Course(
                     id: 3,
@@ -52,7 +55,8 @@ struct Home_Previews: PreviewProvider {
                     credits: 0.5,
                     grade: Grade(weightAchieved: 90, weightLost: 10),
                     goal: Grade(percentage: 50),
-                    school: School(name: .UW)
+                    school: School(name: .UW),
+                    assignments: []
                 ),
                 Course(
                     id: 4,
@@ -60,7 +64,8 @@ struct Home_Previews: PreviewProvider {
                     credits: 1.0,
                     grade: Grade(weightAchieved: 50, weightLost: 10),
                     goal: Grade(percentage: 80),
-                    school: School(name: .WLU)
+                    school: School(name: .WLU),
+                    assignments: []
                 ),
                 Course(
                     id: 5,
@@ -68,14 +73,14 @@ struct Home_Previews: PreviewProvider {
                     credits: 0.5,
                     grade: Grade(weightAchieved: 30, weightLost: 70),
                     goal: Grade(percentage: 10),
-                    school: School(name: .WLU)
+                    school: School(name: .WLU),
+                    assignments: []
                 )
             ]
         )
     ]
     
-    private static let courses = semesters[0].courses
     static var previews: some View {
-        Home(semesters: semesters, courses: courses)
+        SemesterList(semesters: semesters)
     }
 }

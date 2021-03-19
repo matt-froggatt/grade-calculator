@@ -14,4 +14,5 @@ struct Course: Identifiable {
     var grade: Grade
     var goal: Grade
     var school: School
+    var assignments: [Assignment]
 }
