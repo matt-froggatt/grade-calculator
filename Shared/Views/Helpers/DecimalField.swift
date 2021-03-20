@@ -17,13 +17,10 @@ struct DecimalField: View {
         TextField(message, text: $strNumber)
             .keyboardType(.numberPad)
             .onReceive(Just(strNumber)) { newValue in
-                let filtered = newValue.filter { "0123456789,.".contains($0) }
-                if filtered != newValue {
-                    self.strNumber = filtered
+                    self.strNumber = newValue
                     let tmp = Decimal(string: self.strNumber)
                     number = tmp != nil ? tmp! : number
                 }
-        }
     }
 }
 
@@ -31,7 +28,10 @@ struct DecimalFieldPreviewWrapper: View {
     @State var number: Decimal
     
     var body: some View {
-        DecimalField(message: "Test message", number: $number)
+        VStack {
+            DecimalField(message: "Test message", number: $number)
+            Text("\(NSDecimalNumber(decimal: number))")
+        }
     }
 }
 
