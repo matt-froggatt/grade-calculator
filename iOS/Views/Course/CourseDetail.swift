@@ -55,7 +55,9 @@ struct CourseDetail: View {
                             AssignmentCard(name: assignment.name, weight: assignment.weight, grade: assignment.grade)
                         }
                         .sheet(item: $assignmentDetailSheet) { assignment in
-                            AssignmentDetail(assignment: assignment)
+                            NavigationView  {
+                                AssignmentSheet(assignment: assignment)
+                            }
                         }
                     }
                     .padding(.horizontal)
