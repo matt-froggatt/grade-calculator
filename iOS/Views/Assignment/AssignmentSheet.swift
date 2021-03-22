@@ -20,7 +20,7 @@ struct AssignmentSheet: View {
         Form {
             Section {
                 HStack {
-                    Text("Name")
+                    Text("Name").font(.headline)
                     TextField("Name", text: $assignment.name)
                         .onAppear {
                             if assignment.grade != nil {
@@ -29,16 +29,21 @@ struct AssignmentSheet: View {
                         }
                 }
                 HStack {
-                    Text("Grade")
-                    DecimalField(message: "numerator", number: $numerator)
-                    Text("/")
-                    DecimalField(message: "denominator", number: $denominator)
+                    Text("Grade").font(.headline)
+                    DecimalField(message: "Mark", number: $numerator)
+                        .multilineTextAlignment(.trailing)
+                        .fixedSize()
+                    Text("/").font(.subheadline).foregroundColor(.secondary)
+                    DecimalField(message: "Total", number: $denominator)
+                        .fixedSize()
                 }
                 
                 HStack {
-                    Text("Weight")
-                    DecimalField(message: "Percentage", number: $assignment.weight)
-                    Text("%")
+                    Text("Weight").font(.headline)
+                    DecimalField(message: "Weight", number: $assignment.weight)
+                        .multilineTextAlignment(.trailing)
+                        .fixedSize()
+                    Text("%").font(.subheadline).foregroundColor(.secondary)
                 }
             }
             
