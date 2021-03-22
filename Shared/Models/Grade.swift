@@ -50,6 +50,10 @@ struct Grade {
         get {
             return (weightAchieved * 100.0) / (weightAchieved + weightLost)
         }
+        set(newPercentage) {
+            weightAchieved = newPercentage
+            weightLost = maxWeight - newPercentage
+        }
     }
     
     func format(school: School) -> String {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CourseDetail: View {
     @State private var assignmentDetailSheet: Assignment?
+    @State private var showSheet = false
     var course: Course
     
     var body: some View {
@@ -34,20 +35,50 @@ struct CourseDetail: View {
                 }
                 
                 Text("Course Information")
-                    .font(.headline)
+                    .font(.title2)
                     .foregroundColor(.primary)
-                Text("Credits: \(NSDecimalNumber(decimal: course.credits))")
-                    .font(.body)
-                    .foregroundColor(.primary)
-                Text("School: \(course.school.formatName())")
-                    .font(.body)
-                    .foregroundColor(.primary)
-                    .padding(.bottom)
+                    .sheet(isPresented: $showSheet, content: {
+                        NavigationView {
+                            CourseSheet(
+                                name: course.name,
+                                credits: course.credits,
+                                goal: course.goal,
+                                school: course.school
+                            )
+                        }
+                    })
+                HStack {
+                    Text("Credits")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    Text("\(NSDecimalNumber(decimal: course.credits))")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                    
+                }
+                HStack {
+                    Text("School")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    Text("\(course.school.formatName())")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                    
+                }
+                HStack {
+                    Text("Goal")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    Text("\(course.grade.format(school: course.school))")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                }
                 
                 HStack {
                     Text("Assignments")
-                        .font(.headline)
+                        .font(.title2)
                         .foregroundColor(.primary)
+                        .padding(.top)
                     Spacer()
                     AddButton {
                         assignmentDetailSheet = Assignment(id: 99, name: "New Assignment", weight: 0, grade: nil)
@@ -75,7 +106,9 @@ struct CourseDetail: View {
         .padding(.horizontal)
         .navigationTitle(Text(course.name))
         .toolbar {
-            Button("Edit") { }
+            Button("Edit") {
+                showSheet = true
+            }
         }
     }
 }
