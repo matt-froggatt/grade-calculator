@@ -49,7 +49,9 @@ struct CourseDetail: View {
                         .font(.headline)
                         .foregroundColor(.primary)
                     Spacer()
-                    AddButton { }
+                    AddButton {
+                        assignmentDetailSheet = Assignment(id: 99, name: "New Assignment", weight: 0, grade: nil)
+                    }
                 }
                 LazyVStack(spacing: 15) {
                     ForEach(course.assignments) { assignment in
