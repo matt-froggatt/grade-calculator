@@ -13,7 +13,11 @@ struct CurrentCourseList: View {
     var body: some View {
         NavigationView {
             VerticalCourseList(courses: courses)
-            .navigationTitle(Text("Current Courses"))
+                .toolbar {
+                    AddButton {
+                    }
+                }
+                .navigationTitle(Text("Current Courses"))
         }
     }
 }

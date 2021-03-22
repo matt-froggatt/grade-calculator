@@ -9,29 +9,41 @@ import SwiftUI
 import Combine
 
 struct AssignmentSheet: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var numerator: Decimal = 0
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
-    @State var assignment: Assignment
+    var assignment: Assignment
     
     var body: some View {
         Form {
-            HStack {
-                Text("Grade")
-                DecimalField(message: "numerator", number: $numerator)
-                Text("/")
-                DecimalField(message: "denominator", number: $denominator)
+            Section {
+                HStack {
+                    Text("Grade")
+                    DecimalField(message: "numerator", number: $numerator)
+                    Text("/")
+                    DecimalField(message: "denominator", number: $denominator)
+                }
+                
+                HStack {
+                    Text("Weight")
+                    DecimalField(message: "Percentage", number: $weight)
+                    Text("%")
+                }
             }
             
-            Text("\(NSDecimalNumber(decimal: numerator / denominator * weight))")
-            
-            HStack {
-                Text("Weight")
-                DecimalField(message: "Percentage", number: $weight)
-                Text("%")
+            Section {
+                Button("Submit") {
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }
         .navigationTitle(Text(assignment.name))
+        .toolbar {
+            Button("Cancel") {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }
 

@@ -44,9 +44,13 @@ struct CourseDetail: View {
                     .foregroundColor(.primary)
                     .padding(.bottom)
                 
-                Text("Assignments")
-                    .font(.headline)
-                    .foregroundColor(.primary)
+                HStack {
+                    Text("Assignments")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    Spacer()
+                    AddButton { }
+                }
                 LazyVStack(spacing: 15) {
                     ForEach(course.assignments) { assignment in
                         Button(action: {
@@ -68,6 +72,9 @@ struct CourseDetail: View {
         }
         .padding(.horizontal)
         .navigationTitle(Text(course.name))
+        .toolbar {
+            Button("Edit") { }
+        }
     }
 }
 
