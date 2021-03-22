@@ -13,11 +13,21 @@ struct AssignmentSheet: View {
     @State private var numerator: Decimal = 0
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
-    var assignment: Assignment
+    @State private var name: String = ""
+    @State var assignment: Assignment
     
     var body: some View {
         Form {
             Section {
+                HStack {
+                    Text("Name")
+                    TextField("Name", text: $assignment.name)
+                        .onAppear {
+                            if assignment.grade != nil {
+                                numerator = assignment.grade!.percentage
+                            }
+                        }
+                }
                 HStack {
                     Text("Grade")
                     DecimalField(message: "numerator", number: $numerator)
@@ -27,7 +37,7 @@ struct AssignmentSheet: View {
                 
                 HStack {
                     Text("Weight")
-                    DecimalField(message: "Percentage", number: $weight)
+                    DecimalField(message: "Percentage", number: $assignment.weight)
                     Text("%")
                 }
             }
