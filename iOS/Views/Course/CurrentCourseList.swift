@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CurrentCourseList: View {
+    @State private var showCourseSheet = false
     var courses: [Course]
     
     var body: some View {
@@ -15,6 +16,12 @@ struct CurrentCourseList: View {
             VerticalCourseList(courses: courses)
                 .toolbar {
                     AddButton {
+                        showCourseSheet = true
+                    }
+                    .sheet(isPresented: $showCourseSheet) {
+                        NavigationView {
+                            CourseSheet(name: "New Course", credits: 0.5, goal: Grade(percentage: 90), school: School(name: .UW))
+                        }
                     }
                 }
                 .navigationTitle(Text("Current Courses"))
