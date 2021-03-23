@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SemesterList: View {
+    @State private var showAddCourseSheet = false
+    @State private var showAddSemesterSheet = false
     var semesters: [Semester]
     
     var body: some View {
@@ -18,10 +20,22 @@ struct SemesterList: View {
                         .padding(.leading)
                     ForEach(semesters) { semester in
                         VStack(alignment: .leading) {
-                            Text(semester.name)
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .padding(.leading)
+                            HStack {
+                                Text(semester.name)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .padding(.leading)
+                                Spacer()
+                                AddButton {
+                                    showAddCourseSheet = true
+                                }
+                                .padding(.trailing)
+                                .sheet(isPresented: $showAddCourseSheet){
+                                    NavigationView {
+                                        CourseSheet(name: "New Course Name", credits: 0, goal: Grade(percentage: 0), school: School(name: .UW))
+                                    }
+                                }
+                            }
                             HorizontalCourseList(courses: semester.courses)
                             Divider()
                                 .padding(.leading)
@@ -30,6 +44,16 @@ struct SemesterList: View {
                 }
             }
             .navigationTitle("All Semesters")
+            .toolbar {
+                AddButton {
+                    showAddSemesterSheet = true
+                }
+                .sheet(isPresented: $showAddSemesterSheet) {
+                    NavigationView {
+                        SemesterSheet()
+                    }
+                }
+            }
         }
     }
 }
