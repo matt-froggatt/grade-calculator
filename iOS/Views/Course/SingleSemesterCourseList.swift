@@ -7,13 +7,25 @@
 
 import SwiftUI
 
-struct CurrentCourseList: View {
+struct SingleSemesterCourseList: View {
+    @State private var showCourseSheet = false
     var courses: [Course]
+    var title: String
     
     var body: some View {
         NavigationView {
             VerticalCourseList(courses: courses)
-            .navigationBarTitle(Text("Current Courses"))
+                .toolbar {
+                    AddButton {
+                        showCourseSheet = true
+                    }
+                    .sheet(isPresented: $showCourseSheet) {
+                        NavigationView {
+                            CourseSheet(name: "New Course", credits: 0.5, goal: Grade(percentage: 90), school: School(name: .UW))
+                        }
+                    }
+                }
+                .navigationTitle(Text(title))
         }
     }
 }
@@ -26,7 +38,8 @@ struct CurrentCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 45, weightLost: 10),
             goal: Grade(percentage: 90),
-            school: School(name: .UW)
+            school: School(name: .UW),
+            assignments: []
         ),
         Course(
             id: 2,
@@ -34,7 +47,8 @@ struct CurrentCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 35, weightLost: 20),
             goal: Grade(percentage: 70),
-            school: School(name: .WLU)
+            school: School(name: .WLU),
+            assignments: []
         ),
         Course(
             id: 3,
@@ -42,7 +56,8 @@ struct CurrentCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 90, weightLost: 10),
             goal: Grade(percentage: 50),
-            school: School(name: .UW)
+            school: School(name: .UW),
+            assignments: []
         ),
         Course(
             id: 4,
@@ -50,7 +65,8 @@ struct CurrentCourseList_Previews: PreviewProvider {
             credits: 1.0,
             grade: Grade(weightAchieved: 50, weightLost: 10),
             goal: Grade(percentage: 80),
-            school: School(name: .WLU)
+            school: School(name: .WLU),
+            assignments: []
         ),
         Course(
             id: 5,
@@ -58,10 +74,11 @@ struct CurrentCourseList_Previews: PreviewProvider {
             credits: 0.5,
             grade: Grade(weightAchieved: 30, weightLost: 70),
             goal: Grade(percentage: 10),
-            school: School(name: .WLU)
+            school: School(name: .WLU),
+            assignments: []
         )
     ]
     static var previews: some View {
-        CurrentCourseList(courses: courses)
+        SingleSemesterCourseList(courses: courses, title: "Preview")
     }
 }

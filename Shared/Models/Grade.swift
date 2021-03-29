@@ -50,6 +50,10 @@ struct Grade {
         get {
             return (weightAchieved * 100.0) / (weightAchieved + weightLost)
         }
+        set(newPercentage) {
+            weightAchieved = newPercentage
+            weightLost = maxWeight - newPercentage
+        }
     }
     
     func format(school: School) -> String {
@@ -57,9 +61,7 @@ struct Grade {
         case System.twelvePoint:
             return "\(twelvePoint)"
         default:
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .percent
-            return formatter.string(from: NSDecimalNumber(decimal: percentage / 100))!
+            return formattedPercentage()
         }
     }
     
