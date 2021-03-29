@@ -10,9 +10,10 @@ import SwiftUI
 struct Home: View {
     var semesters: [Semester]
     var courses: [Course]
+    
     var body: some View {
         TabView {
-            CurrentCourseList(courses: courses)
+            SingleSemesterCourseList(courses: courses, title: "Current Semester")
                 .tabItem {
                     Label("Courses", systemImage: "star")
                 }

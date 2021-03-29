@@ -14,8 +14,8 @@
 		355110BF2603B43A00AE50CD /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355110BD2603B43A00AE50CD /* Semester.swift */; };
 		355632F326028F9400485751 /* CourseProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355632F226028F9400485751 /* CourseProgress.swift */; };
 		355632F426028F9400485751 /* CourseProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355632F226028F9400485751 /* CourseProgress.swift */; };
-		355633122602E14100485751 /* CurrentCourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355633112602E14100485751 /* CurrentCourseList.swift */; };
-		355633132602E14100485751 /* CurrentCourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355633112602E14100485751 /* CurrentCourseList.swift */; };
+		355633122602E14100485751 /* SingleSemesterCourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355633112602E14100485751 /* SingleSemesterCourseList.swift */; };
+		355633132602E14100485751 /* SingleSemesterCourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355633112602E14100485751 /* SingleSemesterCourseList.swift */; };
 		3556331D2602E19F00485751 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3556331C2602E19F00485751 /* Course.swift */; };
 		3556331E2602E19F00485751 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3556331C2602E19F00485751 /* Course.swift */; };
 		3564082B2607FFED00E54E0B /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3564082A2607FFED00E54E0B /* AddButton.swift */; };
@@ -79,7 +79,7 @@
 		355110B62603B41800AE50CD /* SemesterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterList.swift; sourceTree = "<group>"; };
 		355110BD2603B43A00AE50CD /* Semester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		355632F226028F9400485751 /* CourseProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProgress.swift; sourceTree = "<group>"; };
-		355633112602E14100485751 /* CurrentCourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCourseList.swift; sourceTree = "<group>"; };
+		355633112602E14100485751 /* SingleSemesterCourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSemesterCourseList.swift; sourceTree = "<group>"; };
 		3556331C2602E19F00485751 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		3564082A2607FFED00E54E0B /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		3564083426092EF100E54E0B /* CourseSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSheet.swift; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 			children = (
 				35A7D9622603883A00A4263E /* CourseDetail.swift */,
 				35F0D489260242FC0022BDC7 /* CourseCard.swift */,
-				355633112602E14100485751 /* CurrentCourseList.swift */,
+				355633112602E14100485751 /* SingleSemesterCourseList.swift */,
 				3564083426092EF100E54E0B /* CourseSheet.swift */,
 				359349642603BFFB0050B054 /* HorizontalCourseList.swift */,
 				3593496B2603C0450050B054 /* VerticalCourseList.swift */,
@@ -471,7 +471,7 @@
 				35B64E0325F83EDF00B1786D /* Grade_Tracker.xcdatamodeld in Sources */,
 				35B64E0725F83EDF00B1786D /* ContentView.swift in Sources */,
 				3564082B2607FFED00E54E0B /* AddButton.swift in Sources */,
-				355633122602E14100485751 /* CurrentCourseList.swift in Sources */,
+				355633122602E14100485751 /* SingleSemesterCourseList.swift in Sources */,
 				35F0D496260277B00022BDC7 /* Grade.swift in Sources */,
 				35A7D9632603883A00A4263E /* CourseDetail.swift in Sources */,
 				3593497B2603CD260050B054 /* Home.swift in Sources */,
@@ -500,7 +500,7 @@
 				35B64E0425F83EDF00B1786D /* Grade_Tracker.xcdatamodeld in Sources */,
 				35B64E0825F83EDF00B1786D /* ContentView.swift in Sources */,
 				3564083626092EF100E54E0B /* CourseSheet.swift in Sources */,
-				355633132602E14100485751 /* CurrentCourseList.swift in Sources */,
+				355633132602E14100485751 /* SingleSemesterCourseList.swift in Sources */,
 				35F0D497260277B00022BDC7 /* Grade.swift in Sources */,
 				35A7D9642603883A00A4263E /* CourseDetail.swift in Sources */,
 				3593497C2603CD260050B054 /* Home.swift in Sources */,

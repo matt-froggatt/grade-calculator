@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct CurrentCourseList: View {
+struct SingleSemesterCourseList: View {
     @State private var showCourseSheet = false
     var courses: [Course]
+    var title: String
     
     var body: some View {
         NavigationView {
@@ -24,7 +25,7 @@ struct CurrentCourseList: View {
                         }
                     }
                 }
-                .navigationTitle(Text("Current Courses"))
+                .navigationTitle(Text(title))
         }
     }
 }
@@ -78,6 +79,6 @@ struct CurrentCourseList_Previews: PreviewProvider {
         )
     ]
     static var previews: some View {
-        CurrentCourseList(courses: courses)
+        SingleSemesterCourseList(courses: courses, title: "Preview")
     }
 }

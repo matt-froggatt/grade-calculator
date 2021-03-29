@@ -21,11 +21,13 @@ struct SemesterList: View {
                     ForEach(semesters) { semester in
                         VStack(alignment: .leading) {
                             HStack {
-                                Text(semester.name)
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .padding(.leading)
-                                Spacer()
+                                NavigationLink(destination: SingleSemesterCourseList(courses: semester.courses, title: semester.name)) {
+                                    Text(semester.name)
+                                        .font(.headline)
+                                        .foregroundColor(.primary)
+                                        .padding(.leading)
+                                    Spacer()
+                                }
                                 AddButton {
                                     showAddCourseSheet = true
                                 }
