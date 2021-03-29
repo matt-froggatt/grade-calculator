@@ -11,10 +11,9 @@ struct VerticalCourseList: View {
     var courses: [Course]
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack(spacing: 15) {
+            List() {
                 ForEach(courses) { course in
-                    NavigationLink(destination: CourseDetail(course: course)){
+                    ZStack {
                         CourseCard(
                             courseName: course.name,
                             school: course.school,
@@ -22,11 +21,23 @@ struct VerticalCourseList: View {
                             grade: course.grade,
                             goal: course.goal
                         )
+                        .padding()
+                        NavigationLink(destination: CourseDetail(course: course)){
+                            EmptyView()
+                        }
+                        .opacity(0)
+                        .buttonStyle(PlainButtonStyle())
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .listRowInsets(EdgeInsets())
+                    .background(Color(.systemBackground))
                 }
-                .padding(.horizontal)
+                .onDelete(perform: delete)
             }
-        }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        print("delete \(offsets)")
     }
 }
 
