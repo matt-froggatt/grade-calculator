@@ -50,7 +50,7 @@ struct CourseDetail: View {
                     Text("Goal")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    Text("\(course.grade.format(school: course.school))")
+                    Text("\(course.goal.format(school: course.school))")
                         .font(.body)
                         .foregroundColor(.primary)
                 }

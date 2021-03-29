@@ -61,9 +61,7 @@ struct Grade {
         case System.twelvePoint:
             return "\(twelvePoint)"
         default:
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .percent
-            return formatter.string(from: NSDecimalNumber(decimal: percentage / 100))!
+            return formattedPercentage()
         }
     }
     
