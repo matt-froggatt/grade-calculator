@@ -10,31 +10,30 @@ import SwiftUI
 struct CourseProgress: View {
     var grade: Grade
     var goal: Grade
-    
+
     var body: some View {
         let cgfloatWeightAchieved = CGFloat(truncating: NSDecimalNumber(decimal: grade.weightAchieved))
         let cgfloatWeightLost = CGFloat(truncating: NSDecimalNumber(decimal: grade.weightLost))
         let cgfloatMaxWeight = CGFloat(truncating: NSDecimalNumber(decimal: grade.maxWeight))
-        
+
         VStack(alignment: .leading) {
             HStack {
                 Text(grade.formattedWeightAchieved())
                     .foregroundColor(.green)
-                
+
                 Spacer()
-                
+
                 Text(grade.formattedWeightLost())
                     .foregroundColor(.red)
-                
+
                 Spacer()
-                
+
                 Text(goal.formattedPercentage())
                     .foregroundColor(.yellow)
             }
             .padding(.horizontal)
             .font(.footnote)
-            
-            
+
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Capsule()
@@ -42,11 +41,20 @@ struct CourseProgress: View {
                         .frame(width: geometry.size.width, height: geometry.size.height / 2)
                     Capsule()
                         .fill(Color.red)
-                        .frame(width: geometry.size.width * ((cgfloatWeightAchieved + cgfloatWeightLost) / cgfloatMaxWeight), height: geometry.size.height / 2)
+                        .frame(
+                            width: geometry.size.width
+                                * ((cgfloatWeightAchieved + cgfloatWeightLost)
+                                    / cgfloatMaxWeight),
+                            height: geometry.size.height / 2
+                        )
                     Capsule()
                         .fill(Color.green)
-                        .frame(width: geometry.size.width * ((cgfloatWeightAchieved) / cgfloatMaxWeight), height: geometry.size.height / 2)
-                    
+                        .frame(
+                            width: geometry.size.width *
+                                ((cgfloatWeightAchieved) / cgfloatMaxWeight),
+                            height: geometry.size.height / 2
+                        )
+
                     Capsule()
                         .offset(
                             x: CGFloat((goal.percentage as NSDecimalNumber).doubleValue / 100) * geometry.size.width,

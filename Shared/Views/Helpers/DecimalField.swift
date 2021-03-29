@@ -12,7 +12,7 @@ struct DecimalField: View {
     var message: String
     @Binding var number: Decimal
     @State private var strNumber = ""
-    
+
     var body: some View {
         TextField(message, text: $strNumber)
             .keyboardType(.numberPad)
@@ -34,7 +34,7 @@ struct DecimalField: View {
 struct DecimalFieldPreviewWrapper: View {
     @State var number1: Decimal
     @State var number2: Decimal
-    
+
     var body: some View {
         VStack {
             VStack {

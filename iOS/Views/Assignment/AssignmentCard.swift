@@ -11,12 +11,12 @@ struct AssignmentCard: View {
     var name: String
     var weight: Decimal
     var grade: Grade?
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(Color.gray)
-            
+
             VStack {
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -27,9 +27,9 @@ struct AssignmentCard: View {
                             .foregroundColor(.secondary)
                             .font(.subheadline)
                     }
-                    
+
                     Spacer()
-                    
+
                     if grade != nil {
                         Text(grade!.formattedPercentage())
                         .foregroundColor(.primary)

@@ -11,7 +11,7 @@ struct CourseDetail: View {
     @State private var assignmentDetailSheet: Assignment?
     @State private var showSheet = false
     var course: Course
-    
+
     var body: some View {
         List {
             VStack(alignment: .center) {
@@ -21,12 +21,12 @@ struct CourseDetail: View {
                 Text("Goal: \(course.goal.format(school: course.school))")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                
+
                 CourseProgress(grade: course.grade, goal: course.goal)
                     .padding(.top)
             }
             .padding(.bottom)
-            
+
             Section(header: Text("Course Information")) {
                 HStack {
                     Text("Credits")
@@ -35,7 +35,7 @@ struct CourseDetail: View {
                     Text("\(NSDecimalNumber(decimal: course.credits))")
                         .font(.body)
                         .foregroundColor(.primary)
-                    
+
                 }
                 HStack {
                     Text("School")
@@ -44,7 +44,7 @@ struct CourseDetail: View {
                     Text("\(course.school.formatName())")
                         .font(.body)
                         .foregroundColor(.primary)
-                    
+
                 }
                 HStack {
                     Text("Goal")
@@ -55,13 +55,18 @@ struct CourseDetail: View {
                         .foregroundColor(.primary)
                 }
             }
-            
+
             Section(header:
                         HStack {
                             Text("Assignments")
                             Spacer()
                             AddButton {
-                                assignmentDetailSheet = Assignment(id: 99, name: "New Assignment", weight: 0, grade: nil)
+                                assignmentDetailSheet = Assignment(
+                                    id: 99,
+                                    name: "New Assignment",
+                                    weight: 0,
+                                    grade: nil
+                                )
                             }
                         }) {
                 ForEach(course.assignments) { assignment in
@@ -77,13 +82,19 @@ struct CourseDetail: View {
                             }
                         })
                         .padding()
-                        NavigationLink(destination: AssignmentSheet(assignment: assignment)){
+                        NavigationLink(
+                            destination: AssignmentSheet(assignment: assignment)
+                        ) {
                             EmptyView()
                         }
                         .opacity(0)
                         .buttonStyle(PlainButtonStyle())
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .leading
+                    )
                     .listRowInsets(EdgeInsets())
                     .background(Color(.systemBackground))
                 }
@@ -107,7 +118,7 @@ struct CourseDetail: View {
             }
         }
     }
-    
+
     func delete(at offsets: IndexSet) {
         print("delete \(offsets)")
     }

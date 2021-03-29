@@ -10,7 +10,7 @@ import SwiftUI
 struct Home: View {
     var semesters: [Semester]
     var courses: [Course]
-    
+
     var body: some View {
         TabView {
             SingleSemesterCourseList(courses: courses, title: "Current Semester")
@@ -30,7 +30,7 @@ struct Home_Previews: PreviewProvider {
         Semester(
             id: 1,
             name: "Spring 2021",
-            courses:[
+            courses: [
                 Course(
                     id: 1,
                     name: "CS 341",
@@ -87,9 +87,9 @@ struct Home_Previews: PreviewProvider {
             ]
         )
     ]
-    
+
     private static let courses = semesters[0].courses
-    
+
     static var previews: some View {
         Home(semesters: semesters, courses: courses)
     }

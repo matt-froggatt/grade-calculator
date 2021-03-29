@@ -9,9 +9,9 @@ import SwiftUI
 
 struct VerticalCourseList: View {
     var courses: [Course]
-    
+
     var body: some View {
-            List() {
+            List {
                 ForEach(courses) { course in
                     ZStack {
                         CourseCard(
@@ -22,7 +22,7 @@ struct VerticalCourseList: View {
                             goal: course.goal
                         )
                         .padding()
-                        NavigationLink(destination: CourseDetail(course: course)){
+                        NavigationLink(destination: CourseDetail(course: course)) {
                             EmptyView()
                         }
                         .opacity(0)
@@ -35,7 +35,7 @@ struct VerticalCourseList: View {
                 .onDelete(perform: delete)
             }
     }
-    
+
     func delete(at offsets: IndexSet) {
         print("delete \(offsets)")
     }

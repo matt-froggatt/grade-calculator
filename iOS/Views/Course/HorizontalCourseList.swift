@@ -9,11 +9,11 @@ import SwiftUI
 
 struct HorizontalCourseList: View {
     var courses: [Course]
-    
+
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 15) {
-                NavigationLink(destination: CourseDetail(course: courses[0])){
+                NavigationLink(destination: CourseDetail(course: courses[0])) {
                     CourseCard(
                         courseName: courses[0].name,
                         school: courses[0].school,
@@ -24,7 +24,7 @@ struct HorizontalCourseList: View {
                 }
                 .padding(.leading)
                 ForEach(courses[1...]) { course in
-                    NavigationLink(destination: CourseDetail(course: course)){
+                    NavigationLink(destination: CourseDetail(course: course)) {
                         CourseCard(
                             courseName: course.name,
                             school: course.school,
@@ -90,6 +90,6 @@ struct HorizontalCourseList_Previews: PreviewProvider {
     ]
     static var previews: some View {
         HorizontalCourseList(courses: courses)
-        
+
     }
 }

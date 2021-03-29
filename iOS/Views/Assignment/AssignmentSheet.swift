@@ -15,7 +15,7 @@ struct AssignmentSheet: View {
     @State private var weight: Decimal = 0
     @State private var name: String = ""
     @State var assignment: Assignment
-    
+
     var body: some View {
         Form {
             Section {
@@ -37,7 +37,7 @@ struct AssignmentSheet: View {
                     DecimalField(message: "Total", number: $denominator)
                         .fixedSize()
                 }
-                
+
                 HStack {
                     Text("Weight").font(.headline)
                     DecimalField(message: "Weight", number: $assignment.weight)
@@ -46,7 +46,7 @@ struct AssignmentSheet: View {
                     Text("%").font(.subheadline).foregroundColor(.secondary)
                 }
             }
-            
+
             Section {
                 Button("Submit") {
                     presentationMode.wrappedValue.dismiss()
@@ -64,7 +64,16 @@ struct AssignmentSheet: View {
 
 struct AssignmentSheet_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentSheet(assignment: Assignment(id: 1, name: "Assignment with grade", weight: 10, grade: Grade(percentage: 50)))
-        AssignmentSheet(assignment: Assignment(id: 1, name: "Assignment without grade", weight: 10))
+        AssignmentSheet(assignment: Assignment(
+            id: 1,
+            name: "Assignment with grade",
+            weight: 10,
+            grade: Grade(percentage: 50)
+        ))
+        AssignmentSheet(assignment: Assignment(
+            id: 1,
+            name: "Assignment without grade",
+            weight: 10
+        ))
     }
 }

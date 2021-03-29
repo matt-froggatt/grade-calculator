@@ -11,7 +11,7 @@ struct SemesterList: View {
     @State private var showAddCourseSheet = false
     @State private var showAddSemesterSheet = false
     var semesters: [Semester]
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -21,7 +21,12 @@ struct SemesterList: View {
                     ForEach(semesters) { semester in
                         VStack(alignment: .leading) {
                             HStack {
-                                NavigationLink(destination: SingleSemesterCourseList(courses: semester.courses, title: semester.name)) {
+                                NavigationLink(
+                                    destination: SingleSemesterCourseList(
+                                        courses: semester.courses,
+                                        title: semester.name
+                                    )
+                                ) {
                                     Text(semester.name)
                                         .font(.headline)
                                         .foregroundColor(.primary)
@@ -32,9 +37,14 @@ struct SemesterList: View {
                                     showAddCourseSheet = true
                                 }
                                 .padding(.trailing)
-                                .sheet(isPresented: $showAddCourseSheet){
+                                .sheet(isPresented: $showAddCourseSheet) {
                                     NavigationView {
-                                        CourseSheet(name: "New Course Name", credits: 0, goal: Grade(percentage: 0), school: School(name: .UW))
+                                        CourseSheet(
+                                            name: "New Course Name",
+                                            credits: 0,
+                                            goal: Grade(percentage: 0),
+                                            school: School(name: .UW)
+                                        )
                                     }
                                 }
                             }
@@ -65,7 +75,7 @@ struct SemesterList_Previews: PreviewProvider {
         Semester(
             id: 1,
             name: "Spring 2021",
-            courses:[
+            courses: [
                 Course(
                     id: 1,
                     name: "CS 341",
@@ -114,7 +124,7 @@ struct SemesterList_Previews: PreviewProvider {
             ]
         )
     ]
-    
+
     static var previews: some View {
         SemesterList(semesters: semesters)
     }

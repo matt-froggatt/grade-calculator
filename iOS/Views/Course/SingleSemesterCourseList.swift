@@ -11,7 +11,7 @@ struct SingleSemesterCourseList: View {
     @State private var showCourseSheet = false
     var courses: [Course]
     var title: String
-    
+
     var body: some View {
         NavigationView {
             VerticalCourseList(courses: courses)
@@ -21,7 +21,12 @@ struct SingleSemesterCourseList: View {
                     }
                     .sheet(isPresented: $showCourseSheet) {
                         NavigationView {
-                            CourseSheet(name: "New Course", credits: 0.5, goal: Grade(percentage: 90), school: School(name: .UW))
+                            CourseSheet(
+                                name: "New Course",
+                                credits: 0.5,
+                                goal: Grade(percentage: 90),
+                                school: School(name: .UW)
+                            )
                         }
                     }
                 }

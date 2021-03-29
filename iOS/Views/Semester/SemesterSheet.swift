@@ -14,7 +14,7 @@ struct SemesterSheet: View {
     @State private var yearSelection = years[0]
     @State private var termSelection = terms[0]
     @State private var showYearPicker = false
-    
+
     var body: some View {
         Form {
             Section {
@@ -27,7 +27,7 @@ struct SemesterSheet: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-                
+
                 HStack {
                     Text("Year")
                     Button(String(yearSelection)) {
@@ -48,7 +48,7 @@ struct SemesterSheet: View {
                     }
                 }
             }
-            
+
             Section {
                 Button("Submit") {
                     presentationMode.wrappedValue.dismiss()
