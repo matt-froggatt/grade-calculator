@@ -13,40 +13,21 @@ struct CourseDetail: View {
     var course: Course
     
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    
-                    VStack(alignment: .center) {
-                        Text(course.grade.format(school: course.school))
-                            .font(.title)
-                            .foregroundColor(.primary)
-                        Text("Goal: \(course.goal.format(school: course.school))")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        CourseProgress(grade: course.grade, goal: course.goal)
-                            .padding(.top)
-                    }
-                    .padding(.bottom)
-                    
-                    Spacer()
-                }
-                
-                Text("Course Information")
-                    .font(.title2)
+        List {
+            VStack(alignment: .center) {
+                Text(course.grade.format(school: course.school))
+                    .font(.title)
                     .foregroundColor(.primary)
-                    .sheet(isPresented: $showSheet, content: {
-                        NavigationView {
-                            CourseSheet(
-                                name: course.name,
-                                credits: course.credits,
-                                goal: course.goal,
-                                school: course.school
-                            )
-                        }
-                    })
+                Text("Goal: \(course.goal.format(school: course.school))")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                
+                CourseProgress(grade: course.grade, goal: course.goal)
+                    .padding(.top)
+            }
+            .padding(.bottom)
+            
+            Section(header: Text("Course Information")) {
                 HStack {
                     Text("Credits")
                         .font(.headline)
@@ -73,43 +54,62 @@ struct CourseDetail: View {
                         .font(.body)
                         .foregroundColor(.primary)
                 }
-                
-                HStack {
-                    Text("Assignments")
-                        .font(.title2)
-                        .foregroundColor(.primary)
-                        .padding(.top)
-                    Spacer()
-                    AddButton {
-                        assignmentDetailSheet = Assignment(id: 99, name: "New Assignment", weight: 0, grade: nil)
-                    }
-                }
-                LazyVStack(spacing: 15) {
-                    ForEach(course.assignments) { assignment in
-                        Button(action: {
-                            assignmentDetailSheet = assignment
-                        }) {
-                            AssignmentCard(name: assignment.name, weight: assignment.weight, grade: assignment.grade)
-                        }
-                        .sheet(item: $assignmentDetailSheet) { assignment in
-                            NavigationView  {
-                                AssignmentSheet(assignment: assignment)
+            }
+            
+            Section(header:
+                        HStack {
+                            Text("Assignments")
+                            Spacer()
+                            AddButton {
+                                assignmentDetailSheet = Assignment(id: 99, name: "New Assignment", weight: 0, grade: nil)
                             }
+                        }) {
+                ForEach(course.assignments) { assignment in
+                    ZStack {
+                        AssignmentCard(
+                            name: assignment.name,
+                            weight: assignment.weight,
+                            grade: assignment.grade
+                        )
+                        .sheet(item: $assignmentDetailSheet, content: { item in
+                            NavigationView {
+                                AssignmentSheet(assignment: item)
+                            }
+                        })
+                        .padding()
+                        NavigationLink(destination: AssignmentSheet(assignment: assignment)){
+                            EmptyView()
                         }
+                        .opacity(0)
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    .listRowInsets(EdgeInsets())
+                    .background(Color(.systemBackground))
                 }
-                
-                Spacer()
+                .onDelete(perform: delete)
             }
         }
-        .padding(.horizontal)
         .navigationTitle(Text(course.name))
+        .sheet(isPresented: $showSheet, content: {
+            NavigationView {
+                CourseSheet(
+                    name: course.name,
+                    credits: course.credits,
+                    goal: course.goal,
+                    school: course.school
+                )
+            }
+        })
         .toolbar {
             Button("Edit") {
                 showSheet = true
             }
         }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        print("delete \(offsets)")
     }
 }
 

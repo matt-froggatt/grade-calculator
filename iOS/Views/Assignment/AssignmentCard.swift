@@ -11,6 +11,7 @@ struct AssignmentCard: View {
     var name: String
     var weight: Decimal
     var grade: Grade?
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
