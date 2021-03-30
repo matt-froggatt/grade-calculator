@@ -1,16 +1,54 @@
 //
 //  CourseList.swift
-//  Grade Tracker
+//  Grade Tracker (iOS)
 //
-//  Created by Matthew Froggatt on 2021-03-17.
+//  Created by Matthew Froggatt on 2021-03-30.
 //
 
 import SwiftUI
 
-struct VerticalCourseList: View {
+struct CourseList: View {
+    var direction: CourseListDirection
     var courses: [Course]
 
+    func delete(at offsets: IndexSet) {
+        print("delete \(offsets)")
+    }
+
+    enum CourseListDirection {
+        case vertical, horizontal
+    }
+
     var body: some View {
+        switch direction {
+        case .horizontal:
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 15) {
+                    NavigationLink(destination: CourseDetail(course: courses[0])) {
+                        CourseCard(
+                            courseName: courses[0].name,
+                            school: courses[0].school,
+                            credits: courses[0].credits,
+                            grade: courses[0].grade,
+                            goal: courses[0].goal
+                        )
+                    }
+                    .padding(.leading)
+                    ForEach(courses[1...]) { course in
+                        NavigationLink(destination: CourseDetail(course: course)) {
+                            CourseCard(
+                                courseName: course.name,
+                                school: course.school,
+                                credits: course.credits,
+                                grade: course.grade,
+                                goal: course.goal
+                            )
+                        }
+                    }
+                }
+                .padding(.vertical)
+            }
+        case .vertical:
             List {
                 ForEach(courses) { course in
                     ZStack {
@@ -34,14 +72,11 @@ struct VerticalCourseList: View {
                 }
                 .onDelete(perform: delete)
             }
-    }
-
-    func delete(at offsets: IndexSet) {
-        print("delete \(offsets)")
+        }
     }
 }
 
-struct VerticalCourseList_Previews: PreviewProvider {
+struct CourseList_Previews: PreviewProvider {
     private static let courses = [
         Course(
             id: 1,
@@ -90,6 +125,7 @@ struct VerticalCourseList_Previews: PreviewProvider {
         )
     ]
     static var previews: some View {
-        VerticalCourseList(courses: courses)
+        CourseList(direction: .vertical, courses: courses)
+        CourseList(direction: .horizontal, courses: courses)
     }
 }

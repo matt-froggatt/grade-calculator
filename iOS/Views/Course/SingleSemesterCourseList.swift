@@ -14,7 +14,7 @@ struct SingleSemesterCourseList: View {
 
     var body: some View {
         NavigationView {
-            VerticalCourseList(courses: courses)
+            CourseList(direction: .vertical, courses: courses)
                 .toolbar {
                     AddButton {
                         showCourseSheet = true
