@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		352CDA1A2613697D00D41339 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352CDA192613697D00D41339 /* Card.swift */; };
 		35472373260572400052A4E6 /* DecimalField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35472372260572400052A4E6 /* DecimalField.swift */; };
 		355110B72603B41800AE50CD /* SemesterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355110B62603B41800AE50CD /* SemesterList.swift */; };
 		355110B82603B41800AE50CD /* SemesterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355110B62603B41800AE50CD /* SemesterList.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		352CDA192613697D00D41339 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		35472372260572400052A4E6 /* DecimalField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalField.swift; sourceTree = "<group>"; };
 		355110B62603B41800AE50CD /* SemesterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterList.swift; sourceTree = "<group>"; };
 		355110BD2603B43A00AE50CD /* Semester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				35472372260572400052A4E6 /* DecimalField.swift */,
 				3564082A2607FFED00E54E0B /* AddButton.swift */,
+				352CDA192613697D00D41339 /* Card.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				35B64E0525F83EDF00B1786D /* Grade_TrackerApp.swift in Sources */,
 				3556331D2602E19F00485751 /* Course.swift in Sources */,
 				35472373260572400052A4E6 /* DecimalField.swift in Sources */,
+				352CDA1A2613697D00D41339 /* Card.swift in Sources */,
 				35F0D48A260242FC0022BDC7 /* CourseCard.swift in Sources */,
 				3593496C2603C0450050B054 /* VerticalCourseList.swift in Sources */,
 				355110BE2603B43A00AE50CD /* Semester.swift in Sources */,
