@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwipeCellSUI
 
 struct CourseList: View {
+    @State private var currentUserInteractionCellID: String?
     var direction: CourseListDirection
     var courses: [Course]
 
@@ -23,18 +25,8 @@ struct CourseList: View {
         switch direction {
         case .horizontal:
             ScrollView(.horizontal) {
-                LazyHStack(spacing: 15) {
-                    NavigationLink(destination: CourseDetail(course: courses[0])) {
-                        CourseCard(
-                            courseName: courses[0].name,
-                            school: courses[0].school,
-                            credits: courses[0].credits,
-                            grade: courses[0].grade,
-                            goal: courses[0].goal
-                        )
-                    }
-                    .padding(.leading)
-                    ForEach(courses[1...]) { course in
+                LazyHStack {
+                    ForEach(courses) { course in
                         NavigationLink(destination: CourseDetail(course: course)) {
                             CourseCard(
                                 courseName: course.name,
@@ -45,32 +37,33 @@ struct CourseList: View {
                             )
                         }
                     }
+                    .padding()
                 }
-                .padding(.vertical)
             }
         case .vertical:
-            List {
-                ForEach(courses) { course in
-                    ZStack {
-                        CourseCard(
-                            courseName: course.name,
-                            school: course.school,
-                            credits: course.credits,
-                            grade: course.grade,
-                            goal: course.goal
-                        )
-                        .padding()
+            ScrollView(.vertical) {
+                LazyVStack {
+                    ForEach(courses) { course in
                         NavigationLink(destination: CourseDetail(course: course)) {
-                            EmptyView()
+                            DeletableRow(
+                                availableWidth: 385,
+                                item: String(course.id),
+                                deletionCallback: {(_: String) -> Void in },
+                                currentUserInteractionCellID: $currentUserInteractionCellID,
+                                content: {
+                                    CourseCard(
+                                        courseName: course.name,
+                                        school: course.school,
+                                        credits: course.credits,
+                                        grade: course.grade,
+                                        goal: course.goal
+                                    )
+                                    .padding()
+                                }
+                            )
                         }
-                        .opacity(0)
-                        .buttonStyle(PlainButtonStyle())
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                    .listRowInsets(EdgeInsets())
-                    .background(Color(.systemBackground))
                 }
-                .onDelete(perform: delete)
             }
         }
     }
@@ -125,7 +118,11 @@ struct CourseList_Previews: PreviewProvider {
         )
     ]
     static var previews: some View {
-        CourseList(direction: .vertical, courses: courses)
-        CourseList(direction: .horizontal, courses: courses)
+        NavigationView {
+            CourseList(direction: .vertical, courses: courses)
+        }
+        NavigationView {
+            CourseList(direction: .horizontal, courses: courses)
+        }
     }
 }
