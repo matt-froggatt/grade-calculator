@@ -13,14 +13,18 @@ struct Home: View {
 
     var body: some View {
         TabView {
-            SingleSemesterCourseList(courses: courses, title: "Current Semester")
-                .tabItem {
-                    Label("Courses", systemImage: "star")
-                }
-            SemesterList(semesters: semesters)
-                .tabItem {
-                    Label("Semesters", systemImage: "list.bullet")
-                }
+            NavigationView {
+                SingleSemesterCourseList(courses: courses, title: "Current Semester")
+            }
+            .tabItem {
+                Label("Courses", systemImage: "star")
+            }
+            NavigationView {
+                SemesterList(semesters: semesters)
+            }
+            .tabItem {
+                Label("Semesters", systemImage: "list.bullet")
+            }
         }
     }
 }

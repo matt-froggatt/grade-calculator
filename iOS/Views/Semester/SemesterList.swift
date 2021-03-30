@@ -13,57 +13,55 @@ struct SemesterList: View {
     var semesters: [Semester]
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack {
-                    Divider()
-                        .padding(.leading)
-                    ForEach(semesters) { semester in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                NavigationLink(
-                                    destination: SingleSemesterCourseList(
-                                        courses: semester.courses,
-                                        title: semester.name
+        ScrollView {
+            LazyVStack {
+                Divider()
+                    .padding(.leading)
+                ForEach(semesters) { semester in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            NavigationLink(
+                                destination: SingleSemesterCourseList(
+                                    courses: semester.courses,
+                                    title: semester.name
+                                )
+                            ) {
+                                Text(semester.name)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .padding(.leading)
+                                Spacer()
+                            }
+                            AddButton {
+                                showAddCourseSheet = true
+                            }
+                            .padding(.trailing)
+                            .sheet(isPresented: $showAddCourseSheet) {
+                                NavigationView {
+                                    CourseSheet(
+                                        name: "New Course Name",
+                                        credits: 0,
+                                        goal: Grade(percentage: 0),
+                                        school: School(name: .UW)
                                     )
-                                ) {
-                                    Text(semester.name)
-                                        .font(.headline)
-                                        .foregroundColor(.primary)
-                                        .padding(.leading)
-                                    Spacer()
-                                }
-                                AddButton {
-                                    showAddCourseSheet = true
-                                }
-                                .padding(.trailing)
-                                .sheet(isPresented: $showAddCourseSheet) {
-                                    NavigationView {
-                                        CourseSheet(
-                                            name: "New Course Name",
-                                            credits: 0,
-                                            goal: Grade(percentage: 0),
-                                            school: School(name: .UW)
-                                        )
-                                    }
                                 }
                             }
-                            CourseList(direction: .horizontal, courses: semester.courses)
-                            Divider()
-                                .padding(.leading)
                         }
+                        CourseList(direction: .horizontal, courses: semester.courses)
+                        Divider()
+                            .padding(.leading)
                     }
                 }
             }
-            .navigationTitle("All Semesters")
-            .toolbar {
-                AddButton {
-                    showAddSemesterSheet = true
-                }
-                .sheet(isPresented: $showAddSemesterSheet) {
-                    NavigationView {
-                        SemesterSheet()
-                    }
+        }
+        .navigationTitle("All Semesters")
+        .toolbar {
+            AddButton {
+                showAddSemesterSheet = true
+            }
+            .sheet(isPresented: $showAddSemesterSheet) {
+                NavigationView {
+                    SemesterSheet()
                 }
             }
         }
@@ -126,6 +124,8 @@ struct SemesterList_Previews: PreviewProvider {
     ]
 
     static var previews: some View {
-        SemesterList(semesters: semesters)
+        NavigationView {
+            SemesterList(semesters: semesters)
+        }
     }
 }

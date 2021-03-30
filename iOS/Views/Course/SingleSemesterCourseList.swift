@@ -13,7 +13,6 @@ struct SingleSemesterCourseList: View {
     var title: String
 
     var body: some View {
-        NavigationView {
             CourseList(direction: .vertical, courses: courses)
                 .toolbar {
                     AddButton {
@@ -31,7 +30,6 @@ struct SingleSemesterCourseList: View {
                     }
                 }
                 .navigationTitle(Text(title))
-        }
     }
 }
 
@@ -84,6 +82,8 @@ struct CurrentCourseList_Previews: PreviewProvider {
         )
     ]
     static var previews: some View {
-        SingleSemesterCourseList(courses: courses, title: "Preview")
+        NavigationView {
+            SingleSemesterCourseList(courses: courses, title: "Preview")
+        }
     }
 }
