@@ -11,8 +11,21 @@ struct Course: Identifiable {
     var id: Int
     var name: String
     var credits: Decimal
-    var grade: Grade
     var goal: Grade
     var school: School
     var assignments: [Assignment]
+
+    var grade: Grade {
+        var weightAchieved: Decimal = 0
+        var weightLost: Decimal = 0
+
+        assignments.forEach { assignment in
+            if assignment.grade != nil {
+                weightAchieved += assignment.grade!.weightAchieved * assignment.weight
+                weightLost += assignment.grade!.weightLost * assignment.weight
+            }
+        }
+
+        return Grade(weightAchieved: weightAchieved / 100, weightLost: weightLost / 100)
+    }
 }

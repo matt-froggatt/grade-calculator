@@ -22,10 +22,14 @@ struct Grade {
         self.weightLost = weightLost
     }
 
-    private var twelvePoint: Int {
+    private var twelvePoint: Int? {
         let currentMark = percentage
 
-        switch currentMark {
+        if currentMark == nil {
+            return nil
+        }
+
+        switch currentMark! {
         case 0..<50:
             return 0
         case 50..<53:
@@ -55,20 +59,30 @@ struct Grade {
         }
     }
 
-    var percentage: Decimal {
+    var percentage: Decimal? {
         get {
+            if weightAchieved == 0 && weightLost == 0 {
+                return nil
+            }
+
             return (weightAchieved * 100.0) / (weightAchieved + weightLost)
         }
         set(newPercentage) {
-            weightAchieved = newPercentage
-            weightLost = maxWeight - newPercentage
+            if newPercentage != nil {
+                weightAchieved = newPercentage!
+                weightLost = maxWeight - newPercentage!
+            } else {
+                weightAchieved = 0
+                weightLost = 0
+            }
         }
     }
 
     func format(school: School) -> String {
         switch school.gradingSystem {
         case System.twelvePoint:
-            return "\(twelvePoint)"
+            let displayGrade = twelvePoint
+            return displayGrade == nil ? "" : String(displayGrade!)
         default:
             return formattedPercentage()
         }
@@ -87,9 +101,14 @@ struct Grade {
     }
 
     func formattedPercentage() -> String {
+        let displayPercentage = percentage
+        if percentage == nil {
+            return ""
+        }
+
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
-        return formatter.string(from: NSDecimalNumber(decimal: percentage / 100))!
+        return formatter.string(from: NSDecimalNumber(decimal: displayPercentage! / 100))!
     }
 
     enum System {

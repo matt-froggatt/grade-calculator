@@ -57,7 +57,11 @@ struct CourseProgress: View {
 
                     Capsule()
                         .offset(
-                            x: CGFloat((goal.percentage as NSDecimalNumber).doubleValue / 100) * geometry.size.width,
+                            x: CGFloat(
+                                NSDecimalNumber(
+                                    decimal: goal.percentage!
+                                ).doubleValue / 100
+                            ) * geometry.size.width,
                             y: 0
                         )
                         .foregroundColor(.yellow)

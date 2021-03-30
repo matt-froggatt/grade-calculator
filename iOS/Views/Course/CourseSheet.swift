@@ -28,7 +28,7 @@ struct CourseSheet: View {
 
                 HStack {
                     Text("Goal").font(.headline)
-                    DecimalField(message: "Goal", number: $goal.percentage)
+                    DecimalField(message: "Goal", number: Binding($goal.percentage)!)
                         .multilineTextAlignment(.trailing)
                         .fixedSize()
                     Text("%").font(.subheadline).foregroundColor(.secondary)

@@ -131,7 +131,6 @@ struct CourseDetail_Previews: PreviewProvider {
                 id: 1,
                 name: "CS 251",
                 credits: 0.5,
-                grade: Grade(weightAchieved: 30, weightLost: 10),
                 goal: Grade(percentage: 80),
                 school: School(name: .UW),
                 assignments: [
