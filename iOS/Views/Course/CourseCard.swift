@@ -22,9 +22,11 @@ struct CourseCard: View {
                         Text(courseName)
                             .foregroundColor(.primary)
                             .font(.title)
-                        Text("\(school.formatName()) - \(NSDecimalNumber(decimal: credits)) credits")
-                            .foregroundColor(.secondary)
-                            .font(.subheadline)
+                        Text(
+                            "\(school.formatName()) - \(NSDecimalNumber(decimal: credits)) credits"
+                        )
+                        .foregroundColor(.secondary)
+                        .font(.subheadline)
                     }
 
                     Spacer()

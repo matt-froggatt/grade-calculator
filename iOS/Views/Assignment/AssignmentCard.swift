@@ -41,6 +41,10 @@ struct AssignmentCard: View {
 
 struct AssignmentCard_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentCard(name: "Test Assignment", weight: 5.0, grade: Grade(percentage: 95))
+        AssignmentCard(
+            name: "Test Assignment",
+            weight: 5.0,
+            grade: Grade(percentage: 95)
+        )
     }
 }

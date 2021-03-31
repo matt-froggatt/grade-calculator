@@ -27,7 +27,9 @@ struct CourseList: View {
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(courses) { course in
-                        NavigationLink(destination: CourseDetail(course: course)) {
+                        NavigationLink(
+                            destination: CourseDetail(course: course)
+                        ) {
                             CourseCard(
                                 courseName: course.name,
                                 school: course.school,
@@ -44,11 +46,13 @@ struct CourseList: View {
             ScrollView(.vertical) {
                 LazyVStack {
                     ForEach(courses) { course in
-                        NavigationLink(destination: CourseDetail(course: course)) {
+                        NavigationLink(
+                            destination: CourseDetail(course: course)
+                        ) {
                             DeletableRow(
                                 availableWidth: 385,
                                 item: String(course.id),
-                                deletionCallback: {(_: String) -> Void in },
+                                deletionCallback: { (_: String) -> Void in },
                                 currentUserInteractionCellID: $currentUserInteractionCellID,
                                 content: {
                                     CourseCard(

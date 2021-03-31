@@ -14,7 +14,10 @@ struct Home: View {
     var body: some View {
         TabView {
             NavigationView {
-                SingleSemesterCourseList(courses: courses, title: "Current Semester")
+                SingleSemesterCourseList(
+                    courses: courses,
+                    title: "Current Semester"
+                )
             }
             .tabItem {
                 Label("Courses", systemImage: "star")
@@ -42,7 +45,12 @@ struct Home_Previews: PreviewProvider {
                     goal: Grade(percentage: 90),
                     school: School(name: .UW),
                     assignments: [
-                        Assignment(id: 1, name: "Test 1", weight: 15),
+                        Assignment(
+                            id: 1,
+                            name: "Test 1",
+                            weight: 15,
+                            grade: Grade(weightAchieved: 0, weightLost: 0)
+                        ),
                         Assignment(
                             id: 2,
                             name: "Test 2",

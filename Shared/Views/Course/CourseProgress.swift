@@ -38,7 +38,10 @@ struct CourseProgress: View {
                 ZStack(alignment: .leading) {
                     Capsule()
                         .fill(Color.gray)
-                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                        .frame(
+                            width: geometry.size.width,
+                            height: geometry.size.height / 2
+                        )
                     Capsule()
                         .fill(Color.red)
                         .frame(
@@ -51,7 +54,7 @@ struct CourseProgress: View {
                         .fill(Color.green)
                         .frame(
                             width: geometry.size.width *
-                                ((cgfloatWeightAchieved) / cgfloatMaxWeight),
+                                (cgfloatWeightAchieved / cgfloatMaxWeight),
                             height: geometry.size.height / 2
                         )
 

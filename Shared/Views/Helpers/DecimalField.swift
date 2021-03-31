@@ -5,8 +5,8 @@
 //  Created by Matthew Froggatt on 2021-03-19.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct DecimalField: View {
     var message: String

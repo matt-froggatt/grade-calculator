@@ -13,23 +13,23 @@ struct SingleSemesterCourseList: View {
     var title: String
 
     var body: some View {
-            CourseList(direction: .vertical, courses: courses)
-                .toolbar {
-                    AddButton {
-                        showCourseSheet = true
-                    }
-                    .sheet(isPresented: $showCourseSheet) {
-                        NavigationView {
-                            CourseSheet(
-                                name: "New Course",
-                                credits: 0.5,
-                                goal: Grade(percentage: 90),
-                                school: School(name: .UW)
-                            )
-                        }
+        CourseList(direction: .vertical, courses: courses)
+            .toolbar {
+                AddButton {
+                    showCourseSheet = true
+                }
+                .sheet(isPresented: $showCourseSheet) {
+                    NavigationView {
+                        CourseSheet(
+                            name: "New Course",
+                            credits: 0.5,
+                            goal: Grade(percentage: 90),
+                            school: School(name: .UW)
+                        )
                     }
                 }
-                .navigationTitle(Text(title))
+            }
+            .navigationTitle(Text(title))
     }
 }
 

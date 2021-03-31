@@ -22,7 +22,7 @@ struct School {
     }
 
     func formatName() -> String {
-        return name.rawValue
+        name.rawValue
     }
 
     enum SchoolName: String {

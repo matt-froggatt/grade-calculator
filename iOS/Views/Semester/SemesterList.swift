@@ -47,7 +47,10 @@ struct SemesterList: View {
                                 }
                             }
                         }
-                        CourseList(direction: .horizontal, courses: semester.courses)
+                        CourseList(
+                            direction: .horizontal,
+                            courses: semester.courses
+                        )
                         Divider()
                             .padding(.leading)
                     }

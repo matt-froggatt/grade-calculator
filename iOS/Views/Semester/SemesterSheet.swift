@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SemesterSheet: View {
-    private static let years = Array(Array(2000...2020).reversed())
+    private static let years = Array(Array(2000 ... 2020).reversed())
     private static let terms = ["Fall", "Winter", "Spring"]
     @Environment(\.presentationMode) var presentationMode
     @State private var yearSelection = years[0]

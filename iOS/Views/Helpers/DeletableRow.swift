@@ -33,7 +33,7 @@ struct DeletableRow<Content: View>: View {
     }
 
     func rightGroup() -> [SwipeCellActionItem] {
-        return [
+        [
             SwipeCellActionItem(
                 buttonView: {
                     self.trashView(swipeOut: false)
@@ -56,8 +56,12 @@ struct DeletableRow<Content: View>: View {
     func trashView(swipeOut: Bool) -> AnyView {
         Card {
             VStack(spacing: 3) {
-                Image(systemName: "trash").font(.system(size: swipeOut ? 28 : 22)).foregroundColor(.red)
-                Text("Delete").fixedSize().font(.system(size: swipeOut ? 16 : 12)).foregroundColor(.red)
+                Image(systemName: "trash")
+                    .font(.system(size: swipeOut ? 28 : 22))
+                    .foregroundColor(.red)
+                Text("Delete").fixedSize()
+                    .font(.system(size: swipeOut ? 16 : 12))
+                    .foregroundColor(.red)
             }
             .padding()
         }
@@ -75,7 +79,7 @@ struct PreviewWrapper: View {
         DeletableRow(
             availableWidth: 400,
             item: "hello",
-            deletionCallback: {(_: String) -> Void in } ,
+            deletionCallback: { (_: String) -> Void in },
             currentUserInteractionCellID: $thing,
             content: {
                 CourseCard(

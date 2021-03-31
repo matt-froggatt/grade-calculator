@@ -21,11 +21,15 @@ struct Course: Identifiable {
 
         assignments.forEach { assignment in
             if assignment.grade != nil {
-                weightAchieved += assignment.grade!.weightAchieved * assignment.weight
+                weightAchieved += assignment.grade!.weightAchieved * assignment
+                    .weight
                 weightLost += assignment.grade!.weightLost * assignment.weight
             }
         }
 
-        return Grade(weightAchieved: weightAchieved / 100, weightLost: weightLost / 100)
+        return Grade(
+            weightAchieved: weightAchieved / 100,
+            weightLost: weightLost / 100
+        )
     }
 }

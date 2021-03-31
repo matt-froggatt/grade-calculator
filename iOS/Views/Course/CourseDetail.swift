@@ -35,7 +35,6 @@ struct CourseDetail: View {
                     Text("\(NSDecimalNumber(decimal: course.credits))")
                         .font(.body)
                         .foregroundColor(.primary)
-
                 }
                 HStack {
                     Text("School")
@@ -44,7 +43,6 @@ struct CourseDetail: View {
                     Text("\(course.school.formatName())")
                         .font(.body)
                         .foregroundColor(.primary)
-
                 }
                 HStack {
                     Text("Goal")
@@ -56,19 +54,20 @@ struct CourseDetail: View {
                 }
             }
 
-            Section(header:
-                        HStack {
-                            Text("Assignments")
-                            Spacer()
-                            AddButton {
-                                assignmentDetailSheet = Assignment(
-                                    id: 99,
-                                    name: "New Assignment",
-                                    weight: 0,
-                                    grade: nil
-                                )
-                            }
-                        }) {
+            Section(
+                header: HStack {
+                    Text("Assignments")
+                    Spacer()
+                    AddButton {
+                        assignmentDetailSheet = Assignment(
+                            id: 99,
+                            name: "New Assignment",
+                            weight: 0,
+                            grade: nil
+                        )
+                    }
+                }
+            ) {
                 ForEach(course.assignments) { assignment in
                     ZStack {
                         AssignmentCard(
@@ -135,7 +134,12 @@ struct CourseDetail_Previews: PreviewProvider {
                 school: School(name: .UW),
                 assignments: [
                     Assignment(id: 1, name: "Test 1", weight: 5),
-                    Assignment(id: 2, name: "Test 2", weight: 10, grade: Grade(percentage: 95))
+                    Assignment(
+                        id: 2,
+                        name: "Test 2",
+                        weight: 10,
+                        grade: Grade(percentage: 95)
+                    )
                 ]
             )
         )

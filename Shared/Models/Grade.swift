@@ -30,29 +30,29 @@ struct Grade {
         }
 
         switch currentMark! {
-        case 0..<50:
+        case 0 ..< 50:
             return 0
-        case 50..<53:
+        case 50 ..< 53:
             return 1
-        case 53..<57:
+        case 53 ..< 57:
             return 2
-        case 57..<60:
+        case 57 ..< 60:
             return 3
-        case 60..<63:
+        case 60 ..< 63:
             return 4
-        case 63..<67:
+        case 63 ..< 67:
             return 5
-        case 67..<70:
+        case 67 ..< 70:
             return 6
-        case 70..<73:
+        case 70 ..< 73:
             return 7
-        case 73..<77:
+        case 73 ..< 77:
             return 8
-        case 77..<80:
+        case 77 ..< 80:
             return 9
-        case 80..<85:
+        case 80 ..< 85:
             return 10
-        case 85..<90:
+        case 85 ..< 90:
             return 11
         default:
             return 12
@@ -61,7 +61,7 @@ struct Grade {
 
     var percentage: Decimal? {
         get {
-            if weightAchieved == 0 && weightLost == 0 {
+            if weightAchieved == 0, weightLost == 0 {
                 return nil
             }
 
