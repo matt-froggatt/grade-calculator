@@ -256,12 +256,12 @@
 			isa = PBXGroup;
 			children = (
 				35F0D495260277B00022BDC7 /* Grade.swift */,
-				35F0D4A826027A3D0022BDC7 /* School.swift */,
 				3556331C2602E19F00485751 /* Course.swift */,
 				355110BD2603B43A00AE50CD /* Semester.swift */,
 				35FA4D822603F6B000284BF6 /* Assignment.swift */,
 				351B91F426154655005FDD0F /* GradeConversionMap.swift */,
 				359E99F52615704800364026 /* GradeSystem.swift */,
+				35F0D4A826027A3D0022BDC7 /* School.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
