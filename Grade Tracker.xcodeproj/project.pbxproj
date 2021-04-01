@@ -35,6 +35,10 @@
 		359E99F72615704800364026 /* GradeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E99F52615704800364026 /* GradeSystem.swift */; };
 		359E9A0126157BB000364026 /* ProgressCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9A0026157BB000364026 /* ProgressCapsule.swift */; };
 		359E9A0226157BB000364026 /* ProgressCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9A0026157BB000364026 /* ProgressCapsule.swift */; };
+		359E9A082616091200364026 /* ProgressPositionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9A072616091200364026 /* ProgressPositionIndicator.swift */; };
+		359E9A092616091200364026 /* ProgressPositionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9A072616091200364026 /* ProgressPositionIndicator.swift */; };
+		359E9A0F26160E6C00364026 /* MultiProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9A0E26160E6C00364026 /* MultiProgressBar.swift */; };
+		359E9A1026160E6C00364026 /* MultiProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359E9A0E26160E6C00364026 /* MultiProgressBar.swift */; };
 		35A7D9632603883A00A4263E /* CourseDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A7D9622603883A00A4263E /* CourseDetail.swift */; };
 		35A7D9642603883A00A4263E /* CourseDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A7D9622603883A00A4263E /* CourseDetail.swift */; };
 		35B64DF625F83EDF00B1786D /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B64DF525F83EDF00B1786D /* Tests_iOS.swift */; };
@@ -97,6 +101,8 @@
 		3593497A2603CD260050B054 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		359E99F52615704800364026 /* GradeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSystem.swift; sourceTree = "<group>"; };
 		359E9A0026157BB000364026 /* ProgressCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCapsule.swift; sourceTree = "<group>"; };
+		359E9A072616091200364026 /* ProgressPositionIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPositionIndicator.swift; sourceTree = "<group>"; };
+		359E9A0E26160E6C00364026 /* MultiProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiProgressBar.swift; sourceTree = "<group>"; };
 		35A7D9622603883A00A4263E /* CourseDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetail.swift; sourceTree = "<group>"; };
 		35B64DD825F83EDC00B1786D /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		35B64DD925F83EDC00B1786D /* Grade_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade_TrackerApp.swift; sourceTree = "<group>"; };
@@ -170,6 +176,8 @@
 				3564082A2607FFED00E54E0B /* AddButton.swift */,
 				352CDA192613697D00D41339 /* Card.swift */,
 				359E9A0026157BB000364026 /* ProgressCapsule.swift */,
+				359E9A072616091200364026 /* ProgressPositionIndicator.swift */,
+				359E9A0E26160E6C00364026 /* MultiProgressBar.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -530,6 +538,7 @@
 				3556331D2602E19F00485751 /* Course.swift in Sources */,
 				352CDA2B2613727E00D41339 /* CourseList.swift in Sources */,
 				35472373260572400052A4E6 /* DecimalField.swift in Sources */,
+				359E9A0F26160E6C00364026 /* MultiProgressBar.swift in Sources */,
 				352CDA1A2613697D00D41339 /* Card.swift in Sources */,
 				35F0D48A260242FC0022BDC7 /* CourseCard.swift in Sources */,
 				355110BE2603B43A00AE50CD /* Semester.swift in Sources */,
@@ -547,6 +556,7 @@
 				35A7D9632603883A00A4263E /* CourseDetail.swift in Sources */,
 				3593497B2603CD260050B054 /* Home.swift in Sources */,
 				359E9A0126157BB000364026 /* ProgressCapsule.swift in Sources */,
+				359E9A082616091200364026 /* ProgressPositionIndicator.swift in Sources */,
 				3564083526092EF100E54E0B /* CourseSheet.swift in Sources */,
 				355632F326028F9400485751 /* CourseProgress.swift in Sources */,
 			);
@@ -562,6 +572,7 @@
 				35B64E0625F83EDF00B1786D /* Grade_TrackerApp.swift in Sources */,
 				3556331E2602E19F00485751 /* Course.swift in Sources */,
 				35F0D48B260242FC0022BDC7 /* CourseCard.swift in Sources */,
+				359E9A1026160E6C00364026 /* MultiProgressBar.swift in Sources */,
 				355110BF2603B43A00AE50CD /* Semester.swift in Sources */,
 				35B64E0A25F83EDF00B1786D /* Persistence.swift in Sources */,
 				35FA4D9D2603F77400284BF6 /* AssignmentCard.swift in Sources */,
@@ -572,6 +583,7 @@
 				3564083626092EF100E54E0B /* CourseSheet.swift in Sources */,
 				355633132602E14100485751 /* SingleSemesterCourseList.swift in Sources */,
 				35F0D497260277B00022BDC7 /* Grade.swift in Sources */,
+				359E9A092616091200364026 /* ProgressPositionIndicator.swift in Sources */,
 				35A7D9642603883A00A4263E /* CourseDetail.swift in Sources */,
 				3593497C2603CD260050B054 /* Home.swift in Sources */,
 				351B91F626154655005FDD0F /* GradeConversionMap.swift in Sources */,

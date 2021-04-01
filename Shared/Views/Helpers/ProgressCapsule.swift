@@ -19,9 +19,8 @@ struct ProgressCapsule: View {
                     width: geometry.size.width
                         * (progress
                             / total),
-                    height: geometry.size.height / 2
+                    height: geometry.size.height
                 )
-                .offset(y: geometry.size.height / 4)
         }
     }
 }

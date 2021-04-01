@@ -18,56 +18,47 @@ struct CourseProgress: View {
             CGFloat(truncating: NSDecimalNumber(decimal: grade.weightLost))
         let cgfloatMaxWeight =
             CGFloat(truncating: NSDecimalNumber(decimal: grade.maxWeight))
+        let cgfloatGoalPercentage =
+            CGFloat(truncating: NSDecimalNumber(decimal: goal.weightAchieved))
+        let percentageWeightAchieved: String = grade.format(
+            system: .percentage,
+            segment: .weightAchieved
+        )
+        let percentageWeightLost: String = grade.format(
+            system: .percentage,
+            segment: .weightLost
+        )
+        let goalPercentage: String = grade.format(
+            system: .percentage,
+            segment: .weightLost
+        )
 
         VStack(alignment: .leading) {
             HStack {
-                Text(grade
-                    .format(system: .percentage, segment: .weightAchieved))
+                Text(percentageWeightAchieved)
                     .foregroundColor(.green)
 
                 Spacer()
 
-                Text(grade.format(system: .percentage, segment: .weightLost))
+                Text(percentageWeightLost)
                     .foregroundColor(.red)
 
                 Spacer()
 
-                Text(goal.format(system: .percentage, segment: .overall))
+                Text(goalPercentage)
                     .foregroundColor(.yellow)
             }
             .padding(.horizontal)
             .font(.footnote)
 
-            ZStack(alignment: .leading) {
-                ProgressCapsule()
-                    .accentColor(.gray)
-                ProgressCapsule(
-                    progress: cgfloatWeightAchieved + cgfloatWeightLost,
-                    total: cgfloatMaxWeight
-                )
-                .accentColor(.red)
-                ProgressCapsule(
-                    progress: cgfloatWeightAchieved,
-                    total: cgfloatMaxWeight
-                )
-                .accentColor(.green)
-
-                GeometryReader { geometry in
-                    Capsule()
-                        .offset(
-                            x: CGFloat(
-                                NSDecimalNumber(
-                                    decimal: goal.percentage!
-                                ).doubleValue / 100
-                            ) * geometry.size.width,
-                            y: 0
-                        )
-                        .foregroundColor(.yellow)
-                        .frame(width: 5)
-                        .shadow(radius: 2)
-                }
-            }
-            .frame(height: 20)
+            MultiProgressBar(
+                progress1: cgfloatWeightAchieved,
+                progress2: cgfloatWeightLost,
+                total: cgfloatMaxWeight,
+                barHeight: 10,
+                indicatedPosition: cgfloatGoalPercentage,
+                indicatorHeight: 20
+            )
         }
     }
 }
