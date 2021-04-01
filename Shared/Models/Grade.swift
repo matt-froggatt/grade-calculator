@@ -86,6 +86,24 @@ struct Grade {
     }
 
     enum System {
+        var formatFunction: (Decimal) -> String {
+            switch self {
+            case .percentage:
+                return { percentageGrade in
+                    let formatter = NumberFormatter()
+                    formatter.numberStyle = .percent
+                    return formatter
+                        .string(from: NSDecimalNumber(decimal: percentageGrade /
+                                100))!
+                }
+
+            case .twelvePoint:
+                return { percentageGrade in
+                    String(twelvePointMap[percentageGrade]!)
+                }
+            }
+        }
+
         case percentage, twelvePoint
     }
 
@@ -118,46 +136,14 @@ struct Grade {
         return temp != nil && temp! < 0 ? nil : temp
     }
 
-    private func segmentAsTwelvePoint(segment: Segment) -> Int? {
-        let currentMark = segmentAsPercentage(segment: segment)
-
-        if currentMark == nil {
-            return nil
-        }
-
-        print(twelvePointMap[currentMark!] as Any)
-
-        return twelvePointMap[currentMark!]
-    }
-
-    private func formattedTwelvePoint(segment: Segment) -> String {
-        let displayTwelvePoint = segmentAsTwelvePoint(segment: segment)
-        if displayTwelvePoint == nil {
-            return ""
-        }
-
-        return String(displayTwelvePoint!)
-    }
-
-    private func formattedPercentage(segment: Segment) -> String {
-        let displayPercentage = segmentAsPercentage(segment: segment)
-        if displayPercentage == nil {
-            return ""
-        }
-
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .percent
-        return formatter
-            .string(from: NSDecimalNumber(decimal: displayPercentage! / 100))!
-    }
-
     func format(system: System, segment: Segment = .overall) -> String {
-        switch system {
-        case .twelvePoint:
-            return formattedTwelvePoint(segment: segment)
-        case .percentage:
-            return formattedPercentage(segment: segment)
+        let percentageGrade = segmentAsPercentage(segment: segment)
+
+        if percentageGrade == nil {
+            return ""
         }
+
+        return system.formatFunction(percentageGrade!)
     }
 
     func format(school: School, segment: Segment = .overall) -> String {
