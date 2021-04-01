@@ -9,7 +9,7 @@ import Foundation
 
 struct School {
     var name: SchoolName
-    var gradingSystem: Grade.System
+    var gradingSystem: GradeSystem
 
     init(name: SchoolName) {
         self.name = name
