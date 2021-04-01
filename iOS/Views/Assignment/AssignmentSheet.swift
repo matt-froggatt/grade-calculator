@@ -23,8 +23,8 @@ struct AssignmentSheet: View {
                     Text("Name").font(.headline)
                     TextField("Name", text: $assignment.name)
                         .onAppear {
-                            if assignment.grade != nil && assignment.grade!.percentage != nil {
-                                numerator = assignment.grade!.percentage!
+                            if assignment.grade.percentage != nil {
+                                numerator = assignment.grade.percentage!
                             }
                         }
                 }
@@ -73,7 +73,8 @@ struct AssignmentSheet_Previews: PreviewProvider {
         AssignmentSheet(assignment: Assignment(
             id: 1,
             name: "Assignment without grade",
-            weight: 10
+            weight: 10,
+            grade: Grade()
         ))
     }
 }

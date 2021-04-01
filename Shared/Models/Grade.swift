@@ -39,7 +39,7 @@ struct Grade {
         weightLost = maxWeight - weightAchieved
     }
 
-    init(weightAchieved: Decimal, weightLost: Decimal) {
+    init(weightAchieved: Decimal = 0, weightLost: Decimal = 0) {
         self.weightAchieved = weightAchieved
         self.weightLost = weightLost
     }

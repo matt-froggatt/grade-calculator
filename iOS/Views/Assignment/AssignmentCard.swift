@@ -10,7 +10,7 @@ import SwiftUI
 struct AssignmentCard: View {
     var name: String
     var weight: Decimal
-    var grade: Grade?
+    var grade: Grade
 
     var body: some View {
         Card {
@@ -27,11 +27,9 @@ struct AssignmentCard: View {
 
                     Spacer()
 
-                    if grade != nil {
-                        Text(grade!.format(system: .percentage))
-                            .foregroundColor(.primary)
-                            .font(.title)
-                    }
+                    Text(grade.format(system: .percentage))
+                        .foregroundColor(.primary)
+                        .font(.title)
                 }
             }
             .padding()

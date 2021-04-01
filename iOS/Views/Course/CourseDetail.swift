@@ -63,7 +63,7 @@ struct CourseDetail: View {
                             id: 99,
                             name: "New Assignment",
                             weight: 0,
-                            grade: nil
+                            grade: Grade()
                         )
                     }
                 }
@@ -133,7 +133,7 @@ struct CourseDetail_Previews: PreviewProvider {
                 goal: Grade(percentage: 80),
                 school: .UW,
                 assignments: [
-                    Assignment(id: 1, name: "Test 1", weight: 5),
+                    Assignment(id: 1, name: "Test 1", weight: 5, grade: Grade()),
                     Assignment(
                         id: 2,
                         name: "Test 2",

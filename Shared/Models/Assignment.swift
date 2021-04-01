@@ -11,5 +11,5 @@ struct Assignment: Identifiable {
     var id: Int
     var name: String
     var weight: Decimal
-    var grade: Grade?
+    var grade: Grade
 }

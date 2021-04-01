@@ -20,10 +20,10 @@ struct Course: Identifiable {
         var weightLost: Decimal = 0
 
         assignments.forEach { assignment in
-            if assignment.grade != nil {
-                weightAchieved += assignment.grade!.weightAchieved * assignment
+            if assignment.grade.percentage != nil {
+                weightAchieved += assignment.grade.weightAchieved * assignment
                     .weight
-                weightLost += assignment.grade!.weightLost * assignment.weight
+                weightLost += assignment.grade.weightLost * assignment.weight
             }
         }
 
