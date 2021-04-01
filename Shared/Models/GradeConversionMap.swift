@@ -8,39 +8,40 @@
 import Foundation
 
 struct GradeRange<T> {
-    var range: Range<Decimal>
+    var floor: Decimal?
     var grade: T
 }
 
 struct GradeConversionMap<T> {
-    var percentageRanges = [Range<Decimal>]()
-    var grades = [T]()
+    var floors: [Decimal?]
+    var grades: [T]
 
     init(grades: [GradeRange<T>]) {
-        for grade in grades {
-            append(range: grade.range, grade: grade.grade)
+        self.floors = [grades.first!.floor]
+        self.grades = [grades.first!.grade]
+        for grade in grades.dropFirst() {
+            append(floor: grade.floor, grade: grade.grade)
         }
     }
 
-    private func overlapsExisting(range: Range<Decimal>) -> Bool {
-        for existingRange in percentageRanges
-            where range.overlaps(existingRange) {
+    private func overlapsExisting(floor: Decimal?) -> Bool {
+        for existingFloor in floors
+            where floor == existingFloor || (existingFloor != nil && floor != nil && floor! <= existingFloor!) {
             return true
         }
         return false
     }
 
-    private mutating func append(range: Range<Decimal>, grade: T) {
-        // You can check for overlapping range here if you want
-        if !overlapsExisting(range: range) {
-            percentageRanges.append(range)
+    private mutating func append(floor: Decimal?, grade: T) {
+        if !overlapsExisting(floor: floor) {
+            floors.append(floor)
             grades.append(grade)
         }
     }
 
     subscript(value: Decimal) -> T? {
-        for (i, range) in percentageRanges.enumerated() where range ~= value {
-            return grades[i]
+        for (i, floor) in floors.reversed().enumerated() where floor == nil || value >= floor! {
+            return grades[grades.count - i - 1]
         }
 
         return nil

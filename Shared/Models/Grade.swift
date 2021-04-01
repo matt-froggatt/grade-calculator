@@ -9,55 +9,55 @@ import Foundation
 
 let twelvePointMap = GradeConversionMap(grades: [
     GradeRange(
-        range: 0 ..< 50,
+        floor: nil,
         grade: 0
     ),
     GradeRange(
-        range: 50 ..< 53,
+        floor: 50,
         grade: 1
     ),
     GradeRange(
-        range: 53 ..< 57,
+        floor: 53,
         grade: 2
     ),
     GradeRange(
-        range: 57 ..< 60,
+        floor: 57,
         grade: 3
     ),
     GradeRange(
-        range: 60 ..< 63,
+        floor: 60,
         grade: 4
     ),
     GradeRange(
-        range: 63 ..< 67,
+        floor: 63,
         grade: 5
     ),
     GradeRange(
-        range: 67 ..< 70,
+        floor: 67,
         grade: 6
     ),
     GradeRange(
-        range: 70 ..< 73,
+        floor: 70,
         grade: 7
     ),
     GradeRange(
-        range: 73 ..< 77,
+        floor: 73,
         grade: 8
     ),
     GradeRange(
-        range: 77 ..< 80,
+        floor: 77,
         grade: 9
     ),
     GradeRange(
-        range: 80 ..< 85,
+        floor: 80,
         grade: 10
     ),
     GradeRange(
-        range: 85 ..< 90,
+        floor: 85,
         grade: 11
     ),
     GradeRange(
-        range: 90 ..< 101,
+        floor: 90,
         grade: 12
     )
 ])
