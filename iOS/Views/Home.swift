@@ -81,7 +81,20 @@ struct Home_Previews: PreviewProvider {
                     credits: 1.0,
                     goal: Grade(percentage: 80),
                     school: School(name: .WLU),
-                    assignments: []
+                    assignments: [
+                        Assignment(
+                            id: 1,
+                            name: "Test 1",
+                            weight: 26,
+                            grade: Grade(percentage: 95)
+                        ),
+                        Assignment(
+                            id: 2,
+                            name: "Test 2",
+                            weight: 30,
+                            grade: Grade(percentage: 100)
+                        )
+                    ]
                 ),
                 Course(
                     id: 5,

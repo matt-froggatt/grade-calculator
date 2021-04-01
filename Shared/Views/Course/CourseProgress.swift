@@ -18,17 +18,17 @@ struct CourseProgress: View {
 
         VStack(alignment: .leading) {
             HStack {
-                Text(grade.formattedWeightAchieved())
+                Text(grade.format(system: .percentage, segment: .weightAchieved))
                     .foregroundColor(.green)
 
                 Spacer()
 
-                Text(grade.formattedWeightLost())
+                Text(grade.format(system: .percentage, segment: .weightLost))
                     .foregroundColor(.red)
 
                 Spacer()
 
-                Text(goal.formattedPercentage())
+                Text(goal.format(system: .percentage, segment: .overall))
                     .foregroundColor(.yellow)
             }
             .padding(.horizontal)

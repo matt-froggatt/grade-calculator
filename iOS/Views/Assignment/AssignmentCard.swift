@@ -28,7 +28,7 @@ struct AssignmentCard: View {
                     Spacer()
 
                     if grade != nil {
-                        Text(grade!.formattedPercentage())
+                        Text(grade!.format(system: .percentage))
                             .foregroundColor(.primary)
                             .font(.title)
                     }

@@ -7,61 +7,68 @@
 
 import Foundation
 
+let twelvePointMap = GradeConversionMap(grades: [
+    GradeRange(
+        range: 0 ..< 50,
+        grade: 0
+    ),
+    GradeRange(
+        range: 50 ..< 53,
+        grade: 1
+    ),
+    GradeRange(
+        range: 53 ..< 57,
+        grade: 2
+    ),
+    GradeRange(
+        range: 57 ..< 60,
+        grade: 3
+    ),
+    GradeRange(
+        range: 60 ..< 63,
+        grade: 4
+    ),
+    GradeRange(
+        range: 63 ..< 67,
+        grade: 5
+    ),
+    GradeRange(
+        range: 67 ..< 70,
+        grade: 6
+    ),
+    GradeRange(
+        range: 70 ..< 73,
+        grade: 7
+    ),
+    GradeRange(
+        range: 73 ..< 77,
+        grade: 8
+    ),
+    GradeRange(
+        range: 77 ..< 80,
+        grade: 9
+    ),
+    GradeRange(
+        range: 80 ..< 85,
+        grade: 10
+    ),
+    GradeRange(
+        range: 85 ..< 90,
+        grade: 11
+    ),
+    GradeRange(
+        range: 90 ..< 101,
+        grade: 12
+    )
+])
+
 struct Grade {
     let maxWeight: Decimal = 100
     var weightAchieved: Decimal
     var weightLost: Decimal
-
-    init(percentage: Decimal) {
-        weightAchieved = percentage
-        weightLost = maxWeight - weightAchieved
-    }
-
-    init(weightAchieved: Decimal, weightLost: Decimal) {
-        self.weightAchieved = weightAchieved
-        self.weightLost = weightLost
-    }
-
-    private var twelvePoint: Int? {
-        let currentMark = percentage
-
-        if currentMark == nil {
-            return nil
-        }
-
-        switch currentMark! {
-        case 0 ..< 50:
-            return 0
-        case 50 ..< 53:
-            return 1
-        case 53 ..< 57:
-            return 2
-        case 57 ..< 60:
-            return 3
-        case 60 ..< 63:
-            return 4
-        case 63 ..< 67:
-            return 5
-        case 67 ..< 70:
-            return 6
-        case 70 ..< 73:
-            return 7
-        case 73 ..< 77:
-            return 8
-        case 77 ..< 80:
-            return 9
-        case 80 ..< 85:
-            return 10
-        case 85 ..< 90:
-            return 11
-        default:
-            return 12
-        }
-    }
-
     var percentage: Decimal? {
         get {
-            if weightAchieved == 0, weightLost == 0 {
+            if weightAchieved.isZero, weightLost.isZero {
                 return nil
             }
 
@@ -78,41 +85,82 @@ struct Grade {
         }
     }
 
-    func format(school: School) -> String {
-        switch school.gradingSystem {
-        case System.twelvePoint:
-            let displayGrade = twelvePoint
-            return displayGrade == nil ? "" : String(displayGrade!)
-        default:
-            return formattedPercentage()
+    enum System {
+        case percentage, twelvePoint
+    }
+
+    enum Segment {
+        case overall, weightAchieved, weightLost
+    }
+
+    init(percentage: Decimal) {
+        weightAchieved = percentage
+        weightLost = maxWeight - weightAchieved
+    }
+
+    init(weightAchieved: Decimal, weightLost: Decimal) {
+        self.weightAchieved = weightAchieved
+        self.weightLost = weightLost
+    }
+
+    private func segmentAsPercentage(segment: Segment) -> Decimal? {
+        var temp: Decimal?
+
+        switch segment {
+        case .overall:
+            temp = percentage
+        case .weightAchieved:
+            temp = weightAchieved
+        case .weightLost:
+            temp = weightLost
         }
+
+        return temp != nil && temp! < 0 ? nil : temp
     }
 
-    func formattedWeightLost() -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .percent
-        return formatter.string(from: NSDecimalNumber(decimal: weightLost / 100))!
+    private func segmentAsTwelvePoint(segment: Segment) -> Int? {
+        let currentMark = segmentAsPercentage(segment: segment)
+
+        if currentMark == nil {
+            return nil
+        }
+
+        print(twelvePointMap[currentMark!] as Any)
+
+        return twelvePointMap[currentMark!]
     }
 
-    func formattedWeightAchieved() -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .percent
-        return formatter.string(from: NSDecimalNumber(decimal: weightAchieved / 100))!
+    private func formattedTwelvePoint(segment: Segment) -> String {
+        let displayTwelvePoint = segmentAsTwelvePoint(segment: segment)
+        if displayTwelvePoint == nil {
+            return ""
+        }
+
+        return String(displayTwelvePoint!)
     }
 
-    func formattedPercentage() -> String {
-        let displayPercentage = percentage
-        if percentage == nil {
+    private func formattedPercentage(segment: Segment) -> String {
+        let displayPercentage = segmentAsPercentage(segment: segment)
+        if displayPercentage == nil {
             return ""
         }
 
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
-        return formatter.string(from: NSDecimalNumber(decimal: displayPercentage! / 100))!
+        return formatter
+            .string(from: NSDecimalNumber(decimal: displayPercentage! / 100))!
     }
 
-    enum System {
-        case percentage
-        case twelvePoint
+    func format(system: System, segment: Segment = .overall) -> String {
+        switch system {
+        case .twelvePoint:
+            return formattedTwelvePoint(segment: segment)
+        case .percentage:
+            return formattedPercentage(segment: segment)
+        }
+    }
+
+    func format(school: School, segment: Segment = .overall) -> String {
+        format(system: school.gradingSystem, segment: segment)
     }
 }
