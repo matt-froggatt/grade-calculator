@@ -81,5 +81,5 @@ enum GradeSystem {
         gradeFormatFunctions[self] ?? { _ in "Not implemented yet" }
     }
 
-    case percentage, twelvePoint
+    case percentage, twelvePoint, unsupported
 }

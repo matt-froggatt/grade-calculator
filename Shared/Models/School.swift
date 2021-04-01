@@ -7,14 +7,14 @@
 
 import Foundation
 
-let schoolGradeSystems: [School: GradeSystem] = [
+private let schoolGradeSystems: [School: GradeSystem] = [
     .UW: .percentage,
     .WLU: .twelvePoint
 ]
 
 enum School: String {
     var gradeSystem: GradeSystem {
-        return schoolGradeSystems[self] ?? .percentage
+        return schoolGradeSystems[self] ?? .unsupported
     }
 
     var name: String {
