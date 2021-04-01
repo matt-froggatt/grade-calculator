@@ -32,17 +32,14 @@ struct AssignmentSheet: View {
                     Text("Grade").font(.headline)
                     DecimalField(message: "Mark", number: $numerator)
                         .multilineTextAlignment(.trailing)
-                        .fixedSize()
                     Text("/").font(.subheadline).foregroundColor(.secondary)
                     DecimalField(message: "Total", number: $denominator)
-                        .fixedSize()
                 }
 
                 HStack {
                     Text("Weight").font(.headline)
                     DecimalField(message: "Weight", number: $assignment.weight)
                         .multilineTextAlignment(.trailing)
-                        .fixedSize()
                     Text("%").font(.subheadline).foregroundColor(.secondary)
                 }
             }
