@@ -59,7 +59,7 @@ struct CourseSheet_Previews: PreviewProvider {
             name: "CS 251",
             credits: 0.5,
             goal: Grade(percentage: 80),
-            school: School(name: .UW)
+            school: .UW
         )
     }
 }

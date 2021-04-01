@@ -24,7 +24,7 @@ struct SingleSemesterCourseList: View {
                             name: "New Course",
                             credits: 0.5,
                             goal: Grade(percentage: 90),
-                            school: School(name: .UW)
+                            school: .UW
                         )
                     }
                 }
@@ -40,7 +40,7 @@ struct CurrentCourseList_Previews: PreviewProvider {
             name: "CS 341",
             credits: 0.5,
             goal: Grade(percentage: 90),
-            school: School(name: .UW),
+            school: .UW,
             assignments: []
         ),
         Course(
@@ -48,7 +48,7 @@ struct CurrentCourseList_Previews: PreviewProvider {
             name: "BU 351",
             credits: 0.5,
             goal: Grade(percentage: 70),
-            school: School(name: .WLU),
+            school: .WLU,
             assignments: []
         ),
         Course(
@@ -56,7 +56,7 @@ struct CurrentCourseList_Previews: PreviewProvider {
             name: "CS 488",
             credits: 0.5,
             goal: Grade(percentage: 50),
-            school: School(name: .UW),
+            school: .UW,
             assignments: []
         ),
         Course(
@@ -64,7 +64,7 @@ struct CurrentCourseList_Previews: PreviewProvider {
             name: "BU 411",
             credits: 1.0,
             goal: Grade(percentage: 80),
-            school: School(name: .WLU),
+            school: .WLU,
             assignments: []
         ),
         Course(
@@ -72,7 +72,7 @@ struct CurrentCourseList_Previews: PreviewProvider {
             name: "BU 234",
             credits: 0.5,
             goal: Grade(percentage: 10),
-            school: School(name: .WLU),
+            school: .WLU,
             assignments: []
         )
     ]

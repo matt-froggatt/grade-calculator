@@ -84,7 +84,7 @@ struct PreviewWrapper: View {
             content: {
                 CourseCard(
                     courseName: "Test",
-                    school: School(name: .UW),
+                    school: .UW,
                     credits: 0.5,
                     grade: Grade(percentage: 15),
                     goal: Grade(percentage: 25)

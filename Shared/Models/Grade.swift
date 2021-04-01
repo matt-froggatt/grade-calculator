@@ -61,6 +61,6 @@ struct Grade {
     }
 
     func format(school: School, segment: Segment = .overall) -> String {
-        format(system: school.gradingSystem, segment: segment)
+        format(system: school.gradeSystem, segment: segment)
     }
 }

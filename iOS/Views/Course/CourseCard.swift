@@ -23,7 +23,7 @@ struct CourseCard: View {
                             .foregroundColor(.primary)
                             .font(.title)
                         Text(
-                            "\(school.formatName()) - \(NSDecimalNumber(decimal: credits)) credits"
+                            "\(school.name) - \(NSDecimalNumber(decimal: credits)) credits"
                         )
                         .foregroundColor(.secondary)
                         .font(.subheadline)
@@ -48,14 +48,14 @@ struct CourseCard_Previews: PreviewProvider {
         VStack {
             CourseCard(
                 courseName: "CS 246",
-                school: School(name: .UW),
+                school: .UW,
                 credits: 0.5,
                 grade: Grade(weightAchieved: 40, weightLost: 10),
                 goal: Grade(percentage: 90)
             )
             CourseCard(
                 courseName: "BU 251",
-                school: School(name: .WLU), credits: 0.5,
+                school: .WLU, credits: 0.5,
                 grade: Grade(weightAchieved: 60, weightLost: 10),
                 goal: Grade(percentage: 85)
             )

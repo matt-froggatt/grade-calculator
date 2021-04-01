@@ -40,7 +40,7 @@ struct CourseDetail: View {
                     Text("School")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    Text("\(course.school.formatName())")
+                    Text(course.school.name)
                         .font(.body)
                         .foregroundColor(.primary)
                 }
@@ -131,7 +131,7 @@ struct CourseDetail_Previews: PreviewProvider {
                 name: "CS 251",
                 credits: 0.5,
                 goal: Grade(percentage: 80),
-                school: School(name: .UW),
+                school: .UW,
                 assignments: [
                     Assignment(id: 1, name: "Test 1", weight: 5),
                     Assignment(
