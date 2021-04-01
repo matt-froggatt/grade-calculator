@@ -28,9 +28,9 @@ struct CourseProgress: View {
             system: .percentage,
             segment: .weightLost
         )
-        let goalPercentage: String = grade.format(
+        let goalPercentage: String = goal.format(
             system: .percentage,
-            segment: .weightLost
+            segment: .overall
         )
 
         VStack(alignment: .leading) {
