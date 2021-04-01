@@ -45,28 +45,19 @@ struct Grade {
     }
 
     private func segmentAsPercentage(segment: Segment) -> Decimal? {
-        var temp: Decimal?
-
         switch segment {
         case .overall:
-            temp = percentage
+            return percentage
         case .weightAchieved:
-            temp = weightAchieved
+            return weightAchieved
         case .weightLost:
-            temp = weightLost
+            return weightLost
         }
-
-        return temp != nil && temp! < 0 ? nil : temp
     }
 
     func format(system: GradeSystem, segment: Segment = .overall) -> String {
         let percentageGrade = segmentAsPercentage(segment: segment)
-
-        if percentageGrade == nil {
-            return ""
-        }
-
-        return system.formatFunction(percentageGrade!)
+        return percentageGrade == nil ? "" : system.formatFunction(percentageGrade!)
     }
 
     func format(school: School, segment: Segment = .overall) -> String {
