@@ -63,3 +63,4 @@
 --wrapreturntype preserve
 --xcodeindentation enabled
 --yodaswap always
+--disable trailingCommas

@@ -24,7 +24,7 @@ struct DecimalField: View {
     }
 
     private func showDefault() {
-        self.strNumber = !number
+        strNumber = !number
             .isZero ? "\(NSDecimalNumber(decimal: number))" : ""
     }
 

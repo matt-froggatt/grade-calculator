@@ -14,11 +14,11 @@ private let schoolGradeSystems: [School: GradeSystem] = [
 
 enum School: String {
     var gradeSystem: GradeSystem {
-        return schoolGradeSystems[self] ?? .unsupported
+        schoolGradeSystems[self] ?? .unsupported
     }
 
     var name: String {
-        return self.rawValue
+        rawValue
     }
 
     case UW, WLU

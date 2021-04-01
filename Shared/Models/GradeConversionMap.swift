@@ -7,6 +7,10 @@
 
 import Foundation
 
+private func overlappingFloors(f1: Decimal?, f2: Decimal?) -> Bool {
+    return f1 == f2 || (f2 != nil && f1 != nil && f1! <= f2!)
+}
+
 struct GradeRange<T> {
     var floor: Decimal?
     var grade: T
@@ -17,7 +21,7 @@ struct GradeConversionMap<T> {
     var grades: [T]
 
     init(grades: [GradeRange<T>]) {
-        self.floors = [grades.first!.floor]
+        floors = [grades.first!.floor]
         self.grades = [grades.first!.grade]
         for grade in grades.dropFirst() {
             append(floor: grade.floor, grade: grade.grade)
@@ -25,8 +29,7 @@ struct GradeConversionMap<T> {
     }
 
     private func overlapsExisting(floor: Decimal?) -> Bool {
-        for existingFloor in floors
-            where floor == existingFloor || (existingFloor != nil && floor != nil && floor! <= existingFloor!) {
+        for existingFloor in floors where overlappingFloors(f1: floor, f2: existingFloor) {
             return true
         }
         return false
