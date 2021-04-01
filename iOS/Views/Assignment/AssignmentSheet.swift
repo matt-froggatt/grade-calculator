@@ -19,25 +19,23 @@ struct AssignmentSheet: View {
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Text("Name").font(.headline)
+                FormEntry(label: "Name") {
                     TextField("Name", text: $assignment.name)
-                        .onAppear {
-                            if assignment.grade.percentage != nil {
-                                numerator = assignment.grade.percentage!
-                            }
-                        }
                 }
-                HStack {
-                    Text("Grade").font(.headline)
+                .onAppear {
+                    if assignment.grade.percentage != nil {
+                        numerator = assignment.grade.percentage!
+                    }
+                }
+
+                FormEntry(label: "Grade") {
                     DecimalField(message: "Mark", number: $numerator)
                         .multilineTextAlignment(.trailing)
                     Text("/").font(.subheadline).foregroundColor(.secondary)
                     DecimalField(message: "Total", number: $denominator)
                 }
 
-                HStack {
-                    Text("Weight").font(.headline)
+                FormEntry(label: "Weight") {
                     DecimalField(message: "Weight", number: $assignment.weight)
                         .multilineTextAlignment(.trailing)
                     Text("%").font(.subheadline).foregroundColor(.secondary)
@@ -61,17 +59,22 @@ struct AssignmentSheet: View {
 
 struct AssignmentSheet_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentSheet(assignment: Assignment(
-            id: 1,
-            name: "Assignment with grade",
-            weight: 10,
-            grade: Grade(percentage: 50)
-        ))
-        AssignmentSheet(assignment: Assignment(
-            id: 1,
-            name: "Assignment without grade",
-            weight: 10,
-            grade: Grade()
-        ))
+        NavigationView {
+            AssignmentSheet(assignment: Assignment(
+                id: 1,
+                name: "Assignment with grade",
+                weight: 10,
+                grade: Grade(percentage: 50)
+            ))
+        }
+
+        NavigationView {
+            AssignmentSheet(assignment: Assignment(
+                id: 1,
+                name: "Assignment without grade",
+                weight: 10,
+                grade: Grade()
+            ))
+        }
     }
 }
