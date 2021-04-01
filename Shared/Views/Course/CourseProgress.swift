@@ -12,13 +12,17 @@ struct CourseProgress: View {
     var goal: Grade
 
     var body: some View {
-        let cgfloatWeightAchieved = CGFloat(truncating: NSDecimalNumber(decimal: grade.weightAchieved))
-        let cgfloatWeightLost = CGFloat(truncating: NSDecimalNumber(decimal: grade.weightLost))
-        let cgfloatMaxWeight = CGFloat(truncating: NSDecimalNumber(decimal: grade.maxWeight))
+        let cgfloatWeightAchieved =
+            CGFloat(truncating: NSDecimalNumber(decimal: grade.weightAchieved))
+        let cgfloatWeightLost =
+            CGFloat(truncating: NSDecimalNumber(decimal: grade.weightLost))
+        let cgfloatMaxWeight =
+            CGFloat(truncating: NSDecimalNumber(decimal: grade.maxWeight))
 
         VStack(alignment: .leading) {
             HStack {
-                Text(grade.format(system: .percentage, segment: .weightAchieved))
+                Text(grade
+                    .format(system: .percentage, segment: .weightAchieved))
                     .foregroundColor(.green)
 
                 Spacer()
@@ -34,30 +38,21 @@ struct CourseProgress: View {
             .padding(.horizontal)
             .font(.footnote)
 
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    Capsule()
-                        .fill(Color.gray)
-                        .frame(
-                            width: geometry.size.width,
-                            height: geometry.size.height / 2
-                        )
-                    Capsule()
-                        .fill(Color.red)
-                        .frame(
-                            width: geometry.size.width
-                                * ((cgfloatWeightAchieved + cgfloatWeightLost)
-                                    / cgfloatMaxWeight),
-                            height: geometry.size.height / 2
-                        )
-                    Capsule()
-                        .fill(Color.green)
-                        .frame(
-                            width: geometry.size.width *
-                                (cgfloatWeightAchieved / cgfloatMaxWeight),
-                            height: geometry.size.height / 2
-                        )
+            ZStack(alignment: .leading) {
+                ProgressCapsule()
+                    .accentColor(.gray)
+                ProgressCapsule(
+                    progress: cgfloatWeightAchieved + cgfloatWeightLost,
+                    total: cgfloatMaxWeight
+                )
+                .accentColor(.red)
+                ProgressCapsule(
+                    progress: cgfloatWeightAchieved,
+                    total: cgfloatMaxWeight
+                )
+                .accentColor(.green)
 
+                GeometryReader { geometry in
                     Capsule()
                         .offset(
                             x: CGFloat(
@@ -69,10 +64,10 @@ struct CourseProgress: View {
                         )
                         .foregroundColor(.yellow)
                         .frame(width: 5)
+                        .shadow(radius: 2)
                 }
             }
             .frame(height: 20)
-            .padding(.vertical, -5)
         }
     }
 }
