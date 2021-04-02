@@ -25,11 +25,6 @@ struct DeletableRow<Content: View>: View {
                 trailingSideGroup: rightGroup(),
                 currentUserInteractionCellID: $currentUserInteractionCellID
             )
-//            .onTapGesture {
-//                if self.currentUserInteractionCellID != item {
-//                    self.currentUserInteractionCellID = item
-//                }
-//            }
     }
 
     func rightGroup() -> [SwipeCellActionItem] {
