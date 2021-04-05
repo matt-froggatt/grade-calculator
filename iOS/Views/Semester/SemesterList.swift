@@ -8,54 +8,37 @@
 import SwiftUI
 
 struct SemesterList: View {
-    @State private var showAddCourseSheet = false
     @State private var showAddSemesterSheet = false
     var semesters: [Semester]
 
+    func onDelete(tmp _: IndexSet) {}
+
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                Divider()
-                    .padding(.leading)
-                ForEach(semesters) { semester in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            NavigationLink(
-                                destination: SingleSemesterCourseList(
-                                    courses: semester.courses,
-                                    title: semester.name
-                                )
-                            ) {
-                                Text(semester.name)
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .padding(.leading)
-                                Spacer()
-                            }
-                            AddButton {
-                                showAddCourseSheet = true
-                            }
-                            .padding(.trailing)
-                            .sheet(isPresented: $showAddCourseSheet) {
-                                NavigationView {
-                                    CourseSheet(
-                                        name: "New Course Name",
-                                        credits: 0,
-                                        goal: Grade(percentage: 0),
-                                        school: .UW
-                                    )
-                                }
-                            }
+        List {
+            ForEach(semesters) { semester in
+                VStack(alignment: .leading) {
+                    HStack {
+                        NavigationLink(
+                            destination: SingleSemesterCourseList(
+                                courses: semester.courses,
+                                title: semester.name
+                            )
+                        ) {
+                            Text(semester.name)
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .padding(.leading)
                         }
-                        CourseList(
-                            direction: .horizontal,
-                            courses: semester.courses
-                        )
-                        Divider()
-                            .padding(.leading)
                     }
+                    CourseList(
+                        direction: .horizontal,
+                        courses: semester.courses
+                    )
                 }
+                .listRowInsets(EdgeInsets())
+                .padding(.vertical)
             }
+            .onDelete(perform: onDelete)
         }
         .navigationTitle("All Semesters")
         .toolbar {
