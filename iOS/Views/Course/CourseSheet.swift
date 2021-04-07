@@ -17,17 +17,15 @@ struct CourseSheet: View {
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Text("Name").font(.headline)
+                FormEntry(label: "Name") {
                     TextField("Name", text: $name)
                 }
-                HStack {
-                    Text("Credits").font(.headline)
+                
+                FormEntry(label: "Credits") {
                     DecimalField(message: "Credits", number: $credits)
                 }
-
-                HStack {
-                    Text("Goal").font(.headline)
+                
+                FormEntry(label: "Goal") {
                     DecimalField(
                         message: "Goal",
                         number: Binding($goal.percentage)!
