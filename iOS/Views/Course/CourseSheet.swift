@@ -17,20 +17,21 @@ struct CourseSheet: View {
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Text("Name").font(.headline)
+                FormEntry(label: "Name") {
                     TextField("Name", text: $name)
                 }
-                HStack {
-                    Text("Credits").font(.headline)
+                
+                FormEntry(label: "Credits") {
                     DecimalField(message: "Credits", number: $credits)
                 }
-
-                HStack {
-                    Text("Goal").font(.headline)
-                    DecimalField(message: "Goal", number: $goal.percentage)
-                        .multilineTextAlignment(.trailing)
-                        .fixedSize()
+                
+                FormEntry(label: "Goal") {
+                    DecimalField(
+                        message: "Goal",
+                        number: Binding($goal.percentage)!
+                    )
+                    .multilineTextAlignment(.trailing)
+                    .fixedSize()
                     Text("%").font(.subheadline).foregroundColor(.secondary)
                 }
             }
@@ -56,7 +57,7 @@ struct CourseSheet_Previews: PreviewProvider {
             name: "CS 251",
             credits: 0.5,
             goal: Grade(percentage: 80),
-            school: School(name: .UW)
+            school: .UW
         )
     }
 }

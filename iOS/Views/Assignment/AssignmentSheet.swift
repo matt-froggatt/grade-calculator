@@ -5,8 +5,8 @@
 //  Created by Matthew Froggatt on 2021-03-19.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct AssignmentSheet: View {
     @Environment(\.presentationMode) var presentationMode
@@ -19,30 +19,20 @@ struct AssignmentSheet: View {
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Text("Name").font(.headline)
+                FormEntry(label: "Name") {
                     TextField("Name", text: $assignment.name)
-                        .onAppear {
-                            if assignment.grade != nil {
-                                numerator = assignment.grade!.percentage
-                            }
-                        }
-                }
-                HStack {
-                    Text("Grade").font(.headline)
-                    DecimalField(message: "Mark", number: $numerator)
-                        .multilineTextAlignment(.trailing)
-                        .fixedSize()
-                    Text("/").font(.subheadline).foregroundColor(.secondary)
-                    DecimalField(message: "Total", number: $denominator)
-                        .fixedSize()
                 }
 
-                HStack {
-                    Text("Weight").font(.headline)
+                FormEntry(label: "Grade") {
+                    DecimalField(message: "Mark", number: $numerator)
+                        .multilineTextAlignment(.trailing)
+                    Text("/").font(.subheadline).foregroundColor(.secondary)
+                    DecimalField(message: "Total", number: $denominator)
+                }
+
+                FormEntry(label: "Weight") {
                     DecimalField(message: "Weight", number: $assignment.weight)
                         .multilineTextAlignment(.trailing)
-                        .fixedSize()
                     Text("%").font(.subheadline).foregroundColor(.secondary)
                 }
             }
@@ -51,6 +41,11 @@ struct AssignmentSheet: View {
                 Button("Submit") {
                     presentationMode.wrappedValue.dismiss()
                 }
+            }
+        }
+        .onAppear {
+            if assignment.grade.percentage != nil {
+                numerator = assignment.grade.percentage!
             }
         }
         .navigationTitle(Text(assignment.name))
@@ -64,16 +59,22 @@ struct AssignmentSheet: View {
 
 struct AssignmentSheet_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentSheet(assignment: Assignment(
-            id: 1,
-            name: "Assignment with grade",
-            weight: 10,
-            grade: Grade(percentage: 50)
-        ))
-        AssignmentSheet(assignment: Assignment(
-            id: 1,
-            name: "Assignment without grade",
-            weight: 10
-        ))
+        NavigationView {
+            AssignmentSheet(assignment: Assignment(
+                id: 1,
+                name: "Assignment with grade",
+                weight: 10,
+                grade: Grade(percentage: 50)
+            ))
+        }
+
+        NavigationView {
+            AssignmentSheet(assignment: Assignment(
+                id: 1,
+                name: "Assignment without grade",
+                weight: 10,
+                grade: Grade()
+            ))
+        }
     }
 }

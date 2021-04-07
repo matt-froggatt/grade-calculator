@@ -8,18 +8,38 @@
 import SwiftUI
 
 struct SemesterSheet: View {
-    private static let years = Array(Array(2000...2020).reversed())
+    private static let years = Array(Array(2000 ... 2020).reversed())
     private static let terms = ["Fall", "Winter", "Spring"]
     @Environment(\.presentationMode) var presentationMode
     @State private var yearSelection = years[0]
     @State private var termSelection = terms[0]
     @State private var showYearPicker = false
 
+    private struct YearPicker: View {
+        @Binding var showYearPicker: Bool
+        @Binding var yearSelection: Int
+
+        var body: some View {
+            if showYearPicker {
+                VStack {
+                    Picker(selection: $yearSelection, label: Text("Year")) {
+                        ForEach(SemesterSheet.years, id: \.self) {
+                            Text(String($0))
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                }
+                Button("Ok") {
+                    showYearPicker = false
+                }
+            }
+        }
+    }
+
     var body: some View {
         Form {
             Section {
-                HStack {
-                    Text("Term")
+                FormEntry(label: "Term") {
                     Picker(selection: $termSelection, label: Text("Term")) {
                         ForEach(SemesterSheet.terms, id: \.self) {
                             Text($0)
@@ -28,25 +48,15 @@ struct SemesterSheet: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
 
-                HStack {
-                    Text("Year")
+                FormEntry(label: "Year") {
                     Button(String(yearSelection)) {
                         showYearPicker = !showYearPicker
                     }
                 }
-                if showYearPicker {
-                    VStack {
-                        Picker(selection: $yearSelection, label: Text("Year")) {
-                            ForEach(SemesterSheet.years, id: \.self) {
-                                Text(String($0))
-                            }
-                        }
-                        .pickerStyle(WheelPickerStyle())
-                    }
-                    Button("Ok") {
-                        showYearPicker = false
-                    }
-                }
+                YearPicker(
+                    showYearPicker: $showYearPicker,
+                    yearSelection: $yearSelection
+                )
             }
 
             Section {

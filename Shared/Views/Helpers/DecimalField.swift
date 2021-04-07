@@ -5,29 +5,34 @@
 //  Created by Matthew Froggatt on 2021-03-19.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct DecimalField: View {
     var message: String
     @Binding var number: Decimal
     @State private var strNumber = ""
 
+    private func sanitizeInput(newValue: Just<String>.Output) {
+        let filtered = newValue.filter { "0123456789.".contains($0) }
+        if filtered != newValue {
+            strNumber = filtered
+        } else {
+            let tmp = Decimal(string: strNumber)
+            number = tmp != nil ? tmp! : number
+        }
+    }
+
+    private func showDefault() {
+        strNumber = !number
+            .isZero ? "\(NSDecimalNumber(decimal: number))" : ""
+    }
+
     var body: some View {
         TextField(message, text: $strNumber)
             .keyboardType(.numberPad)
-            .onAppear {
-                self.strNumber = !number.isZero ? "\(NSDecimalNumber(decimal: number))" : ""
-            }
-            .onReceive(Just(strNumber)) { newValue in
-                let filtered = newValue.filter { "0123456789.".contains($0) }
-                if filtered != newValue {
-                    self.strNumber = filtered
-                } else {
-                    let tmp = Decimal(string: self.strNumber)
-                    number = tmp != nil ? tmp! : number
-                }
-            }
+            .onAppear(perform: showDefault)
+            .onReceive(Just(strNumber), perform: sanitizeInput)
     }
 }
 

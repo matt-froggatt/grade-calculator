@@ -7,26 +7,19 @@
 
 import Foundation
 
-struct School {
-    var name: SchoolName
-    var gradingSystem: Grade.System
+private let schoolGradeSystems: [School: GradeSystem] = [
+    .UW: .percentage,
+    .WLU: .twelvePoint
+]
 
-    init(name: SchoolName) {
-        self.name = name
-        switch name {
-        case SchoolName.WLU:
-            gradingSystem = .twelvePoint
-        default:
-            gradingSystem = .percentage
-        }
+enum School: String {
+    var gradeSystem: GradeSystem {
+        schoolGradeSystems[self] ?? .unsupported
     }
 
-    func formatName() -> String {
-        return name.rawValue
+    var name: String {
+        rawValue
     }
 
-    enum SchoolName: String {
-        case WLU
-        case UW
-    }
+    case UW, WLU
 }

@@ -10,13 +10,10 @@ import SwiftUI
 struct AssignmentCard: View {
     var name: String
     var weight: Decimal
-    var grade: Grade?
+    var grade: Grade
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .stroke(Color.gray)
-
+        Card {
             VStack {
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -30,21 +27,29 @@ struct AssignmentCard: View {
 
                     Spacer()
 
-                    if grade != nil {
-                        Text(grade!.formattedPercentage())
+                    Text(grade.format(system: .percentage))
                         .foregroundColor(.primary)
                         .font(.title)
-                    }
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
-        .frame(height: 100)
     }
 }
 
 struct AssignmentCard_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentCard(name: "Test Assignment", weight: 5.0, grade: Grade(percentage: 95))
+        VStack {
+            AssignmentCard(
+                name: "Test Assignment",
+                weight: 5.0,
+                grade: Grade(percentage: 95)
+            )
+            AssignmentCard(
+                name: "Test Assignment",
+                weight: 5.0,
+                grade: Grade()
+            )
+        }
     }
 }
