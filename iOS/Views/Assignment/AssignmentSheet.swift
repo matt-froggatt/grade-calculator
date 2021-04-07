@@ -22,11 +22,6 @@ struct AssignmentSheet: View {
                 FormEntry(label: "Name") {
                     TextField("Name", text: $assignment.name)
                 }
-                .onAppear {
-                    if assignment.grade.percentage != nil {
-                        numerator = assignment.grade.percentage!
-                    }
-                }
 
                 FormEntry(label: "Grade") {
                     DecimalField(message: "Mark", number: $numerator)
@@ -46,6 +41,11 @@ struct AssignmentSheet: View {
                 Button("Submit") {
                     presentationMode.wrappedValue.dismiss()
                 }
+            }
+        }
+        .onAppear {
+            if assignment.grade.percentage != nil {
+                numerator = assignment.grade.percentage!
             }
         }
         .navigationTitle(Text(assignment.name))
