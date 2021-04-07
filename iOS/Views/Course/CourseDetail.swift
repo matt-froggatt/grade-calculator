@@ -132,40 +132,42 @@ struct CourseDetail: View {
         var assignments: [Assignment]
 
         var body: some View {
-            LazyVStack {
-                HStack {
-                    Text("Assignments")
-                    Spacer()
-                    AddButton {
-                        selectedAssignment = Assignment(
-                            id: 99,
-                            name: "New Assignment",
-                            weight: 0,
-                            grade: Grade()
-                        )
-                    }
-                }
-                .padding([.horizontal, .top])
-                ForEach(assignments) { assignment in
-                    Button(
-                        action: { selectedAssignment = assignment },
-                        label: {
-                            DeletableRow(
-                                availableWidth: 385,
-                                item: String(assignment.id),
-                                deletionCallback: { _ in },
-                                currentUserInteractionCellID: $currentUserInteractionCellID,
-                                content: {
-                                    AssignmentCard(
-                                        name: assignment.name,
-                                        weight: assignment.weight,
-                                        grade: assignment.grade
-                                    )
-                                    .padding()
-                                }
+            GeometryReader { geometry in
+                LazyVStack {
+                    HStack {
+                        Text("Assignments")
+                        Spacer()
+                        AddButton {
+                            selectedAssignment = Assignment(
+                                id: 99,
+                                name: "New Assignment",
+                                weight: 0,
+                                grade: Grade()
                             )
                         }
-                    )
+                    }
+                    .padding([.horizontal, .top])
+                    ForEach(assignments) { assignment in
+                        Button(
+                            action: { selectedAssignment = assignment },
+                            label: {
+                                DeletableRow(
+                                    availableWidth: geometry.size.width,
+                                    item: String(assignment.id),
+                                    onDelete: { _ in },
+                                    currentUserInteractionCellID: $currentUserInteractionCellID,
+                                    content: {
+                                        AssignmentCard(
+                                            name: assignment.name,
+                                            weight: assignment.weight,
+                                            grade: assignment.grade
+                                        )
+                                        .padding()
+                                    }
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }

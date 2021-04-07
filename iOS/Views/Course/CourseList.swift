@@ -43,28 +43,30 @@ struct CourseList: View {
                 }
             }
         case .vertical:
-            ScrollView(.vertical) {
-                LazyVStack {
-                    ForEach(courses) { course in
-                        NavigationLink(
-                            destination: CourseDetail(course: course)
-                        ) {
-                            DeletableRow(
-                                availableWidth: 385,
-                                item: String(course.id),
-                                deletionCallback: { (_: String) -> Void in },
-                                currentUserInteractionCellID: $currentUserInteractionCellID,
-                                content: {
-                                    CourseCard(
-                                        courseName: course.name,
-                                        school: course.school,
-                                        credits: course.credits,
-                                        grade: course.grade,
-                                        goal: course.goal
-                                    )
-                                    .padding()
-                                }
-                            )
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    LazyVStack {
+                        ForEach(courses) { course in
+                            NavigationLink(
+                                destination: CourseDetail(course: course)
+                            ) {
+                                DeletableRow(
+                                    availableWidth: geometry.size.width,
+                                    item: String(course.id),
+                                    onDelete: { (_: String) -> Void in },
+                                    currentUserInteractionCellID: $currentUserInteractionCellID,
+                                    content: {
+                                        CourseCard(
+                                            courseName: course.name,
+                                            school: course.school,
+                                            credits: course.credits,
+                                            grade: course.grade,
+                                            goal: course.goal
+                                        )
+                                        .padding()
+                                    }
+                                )
+                            }
                         }
                     }
                 }
