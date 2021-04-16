@@ -20,11 +20,11 @@ struct CourseSheet: View {
                 FormEntry(label: "Name") {
                     TextField("Name", text: $name)
                 }
-                
+
                 FormEntry(label: "Credits") {
                     DecimalField(message: "Credits", number: $credits)
                 }
-                
+
                 FormEntry(label: "Goal") {
                     DecimalField(
                         message: "Goal",
