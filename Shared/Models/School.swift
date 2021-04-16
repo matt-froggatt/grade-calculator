@@ -21,5 +21,5 @@ enum School: String {
         rawValue
     }
 
-    case UW, WLU
+    case NONE = "", UW, WLU
 }
