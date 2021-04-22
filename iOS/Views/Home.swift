@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Home: View {
     var semesters: [Semester]
-    var courses: [Course]
+    var courses: [CourseModel]
 
     var body: some View {
         TabView {
@@ -46,25 +46,24 @@ struct Home_Previews: PreviewProvider {
             NSFetchRequest(entityName: "AssignmentModel")
         ) as [AssignmentModel]) ??
         []
-    static let semesters: [Semester] = [
-        Semester(
-            id: 1,
-            name: "Spring 2021",
-            courses: [
-                Course(
-                    id: 1,
-                    name: "CS 341",
-                    credits: 0.5,
-                    goal: grades[1],
-                    school: .UW,
-                    assignments: assignments
-                )
-            ]
-        )
-    ]
-    private static let courses = semesters[0].courses
+    static let courses: [CourseModel] = (try? PersistenceController
+        .preview.container
+        .viewContext
+        .fetch(
+            NSFetchRequest(entityName: "CourseModel")
+        ) as [CourseModel]) ??
+        []
 
     static var previews: some View {
-        Home(semesters: semesters, courses: courses)
+        Home(
+            semesters: [
+                Semester(
+                    id: 1,
+                    name: "Spring 2021",
+                    courses: courses
+                )
+            ],
+            courses: courses
+        )
     }
 }

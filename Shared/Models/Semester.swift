@@ -10,5 +10,5 @@ import Foundation
 struct Semester: Identifiable {
     var id: Int
     var name: String
-    var courses: [Course]
+    var courses: [CourseModel]
 }

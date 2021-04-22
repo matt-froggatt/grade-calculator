@@ -56,28 +56,30 @@ struct SemesterList: View {
 }
 
 struct SemesterList_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview.container
-        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
-    private static let semesters = [
-        Semester(
-            id: 1,
-            name: "Spring 2021",
-            courses: [
-                Course(
-                    id: 1,
-                    name: "CS 341",
-                    credits: 0.5,
-                    goal: grades[0],
-                    school: .UW,
-                    assignments: []
-                )
-            ]
-        )
-    ]
+    static let grades: [GradeModel] = (try? PersistenceController.preview
+        .container
+        .viewContext
+        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
+        []
+    static let courses: [CourseModel] = (try? PersistenceController
+        .preview.container
+        .viewContext
+        .fetch(
+            NSFetchRequest(entityName: "CourseModel")
+        ) as [CourseModel]) ??
+        []
 
     static var previews: some View {
         NavigationView {
-            SemesterList(semesters: semesters)
+            SemesterList(
+                semesters: [
+                    Semester(
+                        id: 1,
+                        name: "Spring 2021",
+                        courses: courses
+                    )
+                ]
+            )
         }
     }
 }

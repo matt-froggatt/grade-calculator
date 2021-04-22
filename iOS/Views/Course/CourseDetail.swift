@@ -11,7 +11,7 @@ import SwiftUI
 struct CourseDetail: View {
     @State private var assignmentDetailSheet: AssignmentModel?
     @State private var showSheet = false
-    var course: Course
+    var course: CourseModel
 
     var body: some View {
         ScrollView(.vertical) {
@@ -92,7 +92,7 @@ struct CourseDetail: View {
     }
 
     private struct CourseInfo: View {
-        var course: Course
+        var course: CourseModel
 
         var body: some View {
             VStack(alignment: .leading) {
@@ -177,31 +177,16 @@ struct CourseDetail: View {
 }
 
 struct CourseDetail_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview
-        .container
-        .viewContext
-        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
-        []
-    static let assignments: [AssignmentModel] = (try? PersistenceController
+    static let courses: [CourseModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "AssignmentModel")
-        ) as [AssignmentModel]) ??
+            NSFetchRequest(entityName: "CourseModel")
+        ) as [CourseModel]) ??
         []
-
     static var previews: some View {
         NavigationView {
-            CourseDetail(
-                course: Course(
-                    id: 1,
-                    name: "CS 251",
-                    credits: 0.5,
-                    goal: grades[0],
-                    school: .UW,
-                    assignments: assignments
-                )
-            )
+            CourseDetail(course: courses[0])
         }
     }
 }

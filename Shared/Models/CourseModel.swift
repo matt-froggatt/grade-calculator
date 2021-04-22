@@ -8,16 +8,41 @@
 import CoreData
 import Foundation
 
-class CourseModel: NSManagedObject {
-    @NSManaged var name: String
-    @NSManaged var credits: Decimal
-    @NSManaged var goal: GradeModel
-    @NSManaged var schoolRawValue: String
-    @NSManaged var assignments: [AssignmentModel]
+class CourseModel: NSManagedObject, Identifiable {
+    @NSManaged private var nsId: NSUUID
+    var id: UUID {
+        get {
+            nsId as UUID
+        }
+        set(newId) {
+            nsId = newId as NSUUID
+        }
+    }
 
+    @NSManaged private var nsName: NSString
+    var name: String {
+        get {
+            nsName as String
+        }
+        set(newName) {
+            nsName = newName as NSString
+        }
+    }
+
+    @NSManaged private var nsCredits: NSDecimalNumber
+    var credits: Decimal {
+        get {
+            nsCredits as Decimal
+        }
+        set(newCredits) {
+            nsCredits = newCredits as NSDecimalNumber
+        }
+    }
+
+    @NSManaged private var nsSchoolRawValue: NSString
     var school: School {
         get {
-            let schoolValue = School(rawValue: schoolRawValue)
+            let schoolValue = School(rawValue: nsSchoolRawValue as String)
 
             if schoolValue == nil {
                 return .NONE
@@ -26,9 +51,12 @@ class CourseModel: NSManagedObject {
         }
 
         set(newSchool) {
-            schoolRawValue = newSchool.rawValue
+            nsSchoolRawValue = newSchool.rawValue as NSString
         }
     }
+
+    @NSManaged var goal: GradeModel
+    @NSManaged var assignments: [AssignmentModel]
 
     var grade: GradeModel {
         var weightAchieved: Decimal = 0
@@ -47,5 +75,21 @@ class CourseModel: NSManagedObject {
             weightAchieved: weightAchieved / 100,
             weightLost: weightLost / 100
         )
+    }
+
+    convenience init(
+        context: NSManagedObjectContext,
+        name: String,
+        credits: Decimal,
+        goal: GradeModel,
+        school: School,
+        assignments: [AssignmentModel]
+    ) {
+        self.init(context: context)
+        self.name = name
+        self.credits = credits
+        self.goal = goal
+        self.school = school
+        self.assignments = assignments
     }
 }
