@@ -23,6 +23,7 @@
         <relationship name="parentCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="goal" inverseEntity="CourseModel"/>
     </entity>
     <entity name="SemesterModel" representedClassName=".SemesterModel" syncable="YES">
+        <attribute name="nsId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="nsName" attributeType="String" defaultValueString=""/>
         <relationship name="courses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="parentSemester" inverseEntity="CourseModel"/>
     </entity>
@@ -30,6 +31,6 @@
         <element name="AssignmentModel" positionX="-59.6185302734375" positionY="52.04705810546875" width="128" height="104"/>
         <element name="CourseModel" positionX="-381.3298950195312" positionY="42.26895141601562" width="128" height="134"/>
         <element name="GradeModel" positionX="-199.571044921875" positionY="208.9776611328125" width="128" height="14"/>
-        <element name="SemesterModel" positionX="-357.4500732421875" positionY="-94.36026000976562" width="114.4441528320312" height="59"/>
+        <element name="SemesterModel" positionX="-357.4500732421875" positionY="-94.36026000976562" width="114.4441528320312" height="74"/>
     </elements>
 </model>
