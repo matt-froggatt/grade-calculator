@@ -13,6 +13,20 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
+        let assignments = [
+            AssignmentModel(
+                context: viewContext,
+                name: "Test With Grade",
+                weight: 50,
+                grade: GradeModel(context: viewContext, percentage: 100)
+            ),
+            AssignmentModel(
+                context: viewContext,
+                name: "Test No Grade",
+                weight: 50,
+                grade: GradeModel(context: viewContext, weightAchieved: 0, weightLost: 0)
+            )
+        ]
         let grades = [
             GradeModel(context: viewContext, percentage: 90),
             GradeModel(context: viewContext, weightAchieved: 25, weightLost: 30)

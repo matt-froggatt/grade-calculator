@@ -18,6 +18,7 @@ class GradeModel: NSManagedObject {
             nsWeightAchieved = newWeightAchieved as NSDecimalNumber
         }
     }
+
     @NSManaged private var nsWeightAchieved: NSDecimalNumber
     var weightLost: Decimal {
         get {
@@ -27,6 +28,7 @@ class GradeModel: NSManagedObject {
             nsWeightLost = newWeightLost as NSDecimalNumber
         }
     }
+
     @NSManaged private var nsWeightLost: NSDecimalNumber
     var percentage: Decimal? {
         get {
@@ -51,14 +53,21 @@ class GradeModel: NSManagedObject {
         case overall, weightAchieved, weightLost
     }
 
-    convenience init(context: NSManagedObjectContext, percentage grade: Decimal) {
+    convenience init(
+        context: NSManagedObjectContext,
+        percentage grade: Decimal
+    ) {
         self.init(
             context: context
         )
         percentage = grade
     }
 
-    convenience init(context: NSManagedObjectContext, weightAchieved: Decimal, weightLost: Decimal) {
+    convenience init(
+        context: NSManagedObjectContext,
+        weightAchieved: Decimal,
+        weightLost: Decimal
+    ) {
         self.init(
             context: context
         )

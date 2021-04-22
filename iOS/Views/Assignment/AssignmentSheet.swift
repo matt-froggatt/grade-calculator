@@ -15,7 +15,7 @@ struct AssignmentSheet: View {
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
     @State private var name: String = ""
-    @State var assignment: Assignment
+    @State var assignment: AssignmentModel
 
     var body: some View {
         Form {
@@ -59,25 +59,25 @@ struct AssignmentSheet: View {
 }
 
 struct AssignmentSheet_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview.container
-        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
+    static let grades: [GradeModel] = (try? PersistenceController.preview
+        .container
+        .viewContext
+        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
+        []
+    static let assignments: [AssignmentModel] = (try? PersistenceController
+        .preview.container
+        .viewContext
+        .fetch(
+            NSFetchRequest(entityName: "AssignmentModel")
+        ) as [AssignmentModel]) ??
+        []
     static var previews: some View {
         NavigationView {
-            AssignmentSheet(assignment: Assignment(
-                id: 1,
-                name: "Assignment with grade",
-                weight: 10,
-                grade: grades[0]
-            ))
+            AssignmentSheet(assignment: assignments[0])
         }
 
         NavigationView {
-            AssignmentSheet(assignment: Assignment(
-                id: 1,
-                name: "Assignment without grade (currently has grade)",
-                weight: 10,
-                grade: grades[1]
-            ))
+            AssignmentSheet(assignment: assignments[1])
         }
     }
 }

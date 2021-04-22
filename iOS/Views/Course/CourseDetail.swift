@@ -5,11 +5,11 @@
 //  Created by Matthew Froggatt on 2021-03-18.
 //
 
-import SwiftUI
 import CoreData
+import SwiftUI
 
 struct CourseDetail: View {
-    @State private var assignmentDetailSheet: Assignment?
+    @State private var assignmentDetailSheet: AssignmentModel?
     @State private var showSheet = false
     var course: Course
 
@@ -129,8 +129,9 @@ struct CourseDetail: View {
 
     private struct AssignmentList: View {
         @State private var currentUserInteractionCellID: String?
-        @Binding var selectedAssignment: Assignment?
-        var assignments: [Assignment]
+        @Binding var selectedAssignment: AssignmentModel?
+        @Environment(\.managedObjectContext) private var viewContext
+        var assignments: [AssignmentModel]
 
         var body: some View {
             GeometryReader { geometry in
@@ -139,8 +140,8 @@ struct CourseDetail: View {
                         Text("Assignments")
                         Spacer()
                         AddButton {
-                            selectedAssignment = Assignment(
-                                id: 99,
+                            selectedAssignment = AssignmentModel(
+                                context: viewContext,
                                 name: "New Assignment",
                                 weight: 0,
                                 grade: GradeModel()
@@ -154,7 +155,7 @@ struct CourseDetail: View {
                             label: {
                                 DeletableRow(
                                     availableWidth: geometry.size.width,
-                                    item: String(assignment.id),
+                                    item: assignment.id.uuidString,
                                     onDelete: { _ in },
                                     currentUserInteractionCellID: $currentUserInteractionCellID,
                                     content: {
@@ -176,8 +177,18 @@ struct CourseDetail: View {
 }
 
 struct CourseDetail_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview.container
-        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
+    static let grades: [GradeModel] = (try? PersistenceController.preview
+        .container
+        .viewContext
+        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
+        []
+    static let assignments: [AssignmentModel] = (try? PersistenceController
+        .preview.container
+        .viewContext
+        .fetch(
+            NSFetchRequest(entityName: "AssignmentModel")
+        ) as [AssignmentModel]) ??
+        []
 
     static var previews: some View {
         NavigationView {
@@ -188,20 +199,7 @@ struct CourseDetail_Previews: PreviewProvider {
                     credits: 0.5,
                     goal: grades[0],
                     school: .UW,
-                    assignments: [
-                        Assignment(
-                            id: 1,
-                            name: "Test 1",
-                            weight: 5,
-                            grade: GradeModel()
-                        ),
-                        Assignment(
-                            id: 2,
-                            name: "Test 2",
-                            weight: 10,
-                            grade: grades[1]
-                        )
-                    ]
+                    assignments: assignments
                 )
             )
         }

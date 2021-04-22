@@ -34,8 +34,18 @@ struct Home: View {
 }
 
 struct Home_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview.container
-        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
+    static let grades: [GradeModel] = (try? PersistenceController.preview
+        .container
+        .viewContext
+        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
+        []
+    static let assignments: [AssignmentModel] = (try? PersistenceController
+        .preview.container
+        .viewContext
+        .fetch(
+            NSFetchRequest(entityName: "AssignmentModel")
+        ) as [AssignmentModel]) ??
+        []
     static let semesters: [Semester] = [
         Semester(
             id: 1,
@@ -47,14 +57,7 @@ struct Home_Previews: PreviewProvider {
                     credits: 0.5,
                     goal: grades[1],
                     school: .UW,
-                    assignments: [
-                        Assignment(
-                            id: 1,
-                            name: "Test 1",
-                            weight: 15,
-                            grade: grades[0]
-                        )
-                    ]
+                    assignments: assignments
                 )
             ]
         )

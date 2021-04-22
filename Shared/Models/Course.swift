@@ -13,7 +13,7 @@ struct Course: Identifiable {
     var credits: Decimal
     var goal: GradeModel
     var school: School
-    var assignments: [Assignment]
+    var assignments: [AssignmentModel]
 
     var grade: GradeModel {
         var weightAchieved: Decimal = 0
