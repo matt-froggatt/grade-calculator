@@ -46,6 +46,9 @@ struct PersistenceController {
                 assignments: assignments
             )
         ]
+        let semesters = [
+            SemesterModel(context: viewContext, name: "Test", courses: courses)
+        ]
         do {
             try viewContext.save()
         } catch {

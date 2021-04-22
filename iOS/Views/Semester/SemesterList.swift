@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SemesterList: View {
     @State private var showAddSemesterSheet = false
-    var semesters: [Semester]
+    var semesters: [SemesterModel]
 
     func onDelete(tmp _: IndexSet) {}
 
@@ -56,29 +56,18 @@ struct SemesterList: View {
 }
 
 struct SemesterList_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview
-        .container
-        .viewContext
-        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
-        []
-    static let courses: [CourseModel] = (try? PersistenceController
+    static let semesters: [SemesterModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "CourseModel")
-        ) as [CourseModel]) ??
+            NSFetchRequest(entityName: "SemesterModel")
+        ) as [SemesterModel]) ??
         []
 
     static var previews: some View {
         NavigationView {
             SemesterList(
-                semesters: [
-                    Semester(
-                        id: 1,
-                        name: "Spring 2021",
-                        courses: courses
-                    )
-                ]
+                semesters: semesters
             )
         }
     }

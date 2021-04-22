@@ -9,7 +9,7 @@ import CoreData
 import SwiftUI
 
 struct Home: View {
-    var semesters: [Semester]
+    var semesters: [SemesterModel]
     var courses: [CourseModel]
 
     var body: some View {
@@ -34,36 +34,18 @@ struct Home: View {
 }
 
 struct Home_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview
-        .container
-        .viewContext
-        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
-        []
-    static let assignments: [AssignmentModel] = (try? PersistenceController
+    static let semesters: [SemesterModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "AssignmentModel")
-        ) as [AssignmentModel]) ??
-        []
-    static let courses: [CourseModel] = (try? PersistenceController
-        .preview.container
-        .viewContext
-        .fetch(
-            NSFetchRequest(entityName: "CourseModel")
-        ) as [CourseModel]) ??
+            NSFetchRequest(entityName: "SemesterModel")
+        ) as [SemesterModel]) ??
         []
 
     static var previews: some View {
         Home(
-            semesters: [
-                Semester(
-                    id: 1,
-                    name: "Spring 2021",
-                    courses: courses
-                )
-            ],
-            courses: courses
+            semesters: semesters,
+            courses: semesters[0].courses
         )
     }
 }
