@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CourseDetail: View {
     @State private var assignmentDetailSheet: Assignment?
@@ -54,8 +55,8 @@ struct CourseDetail: View {
     // -----------------------------------------------------------------------------------------------------------------
 
     private struct CourseGradeInfo: View {
-        var grade: Grade
-        var goal: Grade
+        var grade: GradeModel
+        var goal: GradeModel
         var school: School
 
         var body: some View {
@@ -142,7 +143,7 @@ struct CourseDetail: View {
                                 id: 99,
                                 name: "New Assignment",
                                 weight: 0,
-                                grade: Grade()
+                                grade: GradeModel()
                             )
                         }
                     }
@@ -175,6 +176,9 @@ struct CourseDetail: View {
 }
 
 struct CourseDetail_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
+
     static var previews: some View {
         NavigationView {
             CourseDetail(
@@ -182,20 +186,20 @@ struct CourseDetail_Previews: PreviewProvider {
                     id: 1,
                     name: "CS 251",
                     credits: 0.5,
-                    goal: Grade(percentage: 80),
+                    goal: grades[0],
                     school: .UW,
                     assignments: [
                         Assignment(
                             id: 1,
                             name: "Test 1",
                             weight: 5,
-                            grade: Grade()
+                            grade: GradeModel()
                         ),
                         Assignment(
                             id: 2,
                             name: "Test 2",
                             weight: 10,
-                            grade: Grade(percentage: 95)
+                            grade: grades[1]
                         )
                     ]
                 )

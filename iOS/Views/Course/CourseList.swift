@@ -5,6 +5,7 @@
 //  Created by Matthew Froggatt on 2021-03-30.
 //
 
+import CoreData
 import SwiftUI
 import SwipeCellSUI
 
@@ -76,12 +77,14 @@ struct CourseList: View {
 }
 
 struct CourseList_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
     private static let courses = [
         Course(
             id: 1,
             name: "CS 341",
             credits: 0.5,
-            goal: Grade(percentage: 90),
+            goal: grades[0],
             school: .UW,
             assignments: []
         ),
@@ -89,31 +92,7 @@ struct CourseList_Previews: PreviewProvider {
             id: 2,
             name: "BU 351",
             credits: 0.5,
-            goal: Grade(percentage: 70),
-            school: .WLU,
-            assignments: []
-        ),
-        Course(
-            id: 3,
-            name: "CS 488",
-            credits: 0.5,
-            goal: Grade(percentage: 50),
-            school: .UW,
-            assignments: []
-        ),
-        Course(
-            id: 4,
-            name: "BU 411",
-            credits: 1.0,
-            goal: Grade(percentage: 80),
-            school: .WLU,
-            assignments: []
-        ),
-        Course(
-            id: 5,
-            name: "BU 234",
-            credits: 0.5,
-            goal: Grade(percentage: 10),
+            goal: grades[1],
             school: .WLU,
             assignments: []
         )

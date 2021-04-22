@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CourseCard: View {
     var courseName: String
     var school: School
     var credits: Decimal
-    var grade: Grade
-    var goal: Grade
+    var grade: GradeModel
+    var goal: GradeModel
 
     var body: some View {
         Card {
@@ -44,20 +45,22 @@ struct CourseCard: View {
 }
 
 struct CourseCard_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
     static var previews: some View {
         VStack {
             CourseCard(
                 courseName: "CS 246",
                 school: .UW,
                 credits: 0.5,
-                grade: Grade(weightAchieved: 40, weightLost: 10),
-                goal: Grade(percentage: 90)
+                grade: grades[0],
+                goal: grades[1]
             )
             CourseCard(
                 courseName: "BU 251",
                 school: .WLU, credits: 0.5,
-                grade: Grade(weightAchieved: 60, weightLost: 10),
-                goal: Grade(percentage: 85)
+                grade: grades[0],
+                goal: grades[1]
             )
         }
         .padding()

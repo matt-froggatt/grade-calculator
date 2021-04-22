@@ -11,11 +11,11 @@ struct Course: Identifiable {
     var id: Int
     var name: String
     var credits: Decimal
-    var goal: Grade
+    var goal: GradeModel
     var school: School
     var assignments: [Assignment]
 
-    var grade: Grade {
+    var grade: GradeModel {
         var weightAchieved: Decimal = 0
         var weightLost: Decimal = 0
 
@@ -27,7 +27,8 @@ struct Course: Identifiable {
             }
         }
 
-        return Grade(
+        return GradeModel(
+            context: assignments[0].grade.managedObjectContext!,
             weightAchieved: weightAchieved / 100,
             weightLost: weightLost / 100
         )

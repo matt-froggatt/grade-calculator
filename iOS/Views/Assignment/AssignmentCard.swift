@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AssignmentCard: View {
     var name: String
     var weight: Decimal
-    var grade: Grade
+    var grade: GradeModel
 
     var body: some View {
         Card {
@@ -38,17 +39,19 @@ struct AssignmentCard: View {
 }
 
 struct AssignmentCard_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
     static var previews: some View {
         VStack {
             AssignmentCard(
                 name: "Test Assignment",
                 weight: 5.0,
-                grade: Grade(percentage: 95)
+                grade: grades[0]
             )
             AssignmentCard(
                 name: "Test Assignment",
                 weight: 5.0,
-                grade: Grade()
+                grade: GradeModel()
             )
         }
     }

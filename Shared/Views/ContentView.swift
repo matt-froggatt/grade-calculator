@@ -10,15 +10,11 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-//        animation: .default
-//    )
-//    private var items: FetchedResults<Item>
+//    @FetchRequest(entity: GradeModel.entity(), sortDescriptors: []) private var grades: FetchedResults<SemesterModel>
 
     var body: some View {
-        Text("Deleted...")
+
+        Home(semesters: [], courses: [])
 //        List {
 //            ForEach(items) { item in
 //                Text("Item at \(item.timestamp!, formatter: itemFormatter)")

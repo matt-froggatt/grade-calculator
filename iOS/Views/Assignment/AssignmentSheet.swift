@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 import SwiftUI
 
 struct AssignmentSheet: View {
@@ -58,22 +59,24 @@ struct AssignmentSheet: View {
 }
 
 struct AssignmentSheet_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
     static var previews: some View {
         NavigationView {
             AssignmentSheet(assignment: Assignment(
                 id: 1,
                 name: "Assignment with grade",
                 weight: 10,
-                grade: Grade(percentage: 50)
+                grade: grades[0]
             ))
         }
 
         NavigationView {
             AssignmentSheet(assignment: Assignment(
                 id: 1,
-                name: "Assignment without grade",
+                name: "Assignment without grade (currently has grade)",
                 weight: 10,
-                grade: Grade()
+                grade: grades[1]
             ))
         }
     }

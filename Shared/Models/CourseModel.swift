@@ -30,7 +30,7 @@ class CourseModel: NSManagedObject {
         }
     }
 
-    var grade: Grade {
+    var grade: GradeModel {
         var weightAchieved: Decimal = 0
         var weightLost: Decimal = 0
 
@@ -42,7 +42,8 @@ class CourseModel: NSManagedObject {
             }
         }
 
-        return Grade(
+        return GradeModel(
+            context: self.managedObjectContext!,
             weightAchieved: weightAchieved / 100,
             weightLost: weightLost / 100
         )

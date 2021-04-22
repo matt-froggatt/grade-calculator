@@ -5,13 +5,14 @@
 //  Created by Matthew Froggatt on 2021-03-22.
 //
 
+import CoreData
 import SwiftUI
 
 struct CourseSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @State var name: String
     @State var credits: Decimal
-    @State var goal: Grade
+    @State var goal: GradeModel
     @State var school: School
 
     var body: some View {
@@ -52,11 +53,13 @@ struct CourseSheet: View {
 }
 
 struct CourseSheet_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
     static var previews: some View {
         CourseSheet(
             name: "CS 251",
             credits: 0.5,
-            goal: Grade(percentage: 80),
+            goal: grades[1],
             school: .UW
         )
     }

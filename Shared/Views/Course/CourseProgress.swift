@@ -5,11 +5,12 @@
 //  Created by Matthew Froggatt on 2021-03-17.
 //
 
+import CoreData
 import SwiftUI
 
 struct CourseProgress: View {
-    var grade: Grade
-    var goal: Grade
+    var grade: GradeModel
+    var goal: GradeModel
 
     var body: some View {
         let cgfloatWeightAchieved =
@@ -64,10 +65,12 @@ struct CourseProgress: View {
 }
 
 struct CourseProgress_Previews: PreviewProvider {
+    static let grades: [GradeModel] = (try? PersistenceController.preview.container
+        .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
     static var previews: some View {
         CourseProgress(
-            grade: Grade(weightAchieved: 35, weightLost: 5),
-            goal: Grade(percentage: 80)
+            grade: grades[0],
+            goal: grades[1]
         )
     }
 }

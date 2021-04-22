@@ -5,6 +5,7 @@
 //  Created by Matthew Froggatt on 2021-03-30.
 //
 
+import CoreData
 import SwiftUI
 import SwipeCellSUI
 
@@ -67,6 +68,8 @@ private struct PreviewWrapper: View {
     @State var thing: String? = "hello"
 
     var body: some View {
+        let grades: [GradeModel] = (try? PersistenceController.preview.container
+            .viewContext.fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ?? []
         GeometryReader { geometry in
             DeletableRow(
                 availableWidth: geometry.size.width,
@@ -78,8 +81,8 @@ private struct PreviewWrapper: View {
                         courseName: "Test",
                         school: .UW,
                         credits: 0.5,
-                        grade: Grade(percentage: 15),
-                        goal: Grade(percentage: 25)
+                        grade: grades[0],
+                        goal: grades[1]
                     )
                     .padding()
                 }
