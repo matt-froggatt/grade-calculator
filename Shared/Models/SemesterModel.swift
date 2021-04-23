@@ -27,7 +27,15 @@ class SemesterModel: NSManagedObject, Identifiable {
             nsName = newName as NSString
         }
     }
-    @NSManaged var courses: [CourseModel]
+    @NSManaged private var nsCourses: Set<CourseModel>
+    var courses: [CourseModel] {
+        get {
+            Array(nsCourses)
+        }
+        set(newCourses) {
+            nsCourses = Set(newCourses)
+        }
+    }
 
     convenience init(context: NSManagedObjectContext, name: String, courses: [CourseModel]) {
         self.init(context: context)

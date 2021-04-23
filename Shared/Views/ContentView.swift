@@ -10,11 +10,16 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-//    @FetchRequest(entity: GradeModel.entity(), sortDescriptors: []) private var grades: FetchedResults<SemesterModel>
+    @FetchRequest(
+        entity: SemesterModel.entity(),
+        sortDescriptors: []
+    ) private var semesters: FetchedResults<SemesterModel>
 
     var body: some View {
-
-        Home(semesters: [], courses: [])
+        Home(
+            semesters: Array(semesters),
+            courses: semesters.first?.courses ?? []
+        )
 //        List {
 //            ForEach(items) { item in
 //                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
@@ -51,7 +56,7 @@ struct ContentView: View {
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteItems(offsets _: IndexSet) {
         withAnimation {
 //            offsets.map { items[$0] }.forEach(viewContext.delete)
 

@@ -9,10 +9,17 @@ import CoreData
 import SwiftUI
 
 struct SemesterList: View {
+    @Environment(\.managedObjectContext) var viewContext
     @State private var showAddSemesterSheet = false
     var semesters: [SemesterModel]
 
-    func onDelete(tmp _: IndexSet) {}
+    func removeSemesters(at offsets: IndexSet) {
+        for index in offsets {
+            let semester = semesters[index]
+            viewContext.delete(semester)
+            do { try viewContext.save() } catch { fatalError("bruh, semesters delete messed up") }
+        }
+    }
 
     var body: some View {
         List {
@@ -39,17 +46,18 @@ struct SemesterList: View {
                 .listRowInsets(EdgeInsets())
                 .padding(.vertical)
             }
-            .onDelete(perform: onDelete)
+            .onDelete(perform: removeSemesters)
         }
+        .listStyle(PlainListStyle())
         .navigationTitle("All Semesters")
         .toolbar {
             AddButton {
                 showAddSemesterSheet = true
             }
-            .sheet(isPresented: $showAddSemesterSheet) {
-                NavigationView {
-                    SemesterSheet()
-                }
+        }
+        .sheet(isPresented: $showAddSemesterSheet) {
+            NavigationView {
+                SemesterSheet(showSheet: $showAddSemesterSheet)
             }
         }
     }

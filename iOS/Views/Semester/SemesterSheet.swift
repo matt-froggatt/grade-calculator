@@ -5,15 +5,20 @@
 //  Created by Matthew Froggatt on 2021-03-22.
 //
 
+import CoreData
 import SwiftUI
 
 struct SemesterSheet: View {
-    private static let years = Array(Array(2000 ... 2020).reversed())
+    private static let years = Array(Array(2000 ... 2040).reversed())
     private static let terms = ["Fall", "Winter", "Spring"]
-    @Environment(\.presentationMode) var presentationMode
+
     @State private var yearSelection = years[0]
     @State private var termSelection = terms[0]
     @State private var showYearPicker = false
+
+    @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
+
+    @Binding var showSheet: Bool
 
     private struct YearPicker: View {
         @Binding var showYearPicker: Bool
@@ -34,6 +39,16 @@ struct SemesterSheet: View {
                 }
             }
         }
+    }
+
+    private func addSemester() {
+        let newSemester = SemesterModel(
+            context: viewContext,
+            name: "\(yearSelection) \(termSelection)",
+            courses: []
+        )
+        viewContext.insert(newSemester)
+        do { try viewContext.save() } catch { fatalError("bruh") }
     }
 
     var body: some View {
@@ -61,14 +76,15 @@ struct SemesterSheet: View {
 
             Section {
                 Button("Submit") {
-                    presentationMode.wrappedValue.dismiss()
+                    addSemester()
+                    showSheet = false
                 }
             }
         }
         .navigationTitle(Text("\(termSelection) \(String(yearSelection))"))
         .toolbar {
             Button("Cancel") {
-                presentationMode.wrappedValue.dismiss()
+                showSheet = false
             }
         }
     }
@@ -76,6 +92,6 @@ struct SemesterSheet: View {
 
 struct SemesterSheet_Previews: PreviewProvider {
     static var previews: some View {
-        SemesterSheet()
+        SemesterSheet(showSheet: .constant(true))
     }
 }
