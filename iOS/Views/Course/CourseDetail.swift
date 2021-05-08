@@ -28,16 +28,11 @@ struct CourseDetail: View {
                 )
             }
             .navigationTitle(Text(course.name))
-            .sheet(isPresented: $showSheet) {
-                NavigationView {
-                    CourseSheet(
-                        name: course.name,
-                        credits: course.credits,
-                        goal: course.goal,
-                        school: course.school
-                    )
-                }
-            }
+//            .sheet(isPresented: $showSheet) {
+//                NavigationView {
+//                    CourseSheet(showSheet: $showSheet, semester: course.semester)
+//                }
+//            }
             .sheet(item: $assignmentDetailSheet) { assignment in
                 NavigationView {
                     AssignmentSheet(assignment: assignment)

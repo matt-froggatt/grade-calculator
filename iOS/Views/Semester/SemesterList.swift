@@ -27,10 +27,7 @@ struct SemesterList: View {
                 VStack(alignment: .leading) {
                     HStack {
                         NavigationLink(
-                            destination: SingleSemesterCourseList(
-                                courses: semester.courses,
-                                title: semester.name
-                            )
+                            destination: SingleSemesterCourseList(semester: semester)
                         ) {
                             Text(semester.name)
                                 .font(.headline)
@@ -39,8 +36,8 @@ struct SemesterList: View {
                         }
                     }
                     CourseList(
-                        direction: .horizontal,
-                        courses: semester.courses
+                        semester: semester,
+                        direction: .horizontal
                     )
                 }
                 .listRowInsets(EdgeInsets())

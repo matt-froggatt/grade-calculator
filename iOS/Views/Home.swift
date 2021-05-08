@@ -10,15 +10,18 @@ import SwiftUI
 
 struct Home: View {
     var semesters: [SemesterModel]
-    var courses: [CourseModel]
 
     var body: some View {
         TabView {
             NavigationView {
-                SingleSemesterCourseList(
-                    courses: courses,
-                    title: "Current Semester"
-                )
+                if !semesters.isEmpty {
+                    SingleSemesterCourseList(
+                        semester: semesters[0]
+                    )
+                } else {
+                    Text("No semesters to show")
+                        .foregroundColor(.secondary)
+                }
             }
             .tabItem {
                 Label("Courses", systemImage: "star")
@@ -44,8 +47,7 @@ struct Home_Previews: PreviewProvider {
 
     static var previews: some View {
         Home(
-            semesters: semesters,
-            courses: semesters[0].courses
+            semesters: semesters
         )
     }
 }

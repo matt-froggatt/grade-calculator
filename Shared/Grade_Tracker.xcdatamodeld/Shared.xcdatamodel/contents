@@ -5,16 +5,16 @@
         <attribute name="nsName" attributeType="String" defaultValueString=""/>
         <attribute name="nsWeight" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="grade" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GradeModel" inverseName="parentAssignment" inverseEntity="GradeModel"/>
-        <relationship name="parentCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="assignments" inverseEntity="CourseModel"/>
+        <relationship name="parentCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="nsAssignments" inverseEntity="CourseModel"/>
     </entity>
     <entity name="CourseModel" representedClassName=".CourseModel" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="nsCredits" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="nsId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="nsName" attributeType="String" defaultValueString=""/>
-        <attribute name="nsSchoolRawValue" attributeType="String" defaultValueString=""/>
-        <relationship name="assignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AssignmentModel" inverseName="parentCourse" inverseEntity="AssignmentModel"/>
+        <attribute name="schoolRawValue" attributeType="String" defaultValueString=""/>
         <relationship name="goal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GradeModel" inverseName="parentCourse" inverseEntity="GradeModel"/>
-        <relationship name="parentSemester" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SemesterModel" inverseName="nsCourses" inverseEntity="SemesterModel"/>
+        <relationship name="nsAssignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AssignmentModel" inverseName="parentCourse" inverseEntity="AssignmentModel"/>
+        <relationship name="parentSemester" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SemesterModel" inverseName="courses" inverseEntity="SemesterModel"/>
     </entity>
     <entity name="GradeModel" representedClassName=".GradeModel" syncable="YES">
         <attribute name="nsWeightAchieved" optional="YES" attributeType="Decimal" defaultValueString="0"/>
@@ -23,9 +23,9 @@
         <relationship name="parentCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="goal" inverseEntity="CourseModel"/>
     </entity>
     <entity name="SemesterModel" representedClassName=".SemesterModel" syncable="YES">
-        <attribute name="nsId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="nsName" attributeType="String" defaultValueString=""/>
-        <relationship name="nsCourses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="parentSemester" inverseEntity="CourseModel"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="courses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="parentSemester" inverseEntity="CourseModel"/>
     </entity>
     <elements>
         <element name="AssignmentModel" positionX="-59.6185302734375" positionY="52.04705810546875" width="128" height="104"/>

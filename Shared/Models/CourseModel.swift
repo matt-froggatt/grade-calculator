@@ -9,26 +9,8 @@ import CoreData
 import Foundation
 
 class CourseModel: NSManagedObject, Identifiable {
-    @NSManaged private var nsId: NSUUID
-    var id: UUID {
-        get {
-            nsId as UUID
-        }
-        set(newId) {
-            nsId = newId as NSUUID
-        }
-    }
-
-    @NSManaged private var nsName: NSString
-    var name: String {
-        get {
-            nsName as String
-        }
-        set(newName) {
-            nsName = newName as NSString
-        }
-    }
-
+    @NSManaged var id: UUID
+    @NSManaged var name: String
     @NSManaged private var nsCredits: NSDecimalNumber
     var credits: Decimal {
         get {
@@ -38,25 +20,32 @@ class CourseModel: NSManagedObject, Identifiable {
             nsCredits = newCredits as NSDecimalNumber
         }
     }
-
-    @NSManaged private var nsSchoolRawValue: NSString
+    @NSManaged private var schoolRawValue: String
     var school: School {
         get {
-            let schoolValue = School(rawValue: nsSchoolRawValue as String)
+            let schoolValue = School(rawValue: schoolRawValue as String)
 
             if schoolValue == nil {
                 return .NONE
             }
+            
             return schoolValue!
         }
 
         set(newSchool) {
-            nsSchoolRawValue = newSchool.rawValue as NSString
+            schoolRawValue = newSchool.rawValue
         }
     }
-
     @NSManaged var goal: GradeModel
-    @NSManaged var assignments: [AssignmentModel]
+    @NSManaged private var nsAssignments: Set<AssignmentModel>
+    var assignments: [AssignmentModel] {
+        get {
+            Array(nsAssignments)
+        }
+        set(newAssignments) {
+            nsAssignments = Set(newAssignments)
+        }
+    }
 
     var grade: GradeModel {
         var weightAchieved: Decimal = 0
@@ -86,6 +75,7 @@ class CourseModel: NSManagedObject, Identifiable {
         assignments: [AssignmentModel]
     ) {
         self.init(context: context)
+        self.id = UUID()
         self.name = name
         self.credits = credits
         self.goal = goal

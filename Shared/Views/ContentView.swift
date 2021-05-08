@@ -15,10 +15,14 @@ struct ContentView: View {
         sortDescriptors: []
     ) private var semesters: FetchedResults<SemesterModel>
 
+    private func useSemesters() -> [SemesterModel] {
+        return Array(semesters)
+    }
+
     var body: some View {
+        let displaySemesters = useSemesters()
         Home(
-            semesters: Array(semesters),
-            courses: semesters.first?.courses ?? []
+            semesters: displaySemesters
         )
 //        List {
 //            ForEach(items) { item in

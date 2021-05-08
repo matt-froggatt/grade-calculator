@@ -10,12 +10,18 @@ import SwiftUI
 import SwipeCellSUI
 
 struct CourseList: View {
+    @Environment(\.managedObjectContext) var viewContext
     @State private var currentUserInteractionCellID: String?
-    var direction: CourseListDirection
-    var courses: [CourseModel]
 
-    func delete(at offsets: IndexSet) {
-        print("delete \(offsets)")
+    @ObservedObject var semester: SemesterModel
+    var direction: CourseListDirection
+    
+    func removeCourse(with id: String) {
+        let course = semester.courses.first(where: { $0.id.uuidString == id })
+        if (course != nil) {
+            viewContext.delete(course!)
+            do { try viewContext.save() } catch { fatalError("bruh, courses delete messed up") }
+        }
     }
 
     enum CourseListDirection {
@@ -27,7 +33,7 @@ struct CourseList: View {
         case .horizontal:
             ScrollView(.horizontal) {
                 LazyHStack {
-                    ForEach(courses) { course in
+                    ForEach(Array(semester.courses)) { course in
                         NavigationLink(
                             destination: CourseDetail(course: course)
                         ) {
@@ -47,14 +53,14 @@ struct CourseList: View {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     LazyVStack {
-                        ForEach(courses) { course in
+                        ForEach(Array(semester.courses)) { course in
                             NavigationLink(
                                 destination: CourseDetail(course: course)
                             ) {
                                 DeletableRow(
                                     availableWidth: geometry.size.width,
                                     item: course.id.uuidString,
-                                    onDelete: { (_: String) -> Void in },
+                                    onDelete: removeCourse,
                                     currentUserInteractionCellID: $currentUserInteractionCellID,
                                     content: {
                                         CourseCard(
@@ -77,19 +83,19 @@ struct CourseList: View {
 }
 
 struct CourseList_Previews: PreviewProvider {
-    static let courses: [CourseModel] = (try? PersistenceController
+    static let semesters: [SemesterModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "CourseModel")
-        ) as [CourseModel]) ??
+            NSFetchRequest(entityName: "SemesterModel")
+        ) as [SemesterModel]) ??
         []
     static var previews: some View {
         NavigationView {
-            CourseList(direction: .vertical, courses: courses)
+            CourseList(semester: semesters[0], direction: .vertical)
         }
         NavigationView {
-            CourseList(direction: .horizontal, courses: courses)
+            CourseList(semester: semesters[0], direction: .horizontal)
         }
     }
 }

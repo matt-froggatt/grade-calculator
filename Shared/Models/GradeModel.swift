@@ -10,26 +10,27 @@ import Foundation
 
 class GradeModel: NSManagedObject {
     let maxWeight: Decimal = 100
+
+    @NSManaged private var nsWeightAchieved: Decimal
     var weightAchieved: Decimal {
         get {
-            nsWeightAchieved as Decimal
+//            nsWeightAchieved as Decimal
+            0
         }
         set(newWeightAchieved) {
-            nsWeightAchieved = newWeightAchieved as NSDecimalNumber
+//            nsWeightAchieved = newWeightAchieved as Decimal
         }
     }
-
-    @NSManaged private var nsWeightAchieved: NSDecimalNumber
+    @NSManaged private var nsWeightLost: Decimal
     var weightLost: Decimal {
         get {
-            nsWeightLost as Decimal
+//            nsWeightLost as Decimal
+            0
         }
         set(newWeightLost) {
-            nsWeightLost = newWeightLost as NSDecimalNumber
+//            nsWeightLost = newWeightLost as Decimal
         }
     }
-
-    @NSManaged private var nsWeightLost: NSDecimalNumber
     var percentage: Decimal? {
         get {
             if weightAchieved.isZero, weightLost.isZero {
@@ -55,7 +56,7 @@ class GradeModel: NSManagedObject {
 
     convenience init(
         context: NSManagedObjectContext,
-        percentage grade: Decimal
+        percentage grade: Decimal?
     ) {
         self.init(
             context: context

@@ -9,38 +9,14 @@ import CoreData
 import Foundation
 
 class SemesterModel: NSManagedObject, Identifiable {
-    @NSManaged private var nsId: NSUUID
-    var id: UUID {
-        get {
-            nsId as UUID
-        }
-        set(newId) {
-            nsId = newId as NSUUID
-        }
-    }
-    @NSManaged private var nsName: NSString
-    var name: String {
-        get {
-            nsName as String
-        }
-        set(newName) {
-            nsName = newName as NSString
-        }
-    }
-    @NSManaged private var nsCourses: Set<CourseModel>
-    var courses: [CourseModel] {
-        get {
-            Array(nsCourses)
-        }
-        set(newCourses) {
-            nsCourses = Set(newCourses)
-        }
-    }
+    @NSManaged var id: UUID
+    @NSManaged var name: String
+    @NSManaged var courses: Set<CourseModel>
 
     convenience init(context: NSManagedObjectContext, name: String, courses: [CourseModel]) {
         self.init(context: context)
         self.id = UUID()
         self.name = name
-        self.courses = courses
+        self.courses = Set(courses)
     }
 }

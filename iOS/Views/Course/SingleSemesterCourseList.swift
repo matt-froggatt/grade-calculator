@@ -11,49 +11,44 @@ import SwiftUI
 struct SingleSemesterCourseList: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showCourseSheet = false
-    var courses: [CourseModel]
-    var title: String
+
+    @ObservedObject var semester: SemesterModel
 
     var body: some View {
-        CourseList(direction: .vertical, courses: courses)
-            .toolbar {
-                AddButton {
-                    showCourseSheet = true
-                }
-                .sheet(isPresented: $showCourseSheet) {
-                    NavigationView {
-                        CourseSheet(
-                            name: "New Course",
-                            credits: 0.5,
-                            goal: GradeModel(
-                                context: viewContext,
-                                percentage: 90
-                            ),
-                            school: .UW
-                        )
-                    }
-                }
+        CourseList(
+            semester: semester,
+            direction: .vertical
+        )
+        .toolbar {
+            AddButton {
+                showCourseSheet = true
             }
-            .navigationTitle(Text(title))
+        }
+        .sheet(isPresented: $showCourseSheet) {
+            NavigationView {
+                CourseSheet(
+                    showSheet: $showCourseSheet,
+                    semester: semester
+                )
+            }
+        }
+        .navigationTitle(Text(semester.name))
     }
 }
 
 struct CurrentCourseList_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview
-        .container
-        .viewContext
-        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
-        []
-    static let courses: [CourseModel] = (try? PersistenceController
+    static let semesters: [SemesterModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "CourseModel")
-        ) as [CourseModel]) ??
+            NSFetchRequest(entityName: "SemesterModel")
+        ) as [SemesterModel]) ??
         []
     static var previews: some View {
         NavigationView {
-            SingleSemesterCourseList(courses: courses, title: "Preview")
+            SingleSemesterCourseList(
+                semester: semesters[0]
+            )
         }
     }
 }
