@@ -11,24 +11,22 @@ import Foundation
 class GradeModel: NSManagedObject {
     let maxWeight: Decimal = 100
 
-    @NSManaged private var nsWeightAchieved: Decimal
+    @NSManaged private var nsWeightAchieved: NSDecimalNumber
     var weightAchieved: Decimal {
         get {
-//            nsWeightAchieved as Decimal
-            0
+            nsWeightAchieved as Decimal
         }
         set(newWeightAchieved) {
-//            nsWeightAchieved = newWeightAchieved as Decimal
+            nsWeightAchieved = newWeightAchieved as NSDecimalNumber
         }
     }
-    @NSManaged private var nsWeightLost: Decimal
+    @NSManaged private var nsWeightLost: NSDecimalNumber
     var weightLost: Decimal {
         get {
-//            nsWeightLost as Decimal
-            0
+            nsWeightLost as Decimal
         }
         set(newWeightLost) {
-//            nsWeightLost = newWeightLost as Decimal
+            nsWeightLost = newWeightLost as NSDecimalNumber
         }
     }
     var percentage: Decimal? {

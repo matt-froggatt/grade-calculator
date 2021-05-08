@@ -12,7 +12,7 @@ struct CourseSheet: View {
     @Environment(\.managedObjectContext) var viewContext
     @State private var name: String = "Course Name"
     @State private var credits: Decimal = 0.5
-    @State private var goal = GradeModel()
+    @State private var goalPercentage: Decimal = 100
     @State private var school: School = .NONE
     @Binding var showSheet: Bool
     @ObservedObject var semester: SemesterModel
@@ -22,7 +22,7 @@ struct CourseSheet: View {
             context: viewContext,
             name: name,
             credits: credits,
-            goal: goal,
+            goal: GradeModel(context: viewContext, percentage: goalPercentage),
             school: school,
             assignments: []
         )
@@ -41,19 +41,16 @@ struct CourseSheet: View {
                 FormEntry(label: "Credits") {
                     DecimalField(message: "Credits", number: $credits)
                 }
-                .onAppear {
-                    goal = GradeModel(context: viewContext, percentage: 100)
-                }
 
-//                FormEntry(label: "Goal") {
-//                    DecimalField(
-//                        message: "Goal",
-//                        number: Binding($goal.percentage)!
-//                    )
-//                    .multilineTextAlignment(.trailing)
-//                    .fixedSize()
-//                    Text("%").font(.subheadline).foregroundColor(.secondary)
-//                }
+                FormEntry(label: "Goal") {
+                    DecimalField(
+                        message: "Goal",
+                        number: $goalPercentage
+                    )
+                    .multilineTextAlignment(.trailing)
+                    .fixedSize()
+                    Text("%").font(.subheadline).foregroundColor(.secondary)
+                }
             }
 
             Section {
