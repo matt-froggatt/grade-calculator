@@ -24,7 +24,8 @@ struct CourseDetail: View {
                 CourseInfo(course: course)
                 AssignmentList(
                     selectedAssignment: $assignmentDetailSheet,
-                    assignments: course.assignments
+                    assignments: course.assignments,
+                    parentCourse: course
                 )
             }
             .navigationTitle(Text(course.name))
@@ -127,6 +128,13 @@ struct CourseDetail: View {
         @Binding var selectedAssignment: AssignmentModel?
         @Environment(\.managedObjectContext) private var viewContext
         var assignments: [AssignmentModel]
+        var parentCourse: CourseModel
+
+        func addAssignment(assignment: AssignmentModel) {
+            parentCourse.assignments.append(assignment)
+            viewContext.insert(assignment)
+            do { try viewContext.save() } catch { fatalError("bruh, assignment add messed up") }
+        }
 
         var body: some View {
             GeometryReader { geometry in
@@ -135,12 +143,14 @@ struct CourseDetail: View {
                         Text("Assignments")
                         Spacer()
                         AddButton {
-                            selectedAssignment = AssignmentModel(
+                            let newAssignment = AssignmentModel(
                                 context: viewContext,
                                 name: "New Assignment",
                                 weight: 0,
-                                grade: GradeModel()
+                                grade: GradeModel(context: viewContext, percentage: nil)
                             )
+                            addAssignment(assignment: newAssignment)
+                            selectedAssignment = newAssignment
                         }
                     }
                     .padding([.horizontal, .top])
