@@ -40,13 +40,14 @@ struct AssignmentSheet: View {
 
             Section {
                 Button("Submit") {
+                    assignment.grade.percentage = numerator * 100 / denominator
                     presentationMode.wrappedValue.dismiss()
                 }
             }
         }
         .onAppear {
             if assignment.grade.percentage != nil {
-                numerator = assignment.grade.percentage!
+                numerator = assignment.grade.percentage! * 100
             }
         }
         .navigationTitle(Text(assignment.name))
