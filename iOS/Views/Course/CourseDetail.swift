@@ -11,7 +11,7 @@ import SwiftUI
 struct CourseDetail: View {
     @State private var assignmentDetailSheet: AssignmentModel?
     @State private var showSheet = false
-    var course: CourseModel
+    @ObservedObject var course: CourseModel
 
     var body: some View {
         ScrollView(.vertical) {
@@ -128,7 +128,7 @@ struct CourseDetail: View {
         @Binding var selectedAssignment: AssignmentModel?
         @Environment(\.managedObjectContext) private var viewContext
         var assignments: [AssignmentModel]
-        var parentCourse: CourseModel
+        @ObservedObject var parentCourse: CourseModel
 
         func addAssignment(assignment: AssignmentModel) {
             parentCourse.assignments.append(assignment)
