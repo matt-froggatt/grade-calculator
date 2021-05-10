@@ -15,10 +15,10 @@ struct CourseList: View {
 
     @ObservedObject var semester: SemesterModel
     var direction: CourseListDirection
-    
-    func removeCourse(with id: String) {
+
+    func removeCourse(id: String) {
         let course = semester.courses.first(where: { $0.id.uuidString == id })
-        if (course != nil) {
+        if course != nil {
             viewContext.delete(course!)
             do { try viewContext.save() } catch { fatalError("bruh, courses delete messed up") }
         }

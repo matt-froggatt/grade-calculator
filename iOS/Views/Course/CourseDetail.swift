@@ -130,6 +130,14 @@ struct CourseDetail: View {
         var assignments: [AssignmentModel]
         @ObservedObject var parentCourse: CourseModel
 
+        func removeAssignment(id: String) {
+            let assignment = parentCourse.assignments.first(where: { $0.id.uuidString == id })
+            if assignment != nil {
+                viewContext.delete(assignment!)
+                do { try viewContext.save() } catch { fatalError("bruh, assignments delete messed up") }
+            }
+        }
+
         func addAssignment(assignment: AssignmentModel) {
             parentCourse.assignments.append(assignment)
             viewContext.insert(assignment)
@@ -161,7 +169,7 @@ struct CourseDetail: View {
                                 DeletableRow(
                                     availableWidth: geometry.size.width,
                                     item: assignment.id.uuidString,
-                                    onDelete: { _ in },
+                                    onDelete: removeAssignment,
                                     currentUserInteractionCellID: $currentUserInteractionCellID,
                                     content: {
                                         AssignmentCard(

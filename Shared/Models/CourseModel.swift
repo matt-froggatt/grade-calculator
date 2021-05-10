@@ -28,7 +28,7 @@ class CourseModel: NSManagedObject, Identifiable {
             if schoolValue == nil {
                 return .NONE
             }
-            
+
             return schoolValue!
         }
 
@@ -60,7 +60,7 @@ class CourseModel: NSManagedObject, Identifiable {
         }
 
         return GradeModel(
-            context: self.managedObjectContext!,
+            context: PersistenceController.shared.container.viewContext,
             weightAchieved: weightAchieved / 100,
             weightLost: weightLost / 100
         )
