@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="AssignmentModel" representedClassName=".AssignmentModel" syncable="YES">
         <attribute name="nsId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="nsName" attributeType="String" defaultValueString=""/>
         <attribute name="nsWeight" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="grade" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GradeModel" inverseName="parentAssignment" inverseEntity="GradeModel"/>
-        <relationship name="parentCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="nsAssignments" inverseEntity="CourseModel"/>
+        <relationship name="parentCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseModel" inverseName="assignments" inverseEntity="CourseModel"/>
     </entity>
     <entity name="CourseModel" representedClassName=".CourseModel" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="nsCredits" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="schoolRawValue" attributeType="String" defaultValueString=""/>
+        <relationship name="assignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AssignmentModel" inverseName="parentCourse" inverseEntity="AssignmentModel"/>
         <relationship name="goal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GradeModel" inverseName="parentCourse" inverseEntity="GradeModel"/>
-        <relationship name="nsAssignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AssignmentModel" inverseName="parentCourse" inverseEntity="AssignmentModel"/>
         <relationship name="parentSemester" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SemesterModel" inverseName="courses" inverseEntity="SemesterModel"/>
     </entity>
     <entity name="GradeModel" representedClassName=".GradeModel" syncable="YES">

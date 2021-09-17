@@ -37,15 +37,7 @@ class CourseModel: NSManagedObject, Identifiable {
         }
     }
     @NSManaged var goal: GradeModel
-    @NSManaged private var nsAssignments: Set<AssignmentModel>
-    var assignments: [AssignmentModel] {
-        get {
-            Array(nsAssignments)
-        }
-        set(newAssignments) {
-            nsAssignments = Set(newAssignments)
-        }
-    }
+    @NSManaged var assignments: Set<AssignmentModel>
 
     var grade: GradeModel {
         var weightAchieved: Decimal = 0
@@ -80,6 +72,6 @@ class CourseModel: NSManagedObject, Identifiable {
         self.credits = credits
         self.goal = goal
         self.school = school
-        self.assignments = assignments
+        self.assignments = Set(assignments)
     }
 }

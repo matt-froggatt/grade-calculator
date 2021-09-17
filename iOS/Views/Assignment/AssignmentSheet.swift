@@ -10,18 +10,19 @@ import CoreData
 import SwiftUI
 
 struct AssignmentSheet: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) private var presentationMode
     @State private var numerator: Decimal = 0
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
     @State private var name: String = ""
-    @State var assignment: AssignmentModel
+    @ObservedObject var course: CourseModel
 
     var body: some View {
         Form {
             Section {
                 FormEntry(label: "Name") {
-                    TextField("Name", text: $assignment.name)
+                    TextField("Name", text: $name)
                 }
 
                 FormEntry(label: "Grade") {
@@ -32,7 +33,7 @@ struct AssignmentSheet: View {
                 }
 
                 FormEntry(label: "Weight") {
-                    DecimalField(message: "Weight", number: $assignment.weight)
+                    DecimalField(message: "Weight", number: $weight)
                         .multilineTextAlignment(.trailing)
                     Text("%").font(.subheadline).foregroundColor(.secondary)
                 }
@@ -40,17 +41,20 @@ struct AssignmentSheet: View {
 
             Section {
                 Button("Submit") {
-                    assignment.grade.percentage = numerator * 100 / denominator
+                    let assignment = AssignmentModel(
+                        context: viewContext,
+                        name: name,
+                        weight: weight,
+                        grade: GradeModel(context: viewContext, percentage: numerator * 100 / denominator)
+                    )
+                    viewContext.insert(assignment)
+                    course.assignments.insert(assignment)
+                    do { try viewContext.save() } catch { fatalError("bruh, assignment modify messed up") }
                     presentationMode.wrappedValue.dismiss()
                 }
             }
         }
-        .onAppear {
-            if assignment.grade.percentage != nil {
-                numerator = assignment.grade.percentage! * 100
-            }
-        }
-        .navigationTitle(Text(assignment.name))
+        .navigationTitle(Text(name))
         .toolbar {
             Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
@@ -60,25 +64,20 @@ struct AssignmentSheet: View {
 }
 
 struct AssignmentSheet_Previews: PreviewProvider {
-    static let grades: [GradeModel] = (try? PersistenceController.preview
-        .container
-        .viewContext
-        .fetch(NSFetchRequest(entityName: "GradeModel")) as [GradeModel]) ??
-        []
-    static let assignments: [AssignmentModel] = (try? PersistenceController
+    static let courses: [CourseModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "AssignmentModel")
-        ) as [AssignmentModel]) ??
+            NSFetchRequest(entityName: "CourseModel")
+        ) as [CourseModel]) ??
         []
     static var previews: some View {
         NavigationView {
-            AssignmentSheet(assignment: assignments[0])
+            AssignmentSheet(course: courses[0])
         }
 
         NavigationView {
-            AssignmentSheet(assignment: assignments[1])
+            AssignmentSheet(course: courses[1])
         }
     }
 }

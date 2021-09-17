@@ -36,7 +36,7 @@ struct CourseDetail: View {
 //            }
             .sheet(item: $assignmentDetailSheet) { assignment in
                 NavigationView {
-                    AssignmentSheet(assignment: assignment)
+                    AssignmentSheet(course: course)
                 }
             }
             .toolbar {
@@ -127,7 +127,7 @@ struct CourseDetail: View {
         @State private var currentUserInteractionCellID: String?
         @Binding var selectedAssignment: AssignmentModel?
         @Environment(\.managedObjectContext) private var viewContext
-        var assignments: [AssignmentModel]
+        var assignments: Set<AssignmentModel>
         @ObservedObject var parentCourse: CourseModel
 
         func removeAssignment(id: String) {
@@ -136,12 +136,6 @@ struct CourseDetail: View {
                 viewContext.delete(assignment!)
                 do { try viewContext.save() } catch { fatalError("bruh, assignments delete messed up") }
             }
-        }
-
-        func addAssignment(assignment: AssignmentModel) {
-            parentCourse.assignments.append(assignment)
-            viewContext.insert(assignment)
-            do { try viewContext.save() } catch { fatalError("bruh, assignment add messed up") }
         }
 
         var body: some View {
@@ -157,12 +151,11 @@ struct CourseDetail: View {
                                 weight: 0,
                                 grade: GradeModel(context: viewContext, percentage: nil)
                             )
-                            addAssignment(assignment: newAssignment)
                             selectedAssignment = newAssignment
                         }
                     }
                     .padding([.horizontal, .top])
-                    ForEach(assignments) { assignment in
+                    ForEach(Array(assignments)) { assignment in
                         Button(
                             action: { selectedAssignment = assignment },
                             label: {

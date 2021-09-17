@@ -20,9 +20,8 @@ struct ContentView: View {
     }
 
     var body: some View {
-        let displaySemesters = useSemesters()
         Home(
-            semesters: displaySemesters
+            semesters: useSemesters()
         )
 //        List {
 //            ForEach(items) { item in

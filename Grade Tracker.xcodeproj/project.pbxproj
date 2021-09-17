@@ -275,9 +275,9 @@
 				359E99F52615704800364026 /* GradeSystem.swift */,
 				35F0D4A826027A3D0022BDC7 /* School.swift */,
 				356B73C0262A23A700E05E77 /* AssignmentModel.swift */,
-				356B73C7262A249F00E05E77 /* GradeModel.swift */,
 				356B73CE262A283600E05E77 /* CourseModel.swift */,
 				356B73E5262A2E6D00E05E77 /* SemesterModel.swift */,
+				356B73C7262A249F00E05E77 /* GradeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -417,7 +417,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					35B64DE025F83EDF00B1786D = {
 						CreatedOnToolsVersion = 12.4;
@@ -793,6 +793,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = UUAN8P52D4;
@@ -817,6 +818,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = UUAN8P52D4;
