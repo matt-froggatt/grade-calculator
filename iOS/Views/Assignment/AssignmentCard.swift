@@ -11,7 +11,7 @@ import CoreData
 struct AssignmentCard: View {
     var name: String
     var weight: Decimal
-    var grade: GradeModel
+    @ObservedObject var grade: GradeModel
 
     var body: some View {
         Card {
