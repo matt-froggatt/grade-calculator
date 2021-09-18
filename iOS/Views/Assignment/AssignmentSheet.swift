@@ -15,8 +15,9 @@ struct AssignmentSheet: View {
     @State private var numerator: Decimal = 0
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
-    @State private var name: String = ""
+    @State private var name: String = "Assignment Name"
     @ObservedObject var course: CourseModel
+    var assignmentToUpdate: AssignmentModel?
 
     var body: some View {
         Form {
@@ -41,16 +42,33 @@ struct AssignmentSheet: View {
 
             Section {
                 Button("Submit") {
-                    let assignment = AssignmentModel(
-                        context: viewContext,
-                        name: name,
-                        weight: weight,
-                        grade: GradeModel(context: viewContext, percentage: numerator * 100 / denominator)
-                    )
-                    viewContext.insert(assignment)
-                    course.assignments.insert(assignment)
+                    var assignment: AssignmentModel
+                    if assignmentToUpdate == nil {
+                        assignment = AssignmentModel(
+                            context: viewContext,
+                            name: name,
+                            weight: weight,
+                            grade: GradeModel(context: viewContext, percentage: numerator * 100 / denominator)
+                        )
+                        course.assignments.insert(assignment)
+                        viewContext.insert(assignment)
+                    } else {
+                        assignment = assignmentToUpdate!
+                        assignment.name = name
+                        assignment.weight = weight
+                        assignment.grade.percentage = numerator * 100 / denominator
+                    }
                     do { try viewContext.save() } catch { fatalError("bruh, assignment modify messed up") }
                     presentationMode.wrappedValue.dismiss()
+                }
+            }
+        }
+        .onAppear {
+            if assignmentToUpdate != nil {
+                name = assignmentToUpdate!.name
+                weight = assignmentToUpdate!.weight
+                if assignmentToUpdate!.grade.percentage != nil {
+                    numerator = assignmentToUpdate!.grade.percentage!
                 }
             }
         }

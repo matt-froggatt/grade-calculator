@@ -9,7 +9,8 @@ import CoreData
 import SwiftUI
 
 struct CourseDetail: View {
-    @State private var assignmentDetailSheet: AssignmentModel?
+    @State private var showAssignmentDetailSheet: Bool = false
+    @State private var assignmentToUpdate: AssignmentModel?
     @State private var showSheet = false
     @ObservedObject var course: CourseModel
 
@@ -23,7 +24,8 @@ struct CourseDetail: View {
                 )
                 CourseInfo(course: course)
                 AssignmentList(
-                    selectedAssignment: $assignmentDetailSheet,
+                    selectedAssignment: $assignmentToUpdate,
+                    updatingAssignment: $showAssignmentDetailSheet,
                     assignments: course.assignments,
                     parentCourse: course
                 )
@@ -34,9 +36,9 @@ struct CourseDetail: View {
 //                    CourseSheet(showSheet: $showSheet, semester: course.semester)
 //                }
 //            }
-            .sheet(item: $assignmentDetailSheet) { assignment in
+            .sheet(isPresented: $showAssignmentDetailSheet) {
                 NavigationView {
-                    AssignmentSheet(course: course)
+                    AssignmentSheet(course: course, assignmentToUpdate: assignmentToUpdate)
                 }
             }
             .toolbar {
@@ -126,6 +128,7 @@ struct CourseDetail: View {
     private struct AssignmentList: View {
         @State private var currentUserInteractionCellID: String?
         @Binding var selectedAssignment: AssignmentModel?
+        @Binding var updatingAssignment: Bool
         @Environment(\.managedObjectContext) private var viewContext
         var assignments: Set<AssignmentModel>
         @ObservedObject var parentCourse: CourseModel
@@ -145,19 +148,16 @@ struct CourseDetail: View {
                         Text("Assignments")
                         Spacer()
                         AddButton {
-                            let newAssignment = AssignmentModel(
-                                context: viewContext,
-                                name: "New Assignment",
-                                weight: 0,
-                                grade: GradeModel(context: viewContext, percentage: nil)
-                            )
-                            selectedAssignment = newAssignment
+                            updatingAssignment = true
                         }
                     }
                     .padding([.horizontal, .top])
                     ForEach(Array(assignments)) { assignment in
                         Button(
-                            action: { selectedAssignment = assignment },
+                            action: {
+                                updatingAssignment = true
+                                selectedAssignment = assignment
+                            },
                             label: {
                                 DeletableRow(
                                     availableWidth: geometry.size.width,
