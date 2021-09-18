@@ -9,25 +9,9 @@ import CoreData
 import Foundation
 
 class AssignmentModel: NSManagedObject, Identifiable {
-    @NSManaged var nsId: NSUUID
-    var id: UUID {
-        get {
-            nsId as UUID
-        }
-        set(newId) {
-            nsId = newId as NSUUID
-        }
-    }
+    @NSManaged var id: UUID
 
-    @NSManaged private var nsName: NSString
-    var name: String {
-        get {
-            nsName as String
-        }
-        set(newName) {
-            nsName = newName as NSString
-        }
-    }
+    @NSManaged var name: String
 
     @NSManaged private var nsWeight: NSDecimalNumber
     var weight: Decimal {

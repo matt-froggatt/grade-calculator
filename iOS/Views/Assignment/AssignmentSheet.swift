@@ -16,8 +16,7 @@ struct AssignmentSheet: View {
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
     @State private var name: String = "Assignment Name"
-    @ObservedObject var course: CourseModel
-    var assignmentToUpdate: AssignmentModel?
+    @ObservedObject var assignmentToUpdate: AssignmentModel
 
     var body: some View {
         Form {
@@ -42,34 +41,19 @@ struct AssignmentSheet: View {
 
             Section {
                 Button("Submit") {
-                    var assignment: AssignmentModel
-                    if assignmentToUpdate == nil {
-                        assignment = AssignmentModel(
-                            context: viewContext,
-                            name: name,
-                            weight: weight,
-                            grade: GradeModel(context: viewContext, percentage: numerator * 100 / denominator)
-                        )
-                        course.assignments.insert(assignment)
-                        viewContext.insert(assignment)
-                    } else {
-                        assignment = assignmentToUpdate!
-                        assignment.name = name
-                        assignment.weight = weight
-                        assignment.grade.percentage = numerator * 100 / denominator
-                    }
+                    assignmentToUpdate.name = name
+                    assignmentToUpdate.weight = weight
+                    assignmentToUpdate.grade.percentage = numerator * 100 / denominator
                     do { try viewContext.save() } catch { fatalError("bruh, assignment modify messed up") }
                     presentationMode.wrappedValue.dismiss()
                 }
             }
         }
         .onAppear {
-            if assignmentToUpdate != nil {
-                name = assignmentToUpdate!.name
-                weight = assignmentToUpdate!.weight
-                if assignmentToUpdate!.grade.percentage != nil {
-                    numerator = assignmentToUpdate!.grade.percentage!
-                }
+            name = assignmentToUpdate.name
+            weight = assignmentToUpdate.weight
+            if assignmentToUpdate.grade.percentage != nil {
+                numerator = assignmentToUpdate.grade.percentage!
             }
         }
         .navigationTitle(Text(name))
@@ -82,20 +66,20 @@ struct AssignmentSheet: View {
 }
 
 struct AssignmentSheet_Previews: PreviewProvider {
-    static let courses: [CourseModel] = (try? PersistenceController
+    static let assignments: [AssignmentModel] = (try? PersistenceController
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "CourseModel")
-        ) as [CourseModel]) ??
+            NSFetchRequest(entityName: "AssignmentModel")
+        ) as [AssignmentModel]) ??
         []
     static var previews: some View {
         NavigationView {
-            AssignmentSheet(course: courses[0])
+            AssignmentSheet(assignmentToUpdate: assignments[0])
         }
 
         NavigationView {
-            AssignmentSheet(course: courses[1])
+            AssignmentSheet(assignmentToUpdate: assignments[1])
         }
     }
 }

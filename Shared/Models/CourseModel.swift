@@ -58,6 +58,38 @@ class CourseModel: NSManagedObject, Identifiable {
         )
     }
 
+    // Using notification centre sucks, but IDK a better way
+
+    @objc private func onAssignmentChange(_ notification: Notification) {
+//        print("Notif. name: \(notification.name)")
+//
+//        let updatedObjects = notification.userInfo![NSUpdatedObjectsKey]! as? Set<NSManagedObject>
+//        let potentialAssignments = updatedObjects?.filter { potentialAssignment in
+//            potentialAssignment.entity.isKindOf(entity: AssignmentModel.entity())
+//                && assignments.contains { potentialAssignment.objectID.isEqual($0.objectID) }
+//        }
+//        if !(potentialAssignments?.isEmpty ?? true) {
+            objectWillChange.send()
+//        }
+    }
+
+    private func registerObservation() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onAssignmentChange),
+            name: .NSManagedObjectContextDidSave,
+            object: nil
+        )
+    }
+
+    override func awakeFromFetch() {
+        registerObservation()
+    }
+
+    override func awakeFromInsert() {
+        registerObservation()
+    }
+
     convenience init(
         context: NSManagedObjectContext,
         name: String,

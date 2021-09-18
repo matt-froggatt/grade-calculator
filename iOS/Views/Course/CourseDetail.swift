@@ -25,7 +25,6 @@ struct CourseDetail: View {
                 CourseInfo(course: course)
                 AssignmentList(
                     selectedAssignment: $assignmentToUpdate,
-                    updatingAssignment: $showAssignmentDetailSheet,
                     assignments: course.assignments,
                     parentCourse: course
                 )
@@ -36,9 +35,9 @@ struct CourseDetail: View {
 //                    CourseSheet(showSheet: $showSheet, semester: course.semester)
 //                }
 //            }
-            .sheet(isPresented: $showAssignmentDetailSheet) {
+            .sheet(item: $assignmentToUpdate) { assignment in
                 NavigationView {
-                    AssignmentSheet(course: course, assignmentToUpdate: assignmentToUpdate)
+                    AssignmentSheet(assignmentToUpdate: assignment)
                 }
             }
             .toolbar {
@@ -128,7 +127,6 @@ struct CourseDetail: View {
     private struct AssignmentList: View {
         @State private var currentUserInteractionCellID: String?
         @Binding var selectedAssignment: AssignmentModel?
-        @Binding var updatingAssignment: Bool
         @Environment(\.managedObjectContext) private var viewContext
         var assignments: Set<AssignmentModel>
         @ObservedObject var parentCourse: CourseModel
@@ -148,14 +146,17 @@ struct CourseDetail: View {
                         Text("Assignments")
                         Spacer()
                         AddButton {
-                            updatingAssignment = true
+                            let assignment = AssignmentModel(context: viewContext, name: "New Assignment", weight: 0, grade: GradeModel(context: viewContext))
+                            parentCourse.assignments.insert(assignment)
+                            viewContext.insert(assignment)
+                            do { try viewContext.save() } catch { fatalError("bruh, assignment add messed up") }
+                            selectedAssignment = assignment
                         }
                     }
                     .padding([.horizontal, .top])
                     ForEach(Array(assignments)) { assignment in
                         Button(
                             action: {
-                                updatingAssignment = true
                                 selectedAssignment = assignment
                             },
                             label: {
