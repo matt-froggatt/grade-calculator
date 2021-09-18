@@ -8,6 +8,7 @@
 import Foundation
 
 private let schoolGradeSystems: [School: GradeSystem] = [
+    .none: .percentage,
     .UW: .percentage,
     .WLU: .twelvePoint
 ]
@@ -21,5 +22,5 @@ enum School: String {
         rawValue
     }
 
-    case NONE = "", UW, WLU
+    case none = "None", UW = "Waterloo", WLU = "Laurier"
 }

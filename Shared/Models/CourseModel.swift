@@ -26,7 +26,7 @@ class CourseModel: NSManagedObject, Identifiable {
             let schoolValue = School(rawValue: schoolRawValue as String)
 
             if schoolValue == nil {
-                return .NONE
+                return .none
             }
 
             return schoolValue!

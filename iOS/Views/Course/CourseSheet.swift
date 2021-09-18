@@ -13,7 +13,7 @@ struct CourseSheet: View {
     @State private var name: String = "Course Name"
     @State private var credits: Decimal = 0.5
     @State private var goalPercentage: Decimal = 100
-    @State private var school: School = .NONE
+    @State private var school: School = .none
     @Binding var showSheet: Bool
     @ObservedObject var semester: SemesterModel
 
