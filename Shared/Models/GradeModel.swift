@@ -9,7 +9,6 @@ import CoreData
 import Foundation
 
 class GradeModel: NSManagedObject {
-    // TODO make this send an update when Assignments update
     let maxWeight: Decimal = 100
 
     @NSManaged private var nsWeightAchieved: NSDecimalNumber

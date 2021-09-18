@@ -9,7 +9,7 @@ import CoreData
 import SwiftUI
 
 struct CourseDetail: View {
-    @State private var showAssignmentDetailSheet: Bool = false
+    @State private var showAssignmentDetailSheet = false
     @State private var assignmentToUpdate: AssignmentModel?
     @State private var showSheet = false
     @ObservedObject var course: CourseModel
@@ -25,6 +25,7 @@ struct CourseDetail: View {
                 CourseInfo(course: course)
                 AssignmentList(
                     selectedAssignment: $assignmentToUpdate,
+                    updatingAssignment: $showAssignmentDetailSheet,
                     assignments: course.assignments,
                     parentCourse: course
                 )
@@ -35,9 +36,13 @@ struct CourseDetail: View {
 //                    CourseSheet(showSheet: $showSheet, semester: course.semester)
 //                }
 //            }
-            .sheet(item: $assignmentToUpdate) { assignment in
+            .sheet(isPresented: $showAssignmentDetailSheet) {
                 NavigationView {
-                    AssignmentSheet(assignmentToUpdate: assignment)
+                    if assignmentToUpdate != nil {
+                        AssignmentSheet(assignmentToUpdate: assignmentToUpdate!)
+                    } else {
+                        AssignmentSheet(parentCourse: course)
+                    }
                 }
             }
             .toolbar {
@@ -61,6 +66,7 @@ struct CourseDetail: View {
                 Text(grade.format(school: school))
                     .font(.title)
                     .foregroundColor(.primary)
+                // TODO fix crash when deleting course that has had an assignment at any point
                 Text("Goal: \(goal.format(school: school))")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -127,6 +133,7 @@ struct CourseDetail: View {
     private struct AssignmentList: View {
         @State private var currentUserInteractionCellID: String?
         @Binding var selectedAssignment: AssignmentModel?
+        @Binding var updatingAssignment: Bool
         @Environment(\.managedObjectContext) private var viewContext
         var assignments: Set<AssignmentModel>
         @ObservedObject var parentCourse: CourseModel
@@ -146,11 +153,8 @@ struct CourseDetail: View {
                         Text("Assignments")
                         Spacer()
                         AddButton {
-                            let assignment = AssignmentModel(context: viewContext, name: "New Assignment", weight: 0, grade: GradeModel(context: viewContext))
-                            parentCourse.assignments.insert(assignment)
-                            viewContext.insert(assignment)
-                            do { try viewContext.save() } catch { fatalError("bruh, assignment add messed up") }
-                            selectedAssignment = assignment
+                            selectedAssignment = nil
+                            updatingAssignment = true
                         }
                     }
                     .padding([.horizontal, .top])
@@ -158,6 +162,7 @@ struct CourseDetail: View {
                         Button(
                             action: {
                                 selectedAssignment = assignment
+                                updatingAssignment = true
                             },
                             label: {
                                 DeletableRow(

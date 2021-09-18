@@ -16,7 +16,17 @@ struct AssignmentSheet: View {
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
     @State private var name: String = "Assignment Name"
-    @ObservedObject var assignmentToUpdate: AssignmentModel
+    private var createdCourse = false
+    private var course: CourseModel?
+    private var assignment: AssignmentModel?
+
+    init (assignmentToUpdate: AssignmentModel) {
+        assignment = assignmentToUpdate
+    }
+
+    init (parentCourse: CourseModel) {
+        course = parentCourse
+    }
 
     var body: some View {
         Form {
@@ -41,19 +51,34 @@ struct AssignmentSheet: View {
 
             Section {
                 Button("Submit") {
-                    assignmentToUpdate.name = name
-                    assignmentToUpdate.weight = weight
-                    assignmentToUpdate.grade.percentage = numerator * 100 / denominator
+                    assert((assignment == nil || course == nil) && (assignment != nil || course != nil),
+                           "Assignment updated and created simultaneously or nothing happeninig???")
+                    if assignment == nil && course != nil {
+                        let tmpAssignment = AssignmentModel(
+                            context: viewContext,
+                            name: name,
+                            weight: weight,
+                            grade: GradeModel(context: viewContext, percentage: numerator * 100 / denominator)
+                        )
+                        course?.assignments.insert(tmpAssignment)
+                        viewContext.insert(tmpAssignment)
+                    } else {
+                        assignment!.grade.percentage = numerator * 100 / denominator
+                        assignment!.name = name
+                        assignment!.weight = weight
+                    }
                     do { try viewContext.save() } catch { fatalError("bruh, assignment modify messed up") }
                     presentationMode.wrappedValue.dismiss()
                 }
             }
         }
         .onAppear {
-            name = assignmentToUpdate.name
-            weight = assignmentToUpdate.weight
-            if assignmentToUpdate.grade.percentage != nil {
-                numerator = assignmentToUpdate.grade.percentage!
+            if assignment != nil {
+                name = assignment!.name
+                weight = assignment!.weight
+                if assignment!.grade.percentage != nil {
+                    numerator = assignment!.grade.percentage!
+                }
             }
         }
         .navigationTitle(Text(name))
