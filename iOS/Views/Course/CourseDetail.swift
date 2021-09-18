@@ -147,42 +147,41 @@ struct CourseDetail: View {
         }
 
         var body: some View {
-            GeometryReader { geometry in
-                LazyVStack {
-                    HStack {
-                        Text("Assignments")
-                        Spacer()
-                        AddButton {
-                            selectedAssignment = nil
-                            updatingAssignment = true
-                        }
-                    }
-                    .padding([.horizontal, .top])
-                    ForEach(Array(assignments)) { assignment in
-                        Button(
-                            action: {
-                                selectedAssignment = assignment
-                                updatingAssignment = true
-                            },
-                            label: {
-                                DeletableRow(
-                                    availableWidth: geometry.size.width,
-                                    item: assignment.id.uuidString,
-                                    onDelete: removeAssignment,
-                                    currentUserInteractionCellID: $currentUserInteractionCellID,
-                                    content: {
-                                        AssignmentCard(
-                                            name: assignment.name,
-                                            weight: assignment.weight,
-                                            grade: assignment.grade
-                                        )
-                                        .padding()
-                                    }
-                                )
-                            }
-                        )
+            LazyVStack {
+                HStack {
+                    Text("Assignments")
+                    Spacer()
+                    AddButton {
+                        selectedAssignment = nil
+                        updatingAssignment = true
                     }
                 }
+                .padding([.horizontal, .top])
+                ForEach(Array(assignments)) { assignment in
+                    Button(
+                        action: {
+                            selectedAssignment = assignment
+                            updatingAssignment = true
+                        },
+                        label: {
+                            DeletableRow(
+                                availableWidth: 300,
+                                item: assignment.id.uuidString,
+                                onDelete: removeAssignment,
+                                currentUserInteractionCellID: $currentUserInteractionCellID,
+                                content: {
+                                    AssignmentCard(
+                                        name: assignment.name,
+                                        weight: assignment.weight,
+                                        grade: assignment.grade
+                                    )
+                                    .padding()
+                                }
+                            )
+                        }
+                    )
+                }
+
             }
         }
     }
