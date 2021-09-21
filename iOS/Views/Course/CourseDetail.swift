@@ -95,7 +95,7 @@ struct CourseDetail: View {
     }
 
     private struct CourseInfo: View {
-        var course: CourseModel
+        @ObservedObject var course: CourseModel
 
         var body: some View {
             VStack(alignment: .leading) {
