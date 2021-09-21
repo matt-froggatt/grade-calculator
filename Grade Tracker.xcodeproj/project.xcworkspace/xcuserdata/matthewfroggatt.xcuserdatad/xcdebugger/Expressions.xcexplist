@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CourseDetail.AssignmentList.addAssignment(assignment:):CourseDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parentCourse.assignments">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #2 in SemesterList.body.getter:SemesterList.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in SemesterSheet.body.getter:SemesterSheet.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in SemesterList.body.getter:SemesterList.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SemesterList.body.getter:SemesterList.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "PersistenceController.shared.container.viewContext.fetch(NSFetchRequest(entityName: &quot;SemesterModel&quot;))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in SemesterSheet.body.getter:SemesterSheet.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewContext.fetch(NSFetchRequest(entityName: &quot;SemesterModel&quot;))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #2 in SemesterList.body.getter:SemesterList.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CourseModel.onAssignmentChange(_:):CourseModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "notification.userInfo?[NSUpdatedObjectsKey] as? Set&lt;NSManagedObject&gt;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in AssignmentSheet.body.getter:AssignmentSheet.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

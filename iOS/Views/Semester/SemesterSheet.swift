@@ -5,46 +5,23 @@
 //  Created by Matthew Froggatt on 2021-03-22.
 //
 
+import Combine
 import CoreData
 import SwiftUI
 
 struct SemesterSheet: View {
-    private static let years = Array(Array(2000 ... 2040).reversed())
     private static let terms = ["Fall", "Winter", "Spring"]
-
-    @State private var yearSelection = years[0]
     @State private var termSelection = terms[0]
-    @State private var showYearPicker = false
+    @State private var year = String(Calendar.current.component(.year, from: Date()))
 
     @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
 
     @Binding var showSheet: Bool
 
-    private struct YearPicker: View {
-        @Binding var showYearPicker: Bool
-        @Binding var yearSelection: Int
-
-        var body: some View {
-            if showYearPicker {
-                VStack {
-                    Picker(selection: $yearSelection, label: Text("Year")) {
-                        ForEach(SemesterSheet.years, id: \.self) {
-                            Text(String($0))
-                        }
-                    }
-                    .pickerStyle(WheelPickerStyle())
-                }
-                Button("Ok") {
-                    showYearPicker = false
-                }
-            }
-        }
-    }
-
     private func addSemester() {
         let newSemester = SemesterModel(
             context: viewContext,
-            name: "\(yearSelection) \(termSelection)",
+            name: "\(year) \(termSelection)",
             courses: []
         )
         viewContext.insert(newSemester)
@@ -54,6 +31,16 @@ struct SemesterSheet: View {
     var body: some View {
         Form {
             Section {
+                FormEntry(label: "Year") {
+                    TextField("Year", text: $year)
+                        .keyboardType(.numberPad)
+                        .onReceive(Just(year), perform: { newValue in
+                            let filtered = newValue.filter { "0123456789".contains($0) }
+                            if filtered != newValue {
+                                self.year = filtered
+                            }
+                        })
+                }
                 FormEntry(label: "Term") {
                     Picker(selection: $termSelection, label: Text("Term")) {
                         ForEach(SemesterSheet.terms, id: \.self) {
@@ -62,16 +49,6 @@ struct SemesterSheet: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-
-                FormEntry(label: "Year") {
-                    Button(String(yearSelection)) {
-                        showYearPicker = !showYearPicker
-                    }
-                }
-                YearPicker(
-                    showYearPicker: $showYearPicker,
-                    yearSelection: $yearSelection
-                )
             }
 
             Section {
@@ -81,7 +58,7 @@ struct SemesterSheet: View {
                 }
             }
         }
-        .navigationTitle(Text("\(termSelection) \(String(yearSelection))"))
+        .navigationTitle(Text("\(year) \(termSelection)"))
         .toolbar {
             Button("Cancel") {
                 showSheet = false

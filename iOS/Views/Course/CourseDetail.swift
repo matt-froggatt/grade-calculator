@@ -57,8 +57,8 @@ struct CourseDetail: View {
     // -----------------------------------------------------------------------------------------------------------------
 
     private struct CourseGradeInfo: View {
-        var grade: GradeModel
-        var goal: GradeModel
+        @ObservedObject var grade: GradeModel
+        @ObservedObject var goal: GradeModel
         var school: School
 
         var body: some View {
