@@ -13,7 +13,7 @@ private let schoolGradeSystems: [School: GradeSystem] = [
     .WLU: .twelvePoint
 ]
 
-enum School: String {
+enum School: String, CaseIterable {
     var gradeSystem: GradeSystem {
         schoolGradeSystems[self] ?? .unsupported
     }

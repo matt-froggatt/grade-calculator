@@ -17,11 +17,11 @@ struct CourseSheet: View {
     @State private var school: School = .none
     private var semester: SemesterModel?
     private var course: CourseModel?
-    
+
     init(courseToUpdate: CourseModel) {
         course = courseToUpdate
     }
-    
+
     init(parentSemester: SemesterModel) {
         semester = parentSemester
     }
@@ -45,6 +45,15 @@ struct CourseSheet: View {
                     .multilineTextAlignment(.trailing)
                     .fixedSize()
                     Text("%").font(.subheadline).foregroundColor(.secondary)
+                }
+
+                FormEntry(label: "School") {
+                    Picker(selection: $school, label: Text("School")) {
+                        ForEach(School.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
             }
 
