@@ -26,10 +26,7 @@ struct SingleSemesterCourseList: View {
         }
         .sheet(isPresented: $showCourseSheet) {
             NavigationView {
-                CourseSheet(
-                    showSheet: $showCourseSheet,
-                    semester: semester
-                )
+                CourseSheet(parentSemester: semester)
             }
         }
         .navigationTitle(Text(semester.name))

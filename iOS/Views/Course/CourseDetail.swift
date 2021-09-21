@@ -31,11 +31,11 @@ struct CourseDetail: View {
                 )
             }
             .navigationTitle(Text(course.name))
-//            .sheet(isPresented: $showSheet) {
-//                NavigationView {
-//                    CourseSheet(showSheet: $showSheet, semester: course.semester)
-//                }
-//            }
+            .sheet(isPresented: $showSheet) {
+                NavigationView {
+                    CourseSheet(courseToUpdate: course)
+                }
+            }
             .sheet(isPresented: $showAssignmentDetailSheet) {
                 NavigationView {
                     if assignmentToUpdate != nil {

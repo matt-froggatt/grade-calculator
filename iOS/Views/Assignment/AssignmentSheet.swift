@@ -16,7 +16,6 @@ struct AssignmentSheet: View {
     @State private var denominator: Decimal = 100
     @State private var weight: Decimal = 0
     @State private var name: String = "Assignment Name"
-    private var createdCourse = false
     private var course: CourseModel?
     private var assignment: AssignmentModel?
 
@@ -52,7 +51,7 @@ struct AssignmentSheet: View {
             Section {
                 Button("Submit") {
                     assert((assignment == nil || course == nil) && (assignment != nil || course != nil),
-                           "Assignment updated and created simultaneously or nothing happeninig???")
+                           "Assignment updated and created simultaneously or nothing happening???")
                     if assignment == nil && course != nil {
                         let tmpAssignment = AssignmentModel(
                             context: viewContext,
@@ -63,9 +62,9 @@ struct AssignmentSheet: View {
                         course?.assignments.insert(tmpAssignment)
                         viewContext.insert(tmpAssignment)
                     } else {
-                        assignment!.grade.percentage = numerator * 100 / denominator
-                        assignment!.name = name
-                        assignment!.weight = weight
+                        assignment?.grade.percentage = numerator * 100 / denominator
+                        assignment?.name = name
+                        assignment?.weight = weight
                     }
                     do { try viewContext.save() } catch { fatalError("bruh, assignment modify messed up") }
                     presentationMode.wrappedValue.dismiss()
