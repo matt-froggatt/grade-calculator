@@ -14,9 +14,8 @@ class SemesterModel: NSManagedObject, Identifiable {
     @NSManaged var courses: Set<CourseModel>
 
     // Using notification centre sucks, but IDK a better way
-
     @objc private func onCourseChange(_ notification: Notification) {
-        objectWillChange.send() // TODO check if notification is applicable
+        objectWillChange.send() // should check if notification is applicable
     }
 
     private func registerObservation() {

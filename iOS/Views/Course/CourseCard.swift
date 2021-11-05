@@ -13,7 +13,7 @@ struct CourseCard: View {
     var school: School
     var credits: Decimal
     var grade: GradeModel
-    var goal: GradeModel
+    var goal: GradeModel?
 
     var body: some View {
         Card {
@@ -36,8 +36,9 @@ struct CourseCard: View {
                         .foregroundColor(.primary)
                         .font(.title)
                 }
-
-                CourseProgress(grade: grade, goal: goal)
+                if goal != nil {
+                    CourseProgress(grade: grade, goal: goal!)
+                }
             }
             .padding()
         }

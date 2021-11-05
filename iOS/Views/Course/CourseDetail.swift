@@ -15,39 +15,48 @@ struct CourseDetail: View {
     @ObservedObject var course: CourseModel
 
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading) {
-                CourseGradeInfo(
-                    grade: course.grade,
-                    goal: course.goal,
-                    school: course.school
-                )
-                CourseInfo(course: course)
-                AssignmentList(
-                    selectedAssignment: $assignmentToUpdate,
-                    updatingAssignment: $showAssignmentDetailSheet,
-                    assignments: course.assignments,
-                    parentCourse: course
-                )
-            }
-            .navigationTitle(Text(course.name))
-            .sheet(isPresented: $showSheet) {
-                NavigationView {
-                    CourseSheet(courseToUpdate: course)
+        if course.goal != nil {
+            ScrollView(.vertical) {
+                VStack(alignment: .leading) {
+                    CourseGradeInfo(
+                        grade: course.grade,
+                        goal: course.goal!,
+                        school: course.school
+                    )
+                    CourseInfo(
+                        credits: course.credits,
+                        school: course.school,
+                        grade: course.grade,
+                        goal: course.goal!
+                    )
+                    AssignmentList(
+                        selectedAssignment: $assignmentToUpdate,
+                        updatingAssignment: $showAssignmentDetailSheet,
+                        assignments: course.assignments,
+                        parentCourse: course
+                    )
                 }
-            }
-            .sheet(isPresented: $showAssignmentDetailSheet) {
-                NavigationView {
-                    if assignmentToUpdate != nil {
-                        AssignmentSheet(assignmentToUpdate: assignmentToUpdate!)
-                    } else {
-                        AssignmentSheet(parentCourse: course)
+                .navigationTitle(Text(course.name))
+                .sheet(isPresented: $showSheet) {
+                    NavigationView {
+                        CourseSheet(courseToUpdate: course)
                     }
                 }
-            }
-            .toolbar {
-                Button("Edit") {
-                    showSheet = true
+                .sheet(isPresented: $showAssignmentDetailSheet) {
+                    NavigationView {
+                        if assignmentToUpdate != nil {
+                            AssignmentSheet(
+                                assignmentToUpdate: assignmentToUpdate!
+                            )
+                        } else {
+                            AssignmentSheet(parentCourse: course)
+                        }
+                    }
+                }
+                .toolbar {
+                    Button("Edit") {
+                        showSheet = true
+                    }
                 }
             }
         }
@@ -57,8 +66,8 @@ struct CourseDetail: View {
     // -----------------------------------------------------------------------------------------------------------------
 
     private struct CourseGradeInfo: View {
-        @ObservedObject var grade: GradeModel
-        @ObservedObject var goal: GradeModel
+        var grade: GradeModel
+        var goal: GradeModel
         var school: School
 
         var body: some View {
@@ -66,7 +75,6 @@ struct CourseDetail: View {
                 Text(grade.format(school: school))
                     .font(.title)
                     .foregroundColor(.primary)
-                // TODO fix crash when deleting course that has had an assignment at any point
                 Text("Goal: \(goal.format(school: school))")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -95,7 +103,10 @@ struct CourseDetail: View {
     }
 
     private struct CourseInfo: View {
-        @ObservedObject var course: CourseModel
+        var credits: Decimal
+        var school: School
+        var grade: GradeModel
+        var goal: GradeModel
 
         var body: some View {
             VStack(alignment: .leading) {
@@ -104,26 +115,26 @@ struct CourseDetail: View {
 
                 CourseInfoEntry(
                     name: "Credits",
-                    value: "\(NSDecimalNumber(decimal: course.credits))"
+                    value: "\(NSDecimalNumber(decimal: credits))"
                 )
-                CourseInfoEntry(name: "School", value: course.school.name)
+                CourseInfoEntry(name: "School", value: school.name)
                 CourseInfoEntry(
                     name: "Weight Achieved",
-                    value: course.grade.format(
+                    value: grade.format(
                         system: .percentage,
                         segment: .weightAchieved
                     )
                 )
                 CourseInfoEntry(
                     name: "Weight Lost",
-                    value: course.grade.format(
+                    value: grade.format(
                         system: .percentage,
                         segment: .weightLost
                     )
                 )
                 CourseInfoEntry(
                     name: "Goal",
-                    value: course.goal.format(school: course.school)
+                    value: goal.format(school: school)
                 )
             }
             .padding(.horizontal)
@@ -136,13 +147,16 @@ struct CourseDetail: View {
         @Binding var updatingAssignment: Bool
         @Environment(\.managedObjectContext) private var viewContext
         var assignments: Set<AssignmentModel>
-        @ObservedObject var parentCourse: CourseModel
+        var parentCourse: CourseModel
 
         func removeAssignment(id: String) {
-            let assignment = parentCourse.assignments.first(where: { $0.id.uuidString == id })
+            let assignment = parentCourse.assignments
+                .first(where: { $0.id.uuidString == id })
             if assignment != nil {
                 viewContext.delete(assignment!)
-                do { try viewContext.save() } catch { fatalError("bruh, assignments delete messed up") }
+                do { try viewContext.save() } catch {
+                    fatalError("bruh, assignments delete messed up")
+                }
             }
         }
 
@@ -181,7 +195,6 @@ struct CourseDetail: View {
                         }
                     )
                 }
-
             }
         }
     }
@@ -192,7 +205,9 @@ struct CourseDetail_Previews: PreviewProvider {
         .preview.container
         .viewContext
         .fetch(
-            NSFetchRequest(entityName: "CourseModel")
+            NSFetchRequest(
+                entityName: "CourseModel"
+            )
         ) as [CourseModel]) ??
         []
     static var previews: some View {

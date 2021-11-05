@@ -17,10 +17,12 @@ struct CourseList: View {
     var direction: CourseListDirection
 
     func removeCourse(id: String) {
-        let course = semester.courses.first(where: { $0.id.uuidString == id })
-        if course != nil {
-            viewContext.delete(course!)
-            do { try viewContext.save() } catch { fatalError("bruh, courses delete messed up") }
+        viewContext.perform {
+            let course = semester.courses.first(where: { $0.id.uuidString == id })
+            if course != nil {
+                viewContext.delete(course!)
+                do { try viewContext.save() } catch { fatalError("bruh, courses delete messed up") }
+            }
         }
     }
 

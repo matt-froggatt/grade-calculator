@@ -76,7 +76,7 @@ struct CourseSheet: View {
                         semester?.courses.insert(tmpCourse)
                         viewContext.insert(tmpCourse)
                     } else {
-                        course?.goal.percentage = goalPercentage
+                        course?.goal?.percentage = goalPercentage
                         course?.name = name
                         course?.credits = credits
                         course?.school = school
@@ -91,8 +91,8 @@ struct CourseSheet: View {
                 name = course!.name
                 credits = course!.credits
                 school = course!.school
-                if course!.goal.percentage != nil {
-                    goalPercentage = course!.goal.percentage!
+                if course!.goal != nil, course!.goal!.percentage != nil {
+                    goalPercentage = course!.goal!.percentage!
                 }
             }
         }
