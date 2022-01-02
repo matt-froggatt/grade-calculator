@@ -1,2 +1,2 @@
-# grade-calculator
+# Grade Calculator
 A calculator for grades.

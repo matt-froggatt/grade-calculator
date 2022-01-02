@@ -129,6 +129,9 @@
 		35F0D4A826027A3D0022BDC7 /* School.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = School.swift; sourceTree = "<group>"; };
 		35FA4D9B2603F77400284BF6 /* AssignmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentCard.swift; sourceTree = "<group>"; };
 		35FDFD9C26054B74002A0F05 /* AssignmentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentSheet.swift; sourceTree = "<group>"; };
+		BB296C7127815D960027CAF9 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		BB296C7227815D960027CAF9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BB70F12227815A7400F6D8DE /* TODOS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODOS.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +198,9 @@
 				35B64DF425F83EDF00B1786D /* Tests iOS */,
 				35B64DFF25F83EDF00B1786D /* Tests macOS */,
 				35B64DE225F83EDF00B1786D /* Products */,
+				BB296C7127815D960027CAF9 /* LICENSE.txt */,
+				BB296C7227815D960027CAF9 /* README.md */,
+				BB70F12227815A7400F6D8DE /* TODOS.md */,
 			);
 			sourceTree = "<group>";
 		};
