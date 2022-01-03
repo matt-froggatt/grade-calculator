@@ -12,8 +12,8 @@ struct CourseSheet: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) private var presentationMode
     @State private var name: String = "Course Name"
-    @State private var credits: Decimal = 0.5
-    @State private var goalPercentage: Decimal = 100
+    @State private var credits: Decimal? = 0.5
+    @State private var goalPercentage: Decimal? = 100
     @State private var school: School = .none
     private var semester: SemesterModel?
     private var course: CourseModel?
@@ -61,11 +61,11 @@ struct CourseSheet: View {
                 Button("Submit") {
                     assert((semester == nil || course == nil) && (semester != nil || course != nil),
                            "Course updated and created simultaneously or nothing happening???")
-                    if course == nil && semester != nil {
+                    if course == nil && semester != nil && credits != nil {
                         let tmpCourse = CourseModel(
                             context: viewContext,
                             name: name,
-                            credits: credits,
+                            credits: credits!,
                             goal: GradeModel(
                                 context: viewContext,
                                 percentage: goalPercentage
@@ -78,7 +78,7 @@ struct CourseSheet: View {
                     } else {
                         course?.goal?.percentage = goalPercentage
                         course?.name = name
-                        course?.credits = credits
+                        course?.credits = 0
                         course?.school = school
                     }
                     do { try viewContext.save() } catch { fatalError("bruh, course modify messed up") }

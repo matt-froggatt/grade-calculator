@@ -1,8 +1,8 @@
 #  Todos
 - [ ] unchecked checkbox
-- [x] checked checkbox
+- [x] ~~checked checkbox~~
 ## Bugfixes
-- [ ] unmarked assignments showing as 0%
+- [x] unmarked assignments showing as 0%
 - [ ] potentially leaving hanging items in DB after deletion (test when deleting semester that has remaining courses, courses with remaining assignments, etc.)
 
 ## Features

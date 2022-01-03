@@ -10,45 +10,49 @@ import SwiftUI
 
 struct DecimalField: View {
     var message: String
-    @Binding var number: Decimal
+    @Binding var number: Decimal?
     @State private var strNumber = ""
+    @State private var hasBeenShown = false
 
     private func sanitizeInput(newValue: Just<String>.Output) {
-        let filtered = newValue.filter { "0123456789.".contains($0) }
-        if filtered != newValue {
-            strNumber = filtered
-        } else {
-            let tmp = Decimal(string: strNumber)
-            number = tmp != nil ? tmp! : number
+        if hasBeenShown == false {
+            strNumber = number != nil ? "\(NSDecimalNumber(decimal: number!))" : ""
+            hasBeenShown = true
+        }
+        else {
+            let filtered = newValue.filter { "0123456789.".contains($0) }
+            if filtered != newValue {
+                strNumber = filtered
+            } else {
+                number = Decimal(string: strNumber)
+            }
         }
     }
 
     private func showDefault() {
-        strNumber = !number
-            .isZero ? "\(NSDecimalNumber(decimal: number))" : ""
+        strNumber = number != nil ? "\(NSDecimalNumber(decimal: number!))" : ""
     }
 
     var body: some View {
         TextField(message, text: $strNumber)
             .keyboardType(.numberPad)
-            .onAppear(perform: showDefault)
             .onReceive(Just(strNumber), perform: sanitizeInput)
     }
 }
 
 struct DecimalFieldPreviewWrapper: View {
-    @State var number1: Decimal
-    @State var number2: Decimal
+    @State var number1: Decimal?
+    @State var number2: Decimal?
 
     var body: some View {
         VStack {
             VStack {
                 DecimalField(message: "No start number", number: $number1)
-                Text("\(NSDecimalNumber(decimal: number1))")
+                Text(number1 != nil ? "\(NSDecimalNumber(decimal: number1!))" : "")
             }
             VStack {
                 DecimalField(message: "Start number", number: $number2)
-                Text("\(NSDecimalNumber(decimal: number2))")
+                Text(number2 != nil ? "\(NSDecimalNumber(decimal: number2!))" : "")
             }
         }
     }

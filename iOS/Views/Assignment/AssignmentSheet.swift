@@ -12,9 +12,9 @@ import SwiftUI
 struct AssignmentSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) private var presentationMode
-    @State private var numerator: Decimal = 0
-    @State private var denominator: Decimal = 100
-    @State private var weight: Decimal = 0
+    @State private var numerator: Decimal? = nil
+    @State private var denominator: Decimal? = 100
+    @State private var weight: Decimal? = nil
     @State private var name: String = "Assignment Name"
     private var course: CourseModel?
     private var assignment: AssignmentModel?
@@ -50,21 +50,23 @@ struct AssignmentSheet: View {
 
             Section {
                 Button("Submit") {
+                    if (weight == nil || denominator == nil) {return}
                     assert((assignment == nil || course == nil) && (assignment != nil || course != nil),
                            "Assignment updated and created simultaneously or nothing happening???")
+                    let newPercentage = numerator == nil ? nil : numerator! * 100 / denominator!
                     if assignment == nil && course != nil {
                         let tmpAssignment = AssignmentModel(
                             context: viewContext,
                             name: name,
-                            weight: weight,
-                            grade: GradeModel(context: viewContext, percentage: numerator * 100 / denominator)
+                            weight: weight!,
+                            grade: GradeModel(context: viewContext, percentage: newPercentage)
                         )
                         course?.assignments.insert(tmpAssignment)
                         viewContext.insert(tmpAssignment)
                     } else {
-                        assignment?.grade.percentage = numerator * 100 / denominator
+                        assignment?.grade.percentage = newPercentage
                         assignment?.name = name
-                        assignment?.weight = weight
+                        assignment?.weight = weight!
                     }
                     do { try viewContext.save() } catch { fatalError("bruh, assignment modify messed up") }
                     presentationMode.wrappedValue.dismiss()
